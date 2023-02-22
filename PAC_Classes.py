@@ -3,6 +3,7 @@
 Created on Tue Feb 21 08:16:48 2023
 
 @author: chris
+
 Parent, Action, Child and Disassembly classes with the respective attributes
 """
 
@@ -26,9 +27,10 @@ class Child:
         self.Number = Number #Number of children
         self.EoL = EoL #End of Life for child
 class Disassembly:
-    def __init__(self, ID, DFEffect, DAType, DATool, DType): #DA is Disassembly action, which is the action needed to perform due to the DF
+    def __init__(self, ID, DFEffect, DAType, DATool, DType, DFID): #DA is Disassembly action, which is the action needed to perform due to the DF
         self.ID = ID
         self.DFEffect = DFEffect #DA effect on action
         self.DAType = DAType #Destructive, semi-destructive or non destructive
         self.DATool = DATool #Extra tool needed
-        self.DType = DType #DF1, DF2 or DF3
+        self.DType = DType #DF1, DF2 or DF3 with relation!
+        self.DFID = DFID #Which Parent/Action/Child ID is connected to the DF
