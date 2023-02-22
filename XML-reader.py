@@ -14,6 +14,11 @@ import pickle # object read/write
 
 from PAC_Classes import Parent, Action, Child, Disassembly # Import PAC Classes
 
+def disassemblyInstance(ID, DFEffect, DAType, DATool, DType, DFID): # A Disassembly instance
+    instance = Disassembly(ID, DFEffect, DAType, DATool, DType, DFID)
+    Disassemblies.append(instance)
+    print('fandt en disassembly action!')
+
 
 
 # XML data handling
@@ -23,15 +28,17 @@ tree = ET.parse('Disassembly-PAC-sheet.xml')
 # Get the root element
 root = tree.getroot()
 
-# Get all cell data in the XML document
-Data = root.findall('.//{urn:schemas-microsoft-com:office:spreadsheet}Data');
+# Get all rows in the XML document
+rows = root.findall('.//{urn:schemas-microsoft-com:office:spreadsheet}Row');
+cells = [[] for i in range(len(rows))]
+#Empty list for cell data in excel sheet:
+for i in range(len(rows)): #iterate over all rows
+    for child in rows[i].findall('.//{urn:schemas-microsoft-com:office:spreadsheet}Data'): # Get cell data from the row
+        cells[i].append(child.text) #Put all row data in a row in the list
 
-# Delete the introduction lines
-del Data[0:68];
-
-# Only keep the data values in the relevant cells
-for i in range(len(Data)):
-   Data[i] = Data[i].text
+# Only keep the data values in the relevant cells, the rest is put in desc list
+desc = cells[0:4]
+del cells[0:4]
 
 # Creating empty lists for P/A/C instances:   
 Parents = []
@@ -40,43 +47,46 @@ Children = []
 Disassemblies = []
    
 # Sort the data and insert instances with the data
-for row in range(len(Data)):
-    #Get a list of every single character in the current Data[row]
-    cell_data = list(Data[row]);
+for row in range(len(cells)):
+    # Sorts the different IDs for Parents, actions, children and disassemblies
+    firstCellName = list(cells[row][0])
+    if firstCellName[1] == 'P': # A parent
+        instance = Parent(cells[row][0], cells[row][1])
+        Parents.append(instance)
+        if len(cells[row]) == 7:
+            disassemblyInstance(cells[row][2], cells[row][3], cells[row][4],\
+                                cells[row][5], cells[row][6], cells[row][0])
+        print('fandt en Parent!')
+    elif firstCellName[1] == 'A': # An action
+        instance = Action(cells[row][0], cells[row][1], cells[row][2], cells[row][3],\
+        cells[row][4], cells[row][5])
+        Actions.append(instance)
+        if len(cells[row]) == 11:
+            disassemblyInstance(cells[row][6], cells[row][7], cells[row][8],\
+                                cells[row][9], cells[row][10], cells[row][0])
+        print('fandt en Action!')
+    elif firstCellName[1] == 'C' or firstCellName[1] == 'c': # A child
+        instance = Child(cells[row][0], cells[row][1], cells[row][2], cells[row][3])
+        Children.append(instance)
+        if len(cells[row]) == 9:
+            disassemblyInstance(cells[row][4], cells[row][5], cells[row][6],\
+                                cells[row][7], cells[row][8], cells[row][0])
+        print('fandt en Child/fastener!')
+
+
+"""
     #find the digits in the string
     digits_list = re.findall(r'\d+', Data[row]) 
     # concatenates the numbers into a single integer if there are numbers    
     if len(digits_list) > 0:
         digits_str = ''.join(digits_list) 
         digits_int = int(digits_str) 
-    # Sorts the different IDs for Parents, actions, children and disassemblies    
-    if len(cell_data)>3:
-        if cell_data[1] == 'P' and cell_data[3] == '-': # A parent
-            instance = Parent(Data[row], Data[row+1])
-            Parents.append(instance)
-            print('fandt en Parent!')
-        elif cell_data[1] == 'A' and cell_data[3] == '-': # An action
-            instance = Action(Data[row], Data[row+1], Data[row+2],\
-            Data[row+3], Data[row+4], Data[row+5])
-            Actions.append(instance)
-            print('fandt en Action!')
-        elif cell_data[1] == 'C' or cell_data[1] == 'c' and\
-            cell_data[3] == '-': # A child
-            instance = Child(Data[row], Data[row+1], Data[row+2], Data[row+3])
-            Children.append(instance)
-            print('fandt en Child/fastener!')
-    elif len(cell_data) <= 3 and isinstance(cell_data[0], str) and\
-        digits_int <= 2 and not list(Data[row-1])[3] == '-' and not\
-        cell_data[1] == 'F': # A Disassembly
-        instance = Disassembly(Data[row], Data[row+1], Data[row+2], Data[row+3], Data[row+4])
-        Disassemblies.append(instance)
-        print('fandt en disassembly action!')
-
-       
+"""
 # Overvej om disassembly action overhovedet har det korrekte formål!
-# Deserializes the objects (find et link?)
+
 # Create a dictionary with the lists in:
 objects = {"Parents": Parents, "Actions": Actions, "Children": Children, "Disassemblies": Disassemblies}
+# Deserializes the objects (find et link?)
 with open('objects.pickle', 'wb') as f:
     pickle.dump(objects, f)
     
