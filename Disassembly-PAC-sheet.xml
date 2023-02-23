@@ -3,21 +3,26 @@
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:o="urn:schemas-microsoft-com:office:office"
  xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:html="http://www.w3.org/TR/REC-html40">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Author>Thorvald Alrø Martiny</Author>
   <LastAuthor>Christian Møller</LastAuthor>
   <Created>2015-06-05T18:19:34Z</Created>
-  <LastSaved>2023-02-20T10:19:13Z</LastSaved>
+  <LastSaved>2023-02-22T13:58:22Z</LastSaved>
   <Version>16.00</Version>
  </DocumentProperties>
+ <CustomDocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <ContentTypeId dt:dt="string">0x010100B54ED065C2312B4BA9F824394C84BC1E</ContentTypeId>
+  <MediaServiceImageTags dt:dt="string"></MediaServiceImageTags>
+ </CustomDocumentProperties>
  <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
   <AllowPNG/>
  </OfficeDocumentSettings>
  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>12450</WindowHeight>
-  <WindowWidth>23250</WindowWidth>
+  <WindowHeight>15840</WindowHeight>
+  <WindowWidth>29042</WindowWidth>
   <WindowTopX>32767</WindowTopX>
   <WindowTopY>32767</WindowTopY>
   <ProtectStructure>False</ProtectStructure>
@@ -32,106 +37,8 @@
    <NumberFormat/>
    <Protection/>
   </Style>
-  <Style ss:ID="s16">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
-   </Borders>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Bold="1"/>
-   <Interior ss:Color="#8EA9DB" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s17">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
-   </Borders>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Bold="1"/>
-   <Interior ss:Color="#8EA9DB" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s18">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
-   </Borders>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Bold="1"/>
-   <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s19">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
-   </Borders>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Bold="1"/>
-   <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s20">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
-   </Borders>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Bold="1"/>
-   <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s21">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
-   </Borders>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Bold="1"/>
-   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s22">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
-   </Borders>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Bold="1"/>
-   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s23">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
-   </Borders>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Bold="1"/>
-   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s24">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
-   </Borders>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Bold="1"/>
-   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s25">
-   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  <Style ss:ID="s57">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
@@ -142,8 +49,8 @@
     ss:Italic="1"/>
    <Interior ss:Color="#D9E1F2" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s26">
-   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  <Style ss:ID="s58">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -154,8 +61,8 @@
     ss:Italic="1"/>
    <Interior ss:Color="#D9E1F2" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s27">
-   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  <Style ss:ID="s59">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
@@ -166,8 +73,19 @@
     ss:Italic="1"/>
    <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s28">
-   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  <Style ss:ID="s60">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s61">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -178,8 +96,8 @@
     ss:Italic="1"/>
    <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s29">
-   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  <Style ss:ID="s62">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -190,8 +108,8 @@
     ss:Italic="1"/>
    <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s30">
-   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  <Style ss:ID="s63">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
@@ -202,8 +120,8 @@
     ss:Italic="1"/>
    <Interior ss:Color="#FFF2CC" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s31">
-   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  <Style ss:ID="s64">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -214,8 +132,8 @@
     ss:Italic="1"/>
    <Interior ss:Color="#FFF2CC" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s32">
-   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  <Style ss:ID="s65">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -225,8 +143,8 @@
     ss:Italic="1"/>
    <Interior ss:Color="#FFF2CC" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s33">
-   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  <Style ss:ID="s66">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -237,7 +155,47 @@
     ss:Italic="1"/>
    <Interior ss:Color="#FFF2CC" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s34">
+  <Style ss:ID="s67">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+  </Style>
+  <Style ss:ID="s68">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#8EA9DB" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s69">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#8EA9DB" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s70">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s71">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -247,18 +205,79 @@
     ss:Bold="1"/>
    <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s35">
-   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+  <Style ss:ID="s72">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
    </Borders>
    <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Italic="1"/>
-   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
+    ss:Bold="1"/>
+   <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s36">
+  <Style ss:ID="s73">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s74">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s75">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s76">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s77">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s78">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -269,78 +288,90 @@
     ss:Bold="1"/>
    <Interior ss:Color="#EDEDED" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s37">
-   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-   </Borders>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
-    ss:Italic="1"/>
-   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
+  <Style ss:ID="s79">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#5B9BD5" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s38">
-   <Interior/>
+  <Style ss:ID="s80">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#A5A5A5" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s81">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#FFC000" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s82">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#5B9BD5" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s83">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#A5A5A5" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s84">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#FFC000" ss:Pattern="Solid"/>
   </Style>
  </Styles>
  <Worksheet ss:Name="Ark1">
-  <Table ss:ExpandedColumnCount="17" ss:ExpandedRowCount="8" x:FullColumns="1"
-   x:FullRows="1" ss:DefaultRowHeight="15">
-   <Column ss:AutoFitWidth="0" ss:Width="79.5"/>
-   <Column ss:Width="98.25"/>
-   <Column ss:AutoFitWidth="0" ss:Width="83.25" ss:Span="1"/>
-   <Column ss:Index="5" ss:Width="75"/>
-   <Column ss:AutoFitWidth="0" ss:Width="113.25"/>
-   <Column ss:AutoFitWidth="0" ss:Width="124.5"/>
-   <Column ss:AutoFitWidth="0" ss:Width="105"/>
-   <Column ss:AutoFitWidth="0" ss:Width="84"/>
-   <Column ss:AutoFitWidth="0" ss:Width="81.75"/>
-   <Column ss:AutoFitWidth="0" ss:Width="92.25"/>
-   <Column ss:AutoFitWidth="0" ss:Width="59.25"/>
-   <Column ss:StyleID="s38" ss:Width="121.5"/>
-   <Column ss:Width="123"/>
-   <Column ss:Width="141"/>
-   <Column ss:Width="113.25" ss:Span="1"/>
-   <Row>
-    <Cell ss:StyleID="s16"><Data ss:Type="String">Parent PAC ID</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">Parent</Data></Cell>
-    <Cell ss:StyleID="s18"><Data ss:Type="String">Action PAC ID</Data></Cell>
-    <Cell ss:StyleID="s34"><Data ss:Type="String">Action ID</Data></Cell>
-    <Cell ss:StyleID="s19"><Data ss:Type="String">Action</Data></Cell>
-    <Cell ss:StyleID="s19"><Data ss:Type="String">Action Description</Data></Cell>
-    <Cell ss:StyleID="s19"><Data ss:Type="String">Action times</Data></Cell>
-    <Cell ss:StyleID="s20"><Data ss:Type="String">Tool</Data></Cell>
-    <Cell ss:StyleID="s21"><Data ss:Type="String">Child PAC ID</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">Child</Data></Cell>
-    <Cell ss:StyleID="s23"><Data ss:Type="String">Children number</Data></Cell>
-    <Cell ss:StyleID="s24"><Data ss:Type="String">Child EoL</Data></Cell>
-    <Cell ss:StyleID="s34"><Data ss:Type="String">Disassembly Action ID</Data></Cell>
-    <Cell ss:StyleID="s36"><Data ss:Type="String">Disassembly Action Failure</Data></Cell>
-    <Cell ss:StyleID="s36"><Data ss:Type="String">Disassembly Action Type</Data></Cell>
-    <Cell ss:StyleID="s36"><Data ss:Type="String">Disassembly Action Tool</Data></Cell>
-    <Cell ss:StyleID="s36"><Data ss:Type="String">Disassembly Type</Data></Cell>
+  <Table ss:ExpandedColumnCount="17" ss:ExpandedRowCount="74" x:FullColumns="1"
+   x:FullRows="1" ss:StyleID="s67" ss:DefaultColumnWidth="49.613445378151262"
+   ss:DefaultRowHeight="14.974789915966387">
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="82.285714285714278"/>
+   <Column ss:StyleID="s67" ss:Width="96.201680672268907"/>
+   <Column ss:StyleID="s67" ss:Width="85.310924369747895"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="86.521008403361336"/>
+   <Column ss:StyleID="s67" ss:Width="78.05042016806722"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="117.3781512605042"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="128.87394957983193"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="108.90756302521008"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="87.126050420168056"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="84.705882352941174"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="95.596638655462186"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="61.714285714285708"/>
+   <Column ss:StyleID="s67" ss:Width="125.84873949579833"/>
+   <Column ss:StyleID="s67" ss:Width="127.66386554621849"/>
+   <Column ss:StyleID="s67" ss:Width="146.42016806722688"/>
+   <Column ss:StyleID="s67" ss:Width="117.3781512605042" ss:Span="1"/>
+   <Row ss:AutoFitHeight="0" ss:Height="14.218487394957982">
+    <Cell ss:StyleID="s68"><Data ss:Type="String">Parent PAC ID</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Parent</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Action PAC ID</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Action ID</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Action</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Action Description</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Action times</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">Tool</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Child PAC ID</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="String">Child</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">Children number</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">Child EoL</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Disassembly Action ID</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Disassembly Action Failure</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Disassembly Action Type</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Disassembly Action Tool</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Disassembly Type</Data></Cell>
    </Row>
-   <Row ss:AutoFitHeight="0" ss:Height="81.5625">
-    <Cell ss:StyleID="s25"><Data ss:Type="String">PAC identifier for the parent of the PAC unit</Data></Cell>
-    <Cell ss:StyleID="s26"><Data ss:Type="String">It describes the assembly from which the element is obtained.</Data></Cell>
-    <Cell ss:StyleID="s27"><Data ss:Type="String">PAC identifier for the action of the PAC unit</Data></Cell>
-    <Cell ss:StyleID="s35"><Data ss:Type="String">It provides a unique identifier for each action.</Data></Cell>
-    <Cell ss:StyleID="s28"><Data ss:Type="String">It describes the action that need to be performed.</Data></Cell>
-    <Cell ss:StyleID="s28"><Data ss:Type="String">It provides a detailed explanation of the disassembly action that needs to be performed.</Data></Cell>
-    <Cell ss:StyleID="s28"><Data ss:Type="String">It provides the number of times the action must be performed. It is applicable only for screws and/or repeated processes.</Data></Cell>
-    <Cell ss:StyleID="s29"><Data ss:Type="String">It describes the tool required to perform the action.</Data></Cell>
-    <Cell ss:StyleID="s30"><Data ss:Type="String">PAC identifier for the child of the PAC unit</Data></Cell>
-    <Cell ss:StyleID="s31"><Data ss:Type="String">It describes the element that are obtained as output of the action.</Data></Cell>
-    <Cell ss:StyleID="s32"><Data ss:Type="String">It describes the number of the same child obtained from the disassembly action.</Data></Cell>
-    <Cell ss:StyleID="s33"><Data ss:Type="String">It describes the child EoL</Data></Cell>
-    <Cell ss:StyleID="s35"><Data ss:Type="String">It provides a unique identifier for each disassembly action.</Data></Cell>
-    <Cell ss:StyleID="s37"><Data ss:Type="String">It explained the effect of the DF on the action (i.e., the disassembly process).</Data></Cell>
-    <Cell ss:StyleID="s37"><Data ss:Type="String">It describes the disassembly type that must be performed due to the DF.&#10;It can be: i) destructive, ii) semi-destructive, iii) no destructive</Data></Cell>
-    <Cell ss:StyleID="s37"><Data ss:Type="String">It describes the tool that needs to be used in order to perform the disassembly action</Data></Cell>
-    <Cell ss:StyleID="s37"><Data ss:Type="String">It provides what type of disassembly error has happened either DF1, DF2 or DF3. </Data></Cell>
+   <Row ss:AutoFitHeight="0" ss:Height="81.529411764705884">
+    <Cell ss:StyleID="s57"><Data ss:Type="String">PAC identifier for the parent of the PAC unit</Data></Cell>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">It describes the assembly from which the element is obtained.</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">PAC identifier for the action of the PAC unit</Data></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">It provides a unique identifier for each action.</Data></Cell>
+    <Cell ss:StyleID="s61"><Data ss:Type="String">It describes the action that need to be performed.</Data></Cell>
+    <Cell ss:StyleID="s61"><Data ss:Type="String">It provides a detailed explanation of the disassembly action that needs to be performed.</Data></Cell>
+    <Cell ss:StyleID="s61"><Data ss:Type="String">It provides the number of times the action must be performed. It is applicable only for screws and/or repeated processes.</Data></Cell>
+    <Cell ss:StyleID="s62"><Data ss:Type="String">It describes the tool required to perform the action.</Data></Cell>
+    <Cell ss:StyleID="s63"><Data ss:Type="String">PAC identifier for the child of the PAC unit</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">It describes the element that are obtained as output of the action.</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">It describes the number of the same child obtained from the disassembly action.</Data></Cell>
+    <Cell ss:StyleID="s66"><Data ss:Type="String">It describes the child EoL</Data></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">It provides a unique identifier for each disassembly action.</Data></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">It explained the effect of the DF on the action (i.e., the disassembly process).</Data></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">It describes the disassembly type that must be performed due to the DF.&#10;It can be: i) destructive, ii) semi-destructive, iii) no destructive</Data></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">It describes the tool that needs to be used in order to perform the disassembly action</Data></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">It provides what type of disassembly error has happened either DF1, DF2 or DF3. </Data></Cell>
    </Row>
-   <Row>
+   <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="String">#A#-#A#</Data></Cell>
     <Cell><Data ss:Type="String">BOM Database</Data></Cell>
     <Cell><Data ss:Type="String">#A#-#A#</Data></Cell>
@@ -354,12 +385,12 @@
     <Cell><Data ss:Type="String">Number</Data></Cell>
     <Cell><Data ss:Type="String">EoL type</Data></Cell>
     <Cell><Data ss:Type="String">Disassembly Action ID type</Data></Cell>
-    <Cell ss:StyleID="s38"><Data ss:Type="String">Failure description</Data></Cell>
-    <Cell ss:StyleID="s38"><Data ss:Type="String">Destruction type</Data></Cell>
-    <Cell ss:StyleID="s38"><Data ss:Type="String">Tool Type</Data></Cell>
-    <Cell ss:StyleID="s38"><Data ss:Type="String">DF#</Data></Cell>
+    <Cell><Data ss:Type="String">Failure description</Data></Cell>
+    <Cell><Data ss:Type="String">Destruction type</Data></Cell>
+    <Cell><Data ss:Type="String">Tool Type</Data></Cell>
+    <Cell><Data ss:Type="String">DF#</Data></Cell>
    </Row>
-   <Row>
+   <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="String">String</Data></Cell>
     <Cell><Data ss:Type="String">String</Data></Cell>
     <Cell><Data ss:Type="String">String</Data></Cell>
@@ -373,35 +404,440 @@
     <Cell><Data ss:Type="String">Int</Data></Cell>
     <Cell><Data ss:Type="String">String</Data></Cell>
     <Cell><Data ss:Type="String">String</Data></Cell>
-    <Cell ss:StyleID="s38"><Data ss:Type="String">String</Data></Cell>
-    <Cell ss:StyleID="s38"><Data ss:Type="String">String</Data></Cell>
-    <Cell ss:StyleID="s38"><Data ss:Type="String">String</Data></Cell>
-    <Cell ss:StyleID="s38"><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
    </Row>
-   <Row>
+   <Row ss:Height="14.521008403361344"/>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s79">
     <Cell><Data ss:Type="String">1P1-000</Data></Cell>
-    <Cell><Data ss:Type="String">Body</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle</Data></Cell>
    </Row>
-   <Row ss:AutoFitHeight="0">
+   <Row ss:Height="14.521008403361344" ss:StyleID="s80">
     <Cell ss:Index="3"><Data ss:Type="String">1A1-000</Data></Cell>
     <Cell><Data ss:Type="String">S1</Data></Cell>
+    <Cell><Data ss:Type="String">Separate</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Hand</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">1C1-000</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Body</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">1C2-000</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Base</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s79">
+    <Cell><Data ss:Type="String">2P1-1C1</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Body</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s80">
+    <Cell ss:Index="3"><Data ss:Type="String">2A1-1C1</Data></Cell>
+    <Cell><Data ss:Type="String">U1</Data></Cell>
     <Cell><Data ss:Type="String">Unscrew</Data></Cell>
-    <Cell><Data ss:Type="String">Unscrew the 4 screws at the base of Kettle Base</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
     <Cell><Data ss:Type="Number">4</Data></Cell>
+    <Cell><Data ss:Type="String">Cross-head screwdriver</Data></Cell>
+    <Cell ss:Index="13"><Data ss:Type="String">U1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Semi-destructive</Data></Cell>
+    <Cell><Data ss:Type="String">Drill</Data></Cell>
+    <Cell><Data ss:Type="String">DF2</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">2c1-1C1</Data></Cell>
+    <Cell><Data ss:Type="String">Crox-head screws</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+    <Cell><Data ss:Type="String">U1</Data></Cell>
+    <Cell><Data ss:Type="String">tmep</Data></Cell>
+    <Cell><Data ss:Type="String">Semi-destructive</Data></Cell>
+    <Cell><Data ss:Type="String">Drill</Data></Cell>
+    <Cell><Data ss:Type="String">DF1</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">2C2-1C1</Data></Cell>
+    <Cell><Data ss:Type="String">Plastic cover Kettle base</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">2C3-1C1</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Body w/o Base</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s79">
+    <Cell><Data ss:Type="String">3P1-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Body w/o Base</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s80">
+    <Cell ss:Index="3"><Data ss:Type="String">3A1-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">D1</Data></Cell>
+    <Cell><Data ss:Type="String">Disconnect</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">4</Data></Cell>
+    <Cell><Data ss:Type="String">Hand</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">3C1-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">Metal Ring Kettle Base</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">3C2-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Body w/o Metal Ring</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s79">
+    <Cell><Data ss:Type="String">4P1-3C2</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Body w/o Metal ring</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s80">
+    <Cell ss:Index="3"><Data ss:Type="String">4A1-3C2</Data></Cell>
+    <Cell><Data ss:Type="String">UR1</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew and remove</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
     <Cell><Data ss:Type="String">Cross-Head Screwdriver</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:Index="9"><Data ss:Type="String">7C1-1C2</Data></Cell>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">4c1-3C2</Data></Cell>
+    <Cell><Data ss:Type="String">Crox-Head Screws </Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">4c2-3C2</Data></Cell>
+    <Cell><Data ss:Type="String">Rings for screws</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">4C3-3C2</Data></Cell>
+    <Cell><Data ss:Type="String">Eletronic component</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">4C4-3C2</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle body w/o Electronic ring</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s79">
+    <Cell><Data ss:Type="String">5P1-4C4</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Body w/o Electronic ring</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s80">
+    <Cell ss:Index="3"><Data ss:Type="String">5A1-4C4</Data></Cell>
+    <Cell><Data ss:Type="String">U2</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Socket Wrench</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">5c1-4C4</Data></Cell>
     <Cell><Data ss:Type="String">Bolts</Data></Cell>
     <Cell><Data ss:Type="Number">3</Data></Cell>
     <Cell><Data ss:Type="String">Reuse</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:Index="13"><Data ss:Type="String">S1</Data></Cell>
-    <Cell><Data ss:Type="String">Effort to disassemble too much. The whole product is thrown away</Data></Cell>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">5C2-4C4</Data></Cell>
+    <Cell><Data ss:Type="String">Heating Element</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">5C3-4C4</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Body w/o heating element</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s79">
+    <Cell><Data ss:Type="String">6P1-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Heating Element</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s80">
+    <Cell ss:Index="3"><Data ss:Type="String">6A1-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">U3</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Cross-Head Screwdriver</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">6C1-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Metal Heating Part</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">6C2-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Plastic Heating Part</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">6c3-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Crox-Head screw</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s79">
+    <Cell><Data ss:Type="String">7P1-5C3</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Body w/o Heating Part</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s80">
+    <Cell ss:Index="3"><Data ss:Type="String">7A1-5C3</Data></Cell>
+    <Cell><Data ss:Type="String">R1</Data></Cell>
+    <Cell><Data ss:Type="String">Remove</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Plectrum</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">7C1-5C3</Data></Cell>
+    <Cell><Data ss:Type="String">Plastic cover handle kettle</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s81">
+    <Cell ss:Index="9"><Data ss:Type="String">7C2-5C3</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle body w/o handle cover</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s82">
+    <Cell><Data ss:Type="String">8P1-7C2</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle body w/o handle cover</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s83">
+    <Cell ss:Index="3"><Data ss:Type="String">8A1-7C2</Data></Cell>
+    <Cell><Data ss:Type="String">D2</Data></Cell>
+    <Cell><Data ss:Type="String">Disconnect</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Hands</Data></Cell>
+   </Row>
+   <Row ss:Height="14.521008403361344" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">8C1-7C2</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle button</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">8C2-7C2</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle body w/o button</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s82">
+    <Cell><Data ss:Type="String">9P1-8C2</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle body w/o button</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s83">
+    <Cell ss:Index="3"><Data ss:Type="String">9A1-8C2</Data></Cell>
+    <Cell><Data ss:Type="String">U4</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Cross-Head Screwdriver</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">9c1-8C2</Data></Cell>
+    <Cell><Data ss:Type="String">Crox-Head screw for PCI card</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">9C2-8C2</Data></Cell>
+    <Cell><Data ss:Type="String">PCI Card</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">9C3-8C2</Data></Cell>
+    <Cell><Data ss:Type="String">LED</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">9C4-8C2</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle body w/o PCI card</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s82">
+    <Cell><Data ss:Type="String">10P1-9C4</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle body w/o PCI card</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s83">
+    <Cell ss:Index="3"><Data ss:Type="String">10A1-9C4</Data></Cell>
+    <Cell><Data ss:Type="String">U5</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Cross-Head Screwdriver</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">10c1-9C4</Data></Cell>
+    <Cell><Data ss:Type="String">Crox-Head screw handle</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">10C2-9C4</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle body w/o handle screws</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s82">
+    <Cell><Data ss:Type="String">11P1-10C2</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle body w/o handle screws</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s83">
+    <Cell ss:Index="3"><Data ss:Type="String">11A1-10C2</Data></Cell>
+    <Cell><Data ss:Type="String">R2</Data></Cell>
+    <Cell><Data ss:Type="String">Remove</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Hands</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">11C1-10C2</Data></Cell>
+    <Cell><Data ss:Type="String">Handle</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">11C2-10C2</Data></Cell>
+    <Cell><Data ss:Type="String">Lid</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">11C3-10C2</Data></Cell>
+    <Cell><Data ss:Type="String">Probe Faston</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">11C4-10C2</Data></Cell>
+    <Cell><Data ss:Type="String">Probe</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">11C5-10C2</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle body naked</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s82">
+    <Cell><Data ss:Type="String">12P1-1C2</Data></Cell>
+    <Cell><Data ss:Type="String">Kettle Base</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s83">
+    <Cell ss:Index="3"><Data ss:Type="String">12A1-1C2</Data></Cell>
+    <Cell><Data ss:Type="String">U6</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Tri-Wing Screwdriver</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">12c1-1C2</Data></Cell>
+    <Cell><Data ss:Type="String">Three-Wind Screws</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">12C2-1C2</Data></Cell>
+    <Cell><Data ss:Type="String">Base part cable cover</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">12C3-1C2</Data></Cell>
+    <Cell><Data ss:Type="String">Top part cable cover</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">12C4-1C2</Data></Cell>
+    <Cell><Data ss:Type="String">Cable with connections</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s82">
+    <Cell><Data ss:Type="String">13P1-12C4</Data></Cell>
+    <Cell><Data ss:Type="String">Cable with connections</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s83">
+    <Cell ss:Index="3"><Data ss:Type="String">13A1-12C4</Data></Cell>
+    <Cell><Data ss:Type="String">R3</Data></Cell>
+    <Cell><Data ss:Type="String">Remove</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Flat head screwdriver</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">13C1-12C4</Data></Cell>
+    <Cell><Data ss:Type="String">Plastic cap</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">13C2-12C4</Data></Cell>
+    <Cell><Data ss:Type="String">Cable w/o plastic cap</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s82">
+    <Cell><Data ss:Type="String">14P1-13C2</Data></Cell>
+    <Cell><Data ss:Type="String">Cable w/o plastic cap</Data></Cell>
+   </Row>
+   <Row ss:Height="29.042016806722689" ss:StyleID="s83">
+    <Cell ss:Index="3"><Data ss:Type="String">14A1-13C2</Data></Cell>
+    <Cell><Data ss:Type="String">U7</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Cross-Head Screwdriver</Data></Cell>
+    <Cell ss:Index="13"><Data ss:Type="String">U7</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
     <Cell><Data ss:Type="String">Destructive</Data></Cell>
-    <Cell><Data ss:Type="String">Cutter</Data></Cell>
-    <Cell><Data ss:Type="String">DF1</Data></Cell>
+    <Cell><Data ss:Type="String">Hand</Data></Cell>
+    <Cell><Data ss:Type="String">DF2</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">14c1-13C2</Data></Cell>
+    <Cell><Data ss:Type="String">Crox-Head small screws</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">14C2-13C2</Data></Cell>
+    <Cell><Data ss:Type="String">Plastic round head</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s84">
+    <Cell ss:Index="9"><Data ss:Type="String">14C3-13C2</Data></Cell>
+    <Cell><Data ss:Type="String">Cable</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
@@ -410,6 +846,7 @@
     <Footer x:Margin="0.3"/>
     <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
    </PageSetup>
+   <Unsynced/>
    <Print>
     <ValidPrinterInfo/>
     <PaperSizeIndex>9</PaperSizeIndex>
@@ -417,11 +854,20 @@
     <VerticalResolution>600</VerticalResolution>
    </Print>
    <Selected/>
+   <LeftColumnVisible>4</LeftColumnVisible>
+   <FreezePanes/>
+   <FrozenNoSplit/>
+   <SplitHorizontal>1</SplitHorizontal>
+   <TopRowBottomPane>59</TopRowBottomPane>
+   <ActivePane>2</ActivePane>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>8</ActiveRow>
-     <ActiveCol>6</ActiveCol>
+    </Pane>
+    <Pane>
+     <Number>2</Number>
+     <ActiveRow>76</ActiveRow>
+     <ActiveCol>11</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
