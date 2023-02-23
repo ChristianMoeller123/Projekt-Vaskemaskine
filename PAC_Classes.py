@@ -12,6 +12,15 @@ class Parent:
     def __init__(self, ID, Desc):
         self.ID = ID
         self.Desc = Desc
+        self.PACID = self.extract_PACID()
+
+    def extract_PACID(self):
+        PACindex = len(self.ID)
+        for char in "PACc":
+            index = self.ID.find(char)
+            if index != -1 and index < PACindex:  # Bliver -1 hvis bogstavet ikke findes i stringen
+                PACindex = index
+        return int(self.ID[:PACindex])
 class Action:
     def __init__(self, ID, ActionID, Desc, DescDetail, Times, Tool):
         self.ID = ID
@@ -20,16 +29,30 @@ class Action:
         self.DescDetail = DescDetail #Detailed description of action
         self.Times = Times #Amount of times action is repeated
         self.Tool = Tool #Tool needed to perform action
+        self.PACID = self.extract_PACID()
+
+    def extract_PACID(self):
+        PACindex = len(self.ID)
+        for char in "PACc":
+            index = self.ID.find(char)
+            if index != -1 and index < PACindex:  # Bliver -1 hvis bogstavet ikke findes i stringen
+                PACindex = index
+        return int(self.ID[:PACindex])
 class Child:
     def __init__(self, ID, Desc, Number, EoL):
         self.ID = ID
         self.Desc = Desc
         self.Number = Number #Number of children
         self.EoL = EoL #End of Life for child
-        self.children = [] #Empty children list
-    def addNode(self, obj): # Function to add children
-        self.children.append(obj)
+        self.PACID = self.extract_PACID()
 
+    def extract_PACID(self):
+        PACindex = len(self.ID)
+        for char in "PACc":
+            index = self.ID.find(char)
+            if index != -1 and index < PACindex:  # Bliver -1 hvis bogstavet ikke findes i stringen
+                PACindex = index
+        return int(self.ID[:PACindex])
 class Disassembly:
     def __init__(self, ID, DFEffect, DAType, DATool, DType, DFID): #DA is Disassembly action, which is the action needed to perform due to the DF
         self.ID = ID
@@ -38,3 +61,13 @@ class Disassembly:
         self.DATool = DATool #Extra tool needed
         self.DType = DType #DF1, DF2 or DF3 with relation!
         self.DFID = DFID #Which Parent/Action/Child ID is connected to the DF
+class PACUnit:
+    def __init__(self, PACID):
+        self.PACID = PACID
+        self.Parent = []
+        self.Children = []
+        self.Action = []
+        self.TreeChildren = []  # Empty children list
+
+    def addTreeChildren(self, obj):  # Function to add children
+        self.TreeChildren.append(obj)
