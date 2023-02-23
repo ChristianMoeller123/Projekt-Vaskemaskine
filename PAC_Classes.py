@@ -26,6 +26,10 @@ class Child:
         self.Desc = Desc
         self.Number = Number #Number of children
         self.EoL = EoL #End of Life for child
+        self.children = [] #Empty children list
+    def addNode(self, obj): # Function to add children
+        self.children.append(obj)
+
 class Disassembly:
     def __init__(self, ID, DFEffect, DAType, DATool, DType, DFID): #DA is Disassembly action, which is the action needed to perform due to the DF
         self.ID = ID
