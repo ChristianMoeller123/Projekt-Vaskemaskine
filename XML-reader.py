@@ -2,10 +2,21 @@
 """
 XML reader
 
-Reads a XML file, which has been exported from the standard .xlsx
+Input:
+Reads an XML file, which has been exported from the standard .xlsx
 Document. To see this document go to....
-Sorts the data from the XML file into classes. 3 classes are used; Parent
-Action and Child. All the data from the XML file is kept in the instances.
+
+Function:
+Sorts the data from the XML file into classes. 5 classes are used; Parent
+Action, Child, Disassemblies and PACUnit. To see more about the classes go to PAC_classes.py
+All the data from the XML file is kept in the instances of the classes.
+Further, it sorts the PAC units in a tree structure, which is saved within the PACUnit instances.
+Works with any input order of the PAC information, however correct notation of PAC IDs is needed.
+
+Output:
+The output is a list of all instances of Parent, Action, Child, Disassembly and PACUnit classes.
+All given information from the .xlsx file is saved within these classes
+And a tree structure is added to PACUnit instances.
 """
 # Importing libraries
 import xml.etree.ElementTree as ET #XML
@@ -51,7 +62,8 @@ AllActions = []
 AllChildren = []
 AllDisassemblies = []
 
-highestPACID = 0
+highestPACID = 0 #Variable to find amount of PACUnits needed
+
 # Sort the data and insert in instances with the data
 for row in range(len(cells)):
 
@@ -67,11 +79,13 @@ for row in range(len(cells)):
     #Find PAC ID
     PACID = cells[row][0][:lowest_index]
     PACID = int(PACID)
-    #Gem højeste
+    #Save highest PAC ID
     if PACID > highestPACID:
         highestPACID = PACID
 
-    # Sorts the different IDs for Parents, actions, children and disassemblies
+    # Sorts the different IDs for Parents, actions, children and disassemblies, and creates instances
+    # The information put into the instances is based on the information given in the excel. There is a standard
+    # format for each class
     if IDAsLetters[0] == 'P': # A parent
         instance = Parent(cells[row][0], cells[row][1])
         AllParents.append(instance)
@@ -93,11 +107,12 @@ for row in range(len(cells)):
                                 cells[row][7], cells[row][8], cells[row][0])
 
 
-#Kan håndtere PAC input i enhver rækkefølge!
 
-#Lav tom liste afhængig af højeste ID.
+#Creates empty PACUnits according to maximum amount of PAC units
 AllPACUnits = [PACUnit(i) for i in range(1,highestPACID+1)]
 
+# This loop iterates over the cells again to assign the tree structure as well as Parents, Action and Children
+# to each PACUnit
 for row in range(len(cells)):
     #Find unit ID for current unit and for its parent
     current_unit_index = len(cells[row][0])
@@ -108,23 +123,24 @@ for row in range(len(cells)):
             current_unit_index = index
         if index != -1 and index > parent_index:
             parent_index = index
-    #Find PAC ID
-    UnitID = cells[row][0][:lowest_index-1]
-    UnitID = int(UnitID)
-    if parent_index != current_unit_index: #If it's not a root node
-        Parent_ID = cells[row][0][cells[row][0].index('-')+1:parent_index]
-        Parent_ID = int(Parent_ID)
-        AllPACUnits[Parent_ID-1].addTreeChildren(AllPACUnits[PACID-1])  # PACUNIT nummer parent
-    #Find objekter med current PACID og sæt dem ind i PAC Uniten
-    AllPACUnits[PACID-1].Parent = ObjFromAttrib('PACID', UnitID, AllParents) #UnitID i den her funktion er det samme som PACID attrib i PACUnit
-    AllPACUnits[PACID-1].Action = ObjFromAttrib('PACID', UnitID, AllActions)
-    AllPACUnits[PACID-1].Children = ObjFromAttrib('PACID', UnitID, AllChildren)
-# Find PACID og CHILDID, placer PACs
-# Opret children på bagkant. Kan gøres fordi! Child er aldrig højere end PAC ID.
 
-#Unit nummeringen SKAL ikke være DFS!!!!, det er det defineret som her. Er det?
-#Find ud af at tildele P/A/Cs
+    #Find PAC ID by finding numbers before P/A/C/c, and converting this into int
+    UnitID = re.search(r"[\d]+(?=[PACc])", cells[row][0])
+    UnitID = int(UnitID.group(0))
+
+    #If it's not a root node and it's a parent
+    if parent_index != current_unit_index and cells[row][0][current_unit_index] == 'P':
+        # Find the parent ID
+        ParentID = cells[row][0][cells[row][0].index('-')+1:parent_index]
+        ParentID = int(ParentID)
+        AllPACUnits[ParentID-1].addTreeChildren(AllPACUnits[UnitID-1])  #Add the unit as a child to its parent
+    #Find objekter med current PACID og sæt dem ind i PAC Uniten
+    AllPACUnits[UnitID-1].Parent = ObjFromAttrib('PACID', UnitID, AllParents) #UnitID i den her funktion er det samme som PACID attrib i PACUnit
+    AllPACUnits[UnitID-1].Action = ObjFromAttrib('PACID', UnitID, AllActions)
+    AllPACUnits[UnitID-1].Children = ObjFromAttrib('PACID', UnitID, AllChildren)
+
 """
+    Extra commands (ignore!)
     #find the digits in the string
     digits_list = re.findall(r'\d+', Data[row]) 
     # concatenates the numbers into a single integer if there are numbers    
@@ -137,8 +153,6 @@ for row in range(len(cells)):
     IDForCurrent = cells[row][0][:cells[row][0].index('-')] #Finds the index of - and returns the strin UP TO "-"
     IDForParent = cells[row][0][cells[row][0].index('-')+1:] #Finds the index of - and returns string FROM "-"
 """
-# Overvej om disassembly action overhovedet har det korrekte formål!
-
 
 # Create a dictionary with the lists in:
 objects = {"Parents": AllParents, "Actions": AllActions, "Children": AllChildren, "Disassemblies": AllDisassemblies, "PACUnits": AllPACUnits}
