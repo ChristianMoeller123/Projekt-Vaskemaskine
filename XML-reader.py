@@ -152,6 +152,9 @@ for row in range(len(cells)):
     IDAsNumbers = " ".join(re.split("[^0-9-]*", cells[row][0])).strip() #Keeps the numbers and "-", strip removes spaces
     IDForCurrent = cells[row][0][:cells[row][0].index('-')] #Finds the index of - and returns the strin UP TO "-"
     IDForParent = cells[row][0][cells[row][0].index('-')+1:] #Finds the index of - and returns string FROM "-"
+    
+    Serach function call:
+    DesiredPAC = AllPACUnits[0].DFSNonRecursive('Parent', 'ID', '5P1-4C4')
 """
 
 # Create a dictionary with the lists in:

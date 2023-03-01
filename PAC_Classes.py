@@ -71,3 +71,25 @@ class PACUnit:
 
     def addTreeChildren(self, obj):  # Function to add children
         self.TreeChildren.append(obj)
+
+    def DFSNonRecursive(self, PAC, attrib, val):
+    # This function CAN'T find the PAC unit ID! It has to be an attribute of a P/A/C element in the PAC units.
+    # PAC is either Parent, Children or Action. As a string
+    # attrib is the attribute of the P/A/C as a string
+    # val is the desired value
+        path = []
+        stack = [self]
+        while stack:
+            s = stack.pop()
+            pac = getattr(s, PAC)
+            for p in pac:
+                if  getattr(p, attrib) == val:
+                    return s # Returns the whole PAC unit
+            if s not in path:
+                path.append(s)
+            elif s in path:
+                # leaf node
+                continue
+            for children in s.TreeChildren:
+                stack.append(children)
+        return print('No attribute in the tree matched your value input')
