@@ -16,4 +16,3 @@ def MCI(V, W, M_c, Wf, Wc, L, Lav):
     mci = 1-LFI*(0.9/X)
     return mci
 
-mci = MCI(1, 2, 4, 1, 5, 5, 5)

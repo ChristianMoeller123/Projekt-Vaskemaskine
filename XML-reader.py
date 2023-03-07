@@ -34,6 +34,8 @@ def ObjFromAttrib(attribute, value, obj_list): #finds all objects with a macthin
     for obj in obj_list:
         if getattr(obj, attribute) == value:
             matching_list.append(obj)
+    if len(matching_list) == 1:
+        return matching_list[0]
     return matching_list
 
 
@@ -99,7 +101,7 @@ for row in range(len(cells)):
         if len(cells[row]) == 11:
             disassemblyInstance(cells[row][6], cells[row][7], cells[row][8],\
                                 cells[row][9], cells[row][10], cells[row][0])
-    elif IDAsLetters[0] == 'C' or IDAsLetters[1] == 'c': # A child
+    elif IDAsLetters[0] == 'C' or IDAsLetters[0] == 'c': # A child
         instance = Child(cells[row][0], cells[row][1], cells[row][2], cells[row][3])
         AllChildren.append(instance)
         if len(cells[row]) == 9:
@@ -157,6 +159,7 @@ for row in range(len(cells)):
     DesiredPAC = AllPACUnits[0].DFSNonRecursive('Parent', 'ID', '5P1-4C4')
 """
 
+DesiredPAC = AllPACUnits[0].DFSNonRecursive('Parent', 'ID', '5P1-4C4')
 # Create a dictionary with the lists in:
 objects = {"Parents": AllParents, "Actions": AllActions, "Children": AllChildren, "Disassemblies": AllDisassemblies, "PACUnits": AllPACUnits}
 # Deserializes the objects (find et link?)

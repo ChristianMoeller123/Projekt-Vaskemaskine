@@ -13,6 +13,8 @@ class Parent:
         self.ID = ID
         self.Desc = Desc
         self.PACID = self.extract_PACID()
+        self.posX = posX
+        self.posY = posY
 
     def extract_PACID(self):
         PACindex = len(self.ID)
@@ -45,6 +47,8 @@ class Child:
         self.Number = Number #Number of children
         self.EoL = EoL #End of Life for child
         self.PACID = self.extract_PACID()
+        self.posX = posX
+        self.posY = posY
 
     def extract_PACID(self):
         PACindex = len(self.ID)
@@ -64,10 +68,10 @@ class Disassembly:
 class PACUnit:
     def __init__(self, PACID):
         self.PACID = PACID
-        self.Parent = []
+        self.Parent = Parent
         self.Children = []
-        self.Action = []
-        self.TreeChildren = []  # Empty children list
+        self.Action = Action
+        self.TreeChildren = []  # Empty tree children list
 
     def addTreeChildren(self, obj):  # Function to add children
         self.TreeChildren.append(obj)
@@ -82,9 +86,12 @@ class PACUnit:
         while stack:
             s = stack.pop()
             pac = getattr(s, PAC)
-            for p in pac:
-                if  getattr(p, attrib) == val:
-                    return s # Returns the whole PAC unit
+            if PAC == 'Children': #If the desired attribute is in the list of children, then iterate over children
+                for child in pac:
+                    if getattr(child, attrib) == val:
+                        return s #Returns the whole PAC unit
+            if getattr(pac, attrib) == val: #Otherwise just return if the desired value is in the P/A
+                return s  # Returns the whole PAC unit
             if s not in path:
                 path.append(s)
             elif s in path:
