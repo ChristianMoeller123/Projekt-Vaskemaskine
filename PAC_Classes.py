@@ -9,12 +9,12 @@ Parent, Action, Child and Disassembly classes with the respective attributes
 
 # Class definitions. Parents, children and actions has their own classes
 class Parent:
+
     def __init__(self, ID, Desc):
         self.ID = ID
         self.Desc = Desc
         self.PACID = self.extract_PACID()
-        self.posX = posX
-        self.posY = posY
+        self.pos = ()
 
     def extract_PACID(self):
         PACindex = len(self.ID)
@@ -32,6 +32,7 @@ class Action:
         self.Times = Times #Amount of times action is repeated
         self.Tool = Tool #Tool needed to perform action
         self.PACID = self.extract_PACID()
+        self.pos = ()
 
     def extract_PACID(self):
         PACindex = len(self.ID)
@@ -47,8 +48,10 @@ class Child:
         self.Number = Number #Number of children
         self.EoL = EoL #End of Life for child
         self.PACID = self.extract_PACID()
-        self.posX = posX
-        self.posY = posY
+        self.pos = ()
+        self.imgDisp = False
+        self.imgFile = ''
+        self.img = ''
 
     def extract_PACID(self):
         PACindex = len(self.ID)
@@ -89,9 +92,9 @@ class PACUnit:
             if PAC == 'Children': #If the desired attribute is in the list of children, then iterate over children
                 for child in pac:
                     if getattr(child, attrib) == val:
-                        return s #Returns the whole PAC unit
-            if getattr(pac, attrib) == val: #Otherwise just return if the desired value is in the P/A
-                return s  # Returns the whole PAC unit
+                        return child #Returns the child
+            elif getattr(pac, attrib) == val: #Otherwise just return if the desired value is in the P/A
+                return pac  # Returns the Parent/action
             if s not in path:
                 path.append(s)
             elif s in path:
@@ -99,4 +102,4 @@ class PACUnit:
                 continue
             for children in s.TreeChildren:
                 stack.append(children)
-        return print('No attribute in the tree matched your value input')
+        return

@@ -67,6 +67,7 @@ AllDisassemblies = []
 highestPACID = 0 #Variable to find amount of PACUnits needed
 
 # Sort the data and insert in instances with the data
+i = 1 #for images
 for row in range(len(cells)):
 
     #Get the letters in the ID
@@ -103,6 +104,20 @@ for row in range(len(cells)):
                                 cells[row][9], cells[row][10], cells[row][0])
     elif IDAsLetters[0] == 'C' or IDAsLetters[0] == 'c': # A child
         instance = Child(cells[row][0], cells[row][1], cells[row][2], cells[row][3])
+        instance.imgDisp = False
+        #Assign random images:
+        if i == 1:
+            instance.imgFile = 'img1.png'
+            i = 2
+        elif i == 2:
+            instance.imgFile = 'img2.png'
+            i = 3
+        elif i == 3:
+            instance.imgFile = 'img3.png'
+            i = 4
+        elif i == 4:
+            instance.imgFile = 'img4.png'
+            i = 1
         AllChildren.append(instance)
         if len(cells[row]) == 9:
             disassemblyInstance(cells[row][4], cells[row][5], cells[row][6],\

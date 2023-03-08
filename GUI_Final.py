@@ -10,9 +10,10 @@ import plotly.graph_objects as go
 import plotly.express as px
 import math
 import pickle # Read/write objects
-from PAC_Classes import Parent, Action, Child, Disassembly # Import PAC Classes
+from PAC_Classes import Parent, Action, Child, Disassembly, PACUnit # Import PAC Classes
 import PySimpleGUI as sg
 import re # Library for handling strings
+import time
 
 with open('objects.pickle', 'rb') as f:
     x = pickle.load(f)
@@ -33,7 +34,7 @@ def drawSquare(posx, posy, obj):
     if IDAsLetters[0] == 'P':
         graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),\
                        (posx + sizeX/2, posy - sizeY/2)\
-                       ,fill_color = 'blue', line_color = 'blue', line_width = 2)
+                       ,fill_color = 'green', line_color = 'green', line_width = 2)
     elif IDAsLetters[0] == 'A':
         graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),\
                        (posx + sizeX/2, posy - sizeY/2)\
@@ -43,11 +44,11 @@ def drawSquare(posx, posy, obj):
                        (posx + sizeX/2, posy - sizeY/2)\
                        ,fill_color = 'yellow', line_color = 'yellow', line_width = 2)
     graph.draw_text(obj.ID, (posx, posy)) #50 should be manipulated regarding to ID sizes!
-    obj.posX = posx
-    obj.posY = posy
-def drawLine(cposXL, cposYL, cposXR, cposYR):
+    obj.pos = (posx, posy)
+def drawLine(cposL, cposR):
     # draws a line from one element to another
-    graph.draw_line((cposXL + sizeX/2, cposYL), (cposXR - sizeX/2, cposYR))
+    #cposL is the position coordinates of L as cposL = (x, y)
+    graph.draw_line((cposL[0] + sizeX/2, cposL[1]), (cposR[0] - sizeX/2, cposR[1]))
 #Initial distances between elements
 xSpace = 200
 ySpace = 90
@@ -56,7 +57,8 @@ maxChildren = 8 #An assumption of maximum allowable children in each PAC unit
 canvX = 750*len(AllPACUnits)
 
 maxHeight = 0
-#Find new function to find max height!
+
+#TO DO: Find new function to find max height!
 for Unit in AllPACUnits:
     if len(Unit.TreeChildren)/2 > maxHeight:
         maxHeight = len(Unit.TreeChildren)/2
@@ -69,12 +71,13 @@ graph_layout = [
         background_color="white",
         key="-GRAPH-",
         drag_submits=True,
+        enable_events=True
     )]
 ]
 
 # Define the PySimpleGUI layout
 layout = [
-    [sg.Column(graph_layout, scrollable=True, size=(1200, 1000))]
+    [sg.Column(graph_layout, scrollable=True, size=(1200, 800))]
 ]
 
 # Create the PySimpleGUI window
@@ -95,12 +98,12 @@ def drawTree(layer, posX):
 
         #Draw Action
         drawSquare(posX + xSpace, posY, layer[i].Action)
-        drawLine(posX, posY, posX + xSpace, posY) #Line from parent to action
+        drawLine((posX, posY), (posX + xSpace, posY)) #Line from parent to action
         #Draw Children
         for j in range(len(layer[i].Children)):
             posYchild = posY + (math.floor(len(layer[i].Children)/2) - j)*ySpace
             drawSquare(posX + 2*xSpace, posYchild, layer[i].Children[j])
-            drawLine(posX + xSpace, posY, posX + 2*xSpace, posYchild) #Line from action to children
+            drawLine((posX + xSpace, posY), (posX + 2*xSpace, posYchild)) #Line from action to children
 
 
         #Update number of units in next layer
@@ -108,7 +111,7 @@ def drawTree(layer, posX):
             for k in range(len(layer[i].TreeChildren)):
                 nextLayer.append(layer[i].TreeChildren[k]) #Appends one unit at a time to get good list of next layer
 
-    posX = posX + 3*xSpace
+    posX = posX + 3.5*xSpace
     if nextLayer:#Recursive call with the next layer, if it exists
         drawTree(nextLayer, posX)
     elif nextLayer == 0: #Otherwise stop
@@ -123,15 +126,36 @@ for unit in AllPACUnits:
     for child in unit.Children:
         for root in unit.TreeChildren:
             if child.ID[:child.ID.index('-')] == root.Parent.ID[root.Parent.ID.index('-')+1:]:
-                drawLine(child.posX, child.posY, root.Parent.posX, root.Parent.posY)
-
+                drawLine(child.pos, root.Parent.pos)
+"""
+graph.draw_image(filename = 'img1.png', location = ((150,0)))
+graph.draw_image(filename = 'img2.png', location = ((450,0)))
+graph.draw_image(filename = 'img3.png', location = ((750,0)))
+graph.draw_image(filename = 'img4.png', location = ((1050,0)))
+"""
 # Run the event loop
 while True:
     event, values = window.read()
-
+    if event == "-GRAPH-": #If a click happens
+        x, y = values["-GRAPH-"] #Record the location
+        for i in range(x-math.floor(sizeX/2), x+math.floor(sizeX/2)): #Check if the mouse was in ANY rectangle (this is stupid)
+            for j in range(y-math.floor(sizeY/2), y+math.floor(sizeY/2)):
+                elem = AllPACUnits[0].DFSNonRecursive('Children', 'pos', (i, j)) #Find obj at location
+                if elem: #If an object at the click position is found:
+                    if elem.imgDisp: #Delete image if image already exists
+                        graph.DeleteFigure(elem.img)
+                        elem.imgDisp = False
+                    else: #Else draw
+                        elem.img = graph.draw_image(filename=elem.imgFile, location=(x, y))  # Draw image at location
+                        elem.imgDisp = True
+    #HVIS KLIKKET IKKE ER KORT NOK, SKER DER FEJL!
     # Exit the program if the window is closed
     if event == sg.WINDOW_CLOSED:
         break
-
+"""        
+maybe add this to determine when mouse button is released?
+while not event.endswith('+UP'):
+    pass
+"""
 # Close the PySimpleGUI window
 window.close()
