@@ -154,7 +154,8 @@ for row in range(len(cells)):
     #Find objekter med current PACID og sæt dem ind i PAC Uniten
     AllPACUnits[UnitID-1].Parent = ObjFromAttrib('PACID', UnitID, AllParents) #UnitID i den her funktion er det samme som PACID attrib i PACUnit
     AllPACUnits[UnitID-1].Action = ObjFromAttrib('PACID', UnitID, AllActions)
-    AllPACUnits[UnitID-1].Children = ObjFromAttrib('PACID', UnitID, AllChildren)
+    AllPACUnits[UnitID-1].Children = ObjFromAttrib('PACID', UnitID, AllChildren)# test
+    #AllPACUnits[UnitID - 1].Children.append(ObjFromAttrib('PACID', UnitID, AllChildren))
 
 """
     Extra commands (ignore!)

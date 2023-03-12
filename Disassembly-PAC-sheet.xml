@@ -10,7 +10,7 @@
   <Author>Thorvald Alrø Martiny</Author>
   <LastAuthor>Christian Møller</LastAuthor>
   <Created>2015-06-05T18:19:34Z</Created>
-  <LastSaved>2023-02-22T13:58:22Z</LastSaved>
+  <LastSaved>2023-03-09T15:25:01Z</LastSaved>
   <Version>16.00</Version>
  </DocumentProperties>
  <CustomDocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
@@ -21,10 +21,10 @@
   <AllowPNG/>
  </OfficeDocumentSettings>
  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>15840</WindowHeight>
-  <WindowWidth>29042</WindowWidth>
-  <WindowTopX>32767</WindowTopX>
-  <WindowTopY>32767</WindowTopY>
+  <WindowHeight>11387</WindowHeight>
+  <WindowWidth>24081</WindowWidth>
+  <WindowTopX>1839</WindowTopX>
+  <WindowTopY>2130</WindowTopY>
   <ProtectStructure>False</ProtectStructure>
   <ProtectWindows>False</ProtectWindows>
  </ExcelWorkbook>
@@ -314,7 +314,7 @@
   </Style>
  </Styles>
  <Worksheet ss:Name="Ark1">
-  <Table ss:ExpandedColumnCount="17" ss:ExpandedRowCount="74" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="17" ss:ExpandedRowCount="93" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s67" ss:DefaultColumnWidth="49.613445378151262"
    ss:DefaultRowHeight="14.974789915966387">
    <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="82.285714285714278"/>
@@ -802,7 +802,7 @@
     <Cell ss:Index="9"><Data ss:Type="String">13C2-12C4</Data></Cell>
     <Cell><Data ss:Type="String">Cable w/o plastic cap</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
-    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">tmep</Data></Cell>
    </Row>
    <Row ss:Height="29.042016806722689" ss:StyleID="s82">
     <Cell><Data ss:Type="String">14P1-13C2</Data></Cell>
@@ -839,6 +839,96 @@
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="String">Reuse</Data></Cell>
    </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">15P1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">Test</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">15A1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">U8</Data></Cell>
+    <Cell><Data ss:Type="String">unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Crosshead</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="9"><Data ss:Type="String">15C1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">Cable</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">16P1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">Test</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">16A1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">U8</Data></Cell>
+    <Cell><Data ss:Type="String">unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Crosshead</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="9"><Data ss:Type="String">16C1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">Cable</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">reuse</Data></Cell>
+   </Row>
+   <Row ss:Index="83" ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">17P1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">Test</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">17A1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">U8</Data></Cell>
+    <Cell><Data ss:Type="String">unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Crosshead</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="9"><Data ss:Type="String">17C1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">Cable</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">reuse</Data></Cell>
+   </Row>
+   <Row ss:Index="88" ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">18P1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">Test</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">18A1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">U8</Data></Cell>
+    <Cell><Data ss:Type="String">unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Crosshead</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="9"><Data ss:Type="String">18C1-8C1</Data></Cell>
+    <Cell><Data ss:Type="String">Cable</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">19P1-15C1</Data></Cell>
+    <Cell><Data ss:Type="String">Test</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">19A1-15C1</Data></Cell>
+    <Cell><Data ss:Type="String">U8</Data></Cell>
+    <Cell><Data ss:Type="String">unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Crosshead</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="9"><Data ss:Type="String">19C1-15C1</Data></Cell>
+    <Cell><Data ss:Type="String">Cable</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">reuse</Data></Cell>
+   </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
    <PageSetup>
@@ -854,11 +944,10 @@
     <VerticalResolution>600</VerticalResolution>
    </Print>
    <Selected/>
-   <LeftColumnVisible>4</LeftColumnVisible>
    <FreezePanes/>
    <FrozenNoSplit/>
    <SplitHorizontal>1</SplitHorizontal>
-   <TopRowBottomPane>59</TopRowBottomPane>
+   <TopRowBottomPane>13</TopRowBottomPane>
    <ActivePane>2</ActivePane>
    <Panes>
     <Pane>
@@ -866,8 +955,8 @@
     </Pane>
     <Pane>
      <Number>2</Number>
-     <ActiveRow>76</ActiveRow>
-     <ActiveCol>11</ActiveCol>
+     <ActiveRow>94</ActiveRow>
+     <RangeSelection>R95C1:R99C12</RangeSelection>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>

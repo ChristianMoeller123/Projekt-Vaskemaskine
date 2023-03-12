@@ -33,6 +33,7 @@ class Action:
         self.Tool = Tool #Tool needed to perform action
         self.PACID = self.extract_PACID()
         self.pos = ()
+        self.DEI = 1
 
     def extract_PACID(self):
         PACindex = len(self.ID)
@@ -90,11 +91,16 @@ class PACUnit:
             s = stack.pop()
             pac = getattr(s, PAC)
             if PAC == 'Children': #If the desired attribute is in the list of children, then iterate over children
-                for child in pac:
-                    if getattr(child, attrib) == val:
-                        return child #Returns the child
+                if isinstance(pac, list): #If it's a list, then iterate the list
+                    for child in pac:
+                        if getattr(child, attrib) == val:
+                            return child, path  # Returns the child and the path as a tuple
+                else: #If its not, just check the child object
+                    if getattr(pac, attrib) == val:
+                        return pac, path
+
             elif getattr(pac, attrib) == val: #Otherwise just return if the desired value is in the P/A
-                return pac  # Returns the Parent/action
+                return pac, path  # Returns the Parent/action and path as a tuple
             if s not in path:
                 path.append(s)
             elif s in path:

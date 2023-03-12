@@ -23,8 +23,8 @@ with open('objects.pickle', 'rb') as f:
     AllDisassemblies = x['Disassemblies']
     AllPACUnits = x['PACUnits']
 
-#Draw square function. Input: P/A/C obj, center pos
-#Output: Square element
+# Draw square function. Input: P/A/C obj, center pos
+# Output: Square element
     sizeX = 150
     sizeY = 60
 def drawSquare(posx, posy, obj):
@@ -49,24 +49,44 @@ def drawLine(cposL, cposR):
     # draws a line from one element to another
     #cposL is the position coordinates of L as cposL = (x, y)
     graph.draw_line((cposL[0] + sizeX/2, cposL[1]), (cposR[0] - sizeX/2, cposR[1]))
-#Initial distances between elements
+# Initial distances between elements
 xSpace = 200
 ySpace = 90
-maxChildren = 8 #An assumption of maximum allowable children in each PAC unit
+unitSpace = 3.5*xSpace
+maxChildren = 1
+#Finds the maximum children in the PAC tree.
+for unit in AllPACUnits:
+    if isinstance(unit.Children, list):
+        if len(unit.Children) > maxChildren:
+            maxChildren = len(unit.Children)
+
 # Define the graph layout
 canvX = 750*len(AllPACUnits)
 
-maxHeight = 0
 
-#TO DO: Find new function to find max height!
-for Unit in AllPACUnits:
-    if len(Unit.TreeChildren)/2 > maxHeight:
-        maxHeight = len(Unit.TreeChildren)/2
-canvY = 3*maxChildren*ySpace
+# Function to find max height!
+def largestLayer(layer, maxBreadth):
+    nextLayer = []
+    for i in range(len(layer)):  # Draw all PACUnits in same layer
+        # Update number of units in next layer
+        if len(layer[i].TreeChildren) != 0:
+            for k in range(len(layer[i].TreeChildren)):
+                nextLayer.append(layer[i].TreeChildren[k])  # Appends one unit at a time to get good list of next layer
+    # Update largest layer:
+    if len(layer) > maxBreadth:
+        maxBreadth = len(layer)
+
+    if nextLayer:  # Recursive call with the next layer, if it exists
+        maxBreadth = largestLayer(nextLayer, maxBreadth)
+    elif nextLayer == 0:  # Otherwise stop
+        return maxBreadth
+    return maxBreadth
+maxBreadth = largestLayer([AllPACUnits[0]], 0)
+canvY = (maxBreadth+1)*maxChildren*ySpace
 graph_layout = [
     [sg.Graph(
         canvas_size=(canvX, canvY),
-        graph_bottom_left=(0, -canvY/2),
+        graph_bottom_left=(0, math.floor(-canvY/2)),
         graph_top_right=(canvX, canvY/2),
         background_color="white",
         key="-GRAPH-",
@@ -81,7 +101,7 @@ layout = [
 ]
 
 # Create the PySimpleGUI window
-window = sg.Window("Graph Window", layout, finalize=True)
+window = sg.Window("Graph Window", layout, finalize=True, resizable=True)
 
 
 graph = window["-GRAPH-"]
@@ -91,7 +111,6 @@ def drawTree(layer, posX):
     nextLayer = []
     for i in range(len(layer)): #Draw all PACUnits in same layer
         posY = ((math.floor(len(layer)/2))-i)*maxChildren*ySpace
-        #Draw line from previous child
 
         #Draw Parent
         drawSquare(posX, posY, layer[i].Parent)
@@ -100,9 +119,10 @@ def drawTree(layer, posX):
         drawSquare(posX + xSpace, posY, layer[i].Action)
         drawLine((posX, posY), (posX + xSpace, posY)) #Line from parent to action
         #Draw Children
-        for j in range(len(layer[i].Children)):
-            posYchild = posY + (math.floor(len(layer[i].Children)/2) - j)*ySpace
-            drawSquare(posX + 2*xSpace, posYchild, layer[i].Children[j])
+        children = layer[i].Children if isinstance(layer[i].Children, list) else [layer[i].Children]
+        for j in range(len(children)):
+            posYchild = posY + (math.floor(len(children)/2) - j)*ySpace
+            drawSquare(posX + 2*xSpace, posYchild, children[j])
             drawLine((posX + xSpace, posY), (posX + 2*xSpace, posYchild)) #Line from action to children
 
 
@@ -111,22 +131,33 @@ def drawTree(layer, posX):
             for k in range(len(layer[i].TreeChildren)):
                 nextLayer.append(layer[i].TreeChildren[k]) #Appends one unit at a time to get good list of next layer
 
-    posX = posX + 3.5*xSpace
+    posX = posX + unitSpace
+
     if nextLayer:#Recursive call with the next layer, if it exists
         drawTree(nextLayer, posX)
     elif nextLayer == 0: #Otherwise stop
         return
+    return
 #Starting position:
 posX = 75
 drawTree([AllPACUnits[0]], posX) #Draw the tree from the root
 
 #Draw lines between pac units
 #This is done by comparing all children IDs with all Parent IDs, if any matches, a line is drawn between them
+#If there only is one child in the PAC unit, then it does not iterate over all children, and if it's a list,
+#It iterates over all of them.
+
+#FIX HOW THE LINES ARE DRAWN?
 for unit in AllPACUnits:
-    for child in unit.Children:
+    if isinstance(unit.Children, list): #If there are more than 1 child in the PAC unit
+        for child in unit.Children:
+            for root in unit.TreeChildren:
+                if child.ID[:child.ID.index('-')] == root.Parent.ID[root.Parent.ID.index('-') + 1:]:
+                    drawLine(child.pos, root.Parent.pos)
+    else: #If there is only 1 child in the PAC unit
         for root in unit.TreeChildren:
-            if child.ID[:child.ID.index('-')] == root.Parent.ID[root.Parent.ID.index('-')+1:]:
-                drawLine(child.pos, root.Parent.pos)
+            if unit.Children.ID[:unit.Children.ID.index('-')] == root.Parent.ID[root.Parent.ID.index('-')+1:]:
+                drawLine(unit.Children.pos, root.Parent.pos)
 """
 graph.draw_image(filename = 'img1.png', location = ((150,0)))
 graph.draw_image(filename = 'img2.png', location = ((450,0)))
@@ -142,16 +173,22 @@ while True:
             for j in range(y-math.floor(sizeY/2), y+math.floor(sizeY/2)):
                 elem = AllPACUnits[0].DFSNonRecursive('Children', 'pos', (i, j)) #Find obj at location
                 if elem: #If an object at the click position is found:
-                    if elem.imgDisp: #Delete image if image already exists
-                        graph.DeleteFigure(elem.img)
-                        elem.imgDisp = False
+                    if elem[0].imgDisp: #Delete image if image already exists
+                        graph.DeleteFigure(elem[0].img)
+                        elem[0].imgDisp = False
                     else: #Else draw
-                        elem.img = graph.draw_image(filename=elem.imgFile, location=(x, y))  # Draw image at location
-                        elem.imgDisp = True
+                        elem[0].img = graph.draw_image(filename=elem[0].imgFile, location=(x, y))  # Draw image at location
+                        elem[0].imgDisp = True
     #HVIS KLIKKET IKKE ER KORT NOK, SKER DER FEJL!
     # Exit the program if the window is closed
     if event == sg.WINDOW_CLOSED:
         break
+#Loop elements, compare cpos with +- space of click. Give every element a +- space attribute
+
+#Function to find DEI for a given path:
+#elem, path = AllPACUnits[0].DFSNonRecursive('Action', 'ID', '#A#-#C#')
+# slet alt i path op til leaf nodes
+# Summér DEIs i path
 """        
 maybe add this to determine when mouse button is released?
 while not event.endswith('+UP'):
