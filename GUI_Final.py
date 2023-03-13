@@ -43,12 +43,14 @@ def drawSquare(posx, posy, obj):
     graph.draw_text(obj.ID, (posx, posy))
     obj.pos = (posx, posy)
 
+
 def drawLine(cposL, cposR):
     # draws a line from one element to another
     # cposL is the position coordinates of L as cposL = (x, y)
     graph.draw_line((cposL[0] + sizeX/2, cposL[1]), (cposR[0] - sizeX/2, cposR[1]))
 
-def drawDashedLine(start, end):
+# Dashed lines
+def drawDashedLine(start, end, col):
     # start = (startX, startY)
     # end = (endX, endY)
     # Calculate the distance between the start and end points
@@ -71,37 +73,43 @@ def drawDashedLine(start, end):
 
     # Draw the dashes on the graph
     for dash in dash_coords:
-        graph.draw_line((dash[0], dash[1]), (dash[2], dash[3]))
+        graph.draw_line((dash[0], dash[1]), (dash[2], dash[3]), color = col, width=2)
 
+# Draws "square" lines between PAC units
 def drawUnitLine(start, end, n):
-    turn = (int(unitSpace/3) - xSpace) + 20*n
-    drawDashedLine(start, (start[0] + turn, start[1]))
-    drawDashedLine((start[0] + turn, start[1]), (start[0] + turn, end[1]))
-    drawDashedLine((start[0] + turn, end[1]), end)
+    colorlist = ['black', 'orange', 'magenta', 'green', 'brown']
+    turn = (int(unitSpace/3) - xSpace) + n*20
+    drawDashedLine(start, (start[0] + turn, start[1]), colorlist[n])
+    drawDashedLine((start[0] + turn, start[1]), (start[0] + turn, end[1]), colorlist[n])
+    drawDashedLine((start[0] + turn, end[1]), end, colorlist[n])
+# Color code lines for each layer
 
 # Function to find DEI for a given path:
 def pathDEI(ID):
     elem, path = AllPACUnits[0].DFSNonRecursive('Action', 'ID', ID)
     pathDEI = 0
-    leafNodeIndices = []
-    # Delete elements not in the direct path to the desired action
-    for i in range(len(path)):
-        if not path[i].TreeChildren: # If it's a leaf node
-            leafNodeIndices.append(path.index(path[i]))
-    for leaf in leafNodeIndices: # Go back and delete
-        j = 0
-        # While there are no tree children or only 1
-        while path[leaf-j] and len(path[leaf - j].TreeChildren) < 2:
-            path[leaf - j] = 0
-            j = j + 1
+    # Reconstruct the path from the element to the root node. There is only one way from element to root!
+    pathReconstruct = []
+
+    # First PAC unit is appended
+    for unit in AllPACUnits:
+        if unit.Action == elem:
+            pathReconstruct.append(unit)
+            break
+    # Finding the rest of PAC units until at root node
+    while pathReconstruct[-1] != AllPACUnits[0]:
+        for unit in AllPACUnits:
+            if pathReconstruct[-1] in unit.TreeChildren:
+                pathReconstruct.append(unit)
 
     # sum DEIs in path
-    for unit in path:
+    for unit in pathReconstruct:
          if unit:
              pathDEI = pathDEI + unit.Action.DEI
-    pathDEI = pathDEI + elem.DEI
     return pathDEI
 
+
+# Define the graph layout
 
 # Initial distances between elements
 xSpace = 200
@@ -114,8 +122,8 @@ for unit in AllPACUnits:
         if len(unit.Children) > maxChildren:
             maxChildren = len(unit.Children)
 
-# Define the graph layout
-canvX = 750*len(AllPACUnits)
+
+canvX = (3*xSpace+sizeX)*len(AllPACUnits)
 
 
 # Function to find max height
@@ -162,7 +170,9 @@ window = sg.Window("Graph Window", layout, finalize=True, resizable=True)
 
 graph = window["-GRAPH-"]
 
-# Add the tree from the AllPACUnits list
+
+
+# Add the tree from the AllPACUnits list to the graph
 def drawTree(layer, posX):
     nextLayer = []
     for i in range(len(layer)):  # Draw all PACUnits in same layer
@@ -211,26 +221,25 @@ def drawTree(layer, posX):
 posX = 100
 drawTree([AllPACUnits[0]], posX)  # Draw the tree from the root
 
+
 # Draw lines between pac units
 # This is done by comparing all children IDs with all Parent IDs, if any matches, a line is drawn between them
 # If there only is one child in the PAC unit, then it does not iterate over all children, and if it's a list,
 # It iterates over all of them.
-
-# FIX HOW THE LINES ARE DRAWN?
 for unit in AllPACUnits:
     if isinstance(unit.Children, list):  # If there are more than 1 child in the PAC unit
         for child in unit.Children:
             for root in unit.TreeChildren:
                 if child.ID[:child.ID.index('-')] == root.Parent.ID[root.Parent.ID.index('-') + 1:]:
-                    drawUnitLine((child.pos[0] + sizeX/2, child.pos[1]), (root.Parent.pos[0] - sizeX/2, root.Parent.pos[1]), child.numRoots)
-                    child.numRoots = child.numRoots + 1
+                    drawUnitLine((child.pos[0] + sizeX/2, child.pos[1]), (root.Parent.pos[0] - sizeX/2, root.Parent.pos[1]), unit.RootsDrawn)
+                    unit.RootsDrawn = unit.RootsDrawn + 1
                     # print('from '+str(child.PACID) +' to ' +str(root.Parent.PACID))
     else:  # If there is only 1 child in the PAC unit
         for root in unit.TreeChildren:
             if unit.Children.ID[:unit.Children.ID.index('-')] == root.Parent.ID[root.Parent.ID.index('-')+1:]:
                 # draw a line from the right side of child element to the left side of parent element
-                drawUnitLine((unit.Children.pos[0] + sizeX/2, unit.Children.pos[1]), (root.Parent.pos[0] - sizeX/2, root.Parent.pos[1]), unit.Children.numRoots)
-                unit.Children.numRoots = unit.Children.numRoots + 1
+                drawUnitLine((unit.Children.pos[0] + sizeX/2, unit.Children.pos[1]), (root.Parent.pos[0] - sizeX/2, root.Parent.pos[1]), unit.RootsDrawn)
+                unit.RootsDrawn = unit.RootsDrawn + 1
                 # print('from ' + str(unit.Children.PACID) + ' to ' + str(root.Parent.PACID))
 """
 graph.draw_image(filename = 'img1.png', location = ((150,0)))
@@ -247,7 +256,7 @@ print('pathDEI to 10A1-9C4 is supposed to be 9, and is: '+str(pathDEI('10A1-9C4'
 # Run the event loop
 while True:
     event, values = window.read()
-    if event == "-GRAPH-":  # If a click happens
+    if event.endswith('+UP'):  # If a click happens
         x, y = values["-GRAPH-"]  # Record the location
         for i in range(x-math.floor(sizeX/2), x+math.floor(sizeX/2)):  # Check if the mouse was in ANY rectangle (this is stupid)
             for j in range(y-math.floor(sizeY/2), y+math.floor(sizeY/2)):
@@ -263,8 +272,8 @@ while True:
     # Exit the program if the window is closed
     if event == sg.WINDOW_CLOSED:
         break
-# Loop elements, compare cpos with +- space of click. Give every element a +- space attribute
-
+# Loop elements, compare cpos with +- space of click x and y. Give every element a +- space attribute
+# Don't have to store the +- in elements, you can do it from cpos
 
 """        
 maybe add this to determine when mouse button is released?

@@ -53,7 +53,6 @@ class Child:
         self.imgDisp = False
         self.imgFile = ''
         self.img = ''
-        self.numRoots = 0
 
     def extract_PACID(self):
         PACindex = len(self.ID)
@@ -78,6 +77,7 @@ class PACUnit:
         self.Action = Action
         self.TreeChildren = []  # Empty tree children list
         self.Name = '[Insert very intelligent name for the PAC unit here, so Giovanni will be proud]'
+        self.RootsDrawn = 0
 
     def addTreeChildren(self, obj):  # Function to add children
         self.TreeChildren.append(obj)
