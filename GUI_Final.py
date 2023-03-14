@@ -178,7 +178,7 @@ def make_winP(obj):
                          ['Description', obj.Desc]],
                          ['Attribute', 'Value'], num_rows=2)],
               [sg.Button('Add DF'), sg.Button('Exit')]]
-    return sg.Window('Parent Window', layout, finalize=True)
+    return sg.Window('Parent '+obj.ID, layout, finalize=True, resizable=True)
 def make_winA(obj):
     layout = [
               [sg.Table([['ID', obj.ID],
@@ -191,7 +191,7 @@ def make_winA(obj):
                          ['Path DEI to Action', pathDEI(obj.ID)]],
                         ['Attribute', 'Value'], num_rows=8)],
               [sg.Button('Add DF'), sg.Button('Exit')]]
-    return sg.Window('Action Window', layout, finalize=True)
+    return sg.Window('Action '+obj.ID, layout, finalize=True, resizable=True)
 def make_winC(obj):
     layout = [[sg.Table([['ID', obj.ID],
                          ['Description', obj.Desc],
@@ -201,7 +201,7 @@ def make_winC(obj):
               [sg.Button('Add DF'), sg.Button('Exit')],
               [sg.Text('Graphical display of Child')],
               [sg.Image(obj.imgFile, size=(400, 400))]]
-    return sg.Window('Child Window', layout, finalize=True)
+    return sg.Window('Child '+obj.ID, layout, finalize=True, resizable=True)
 
 # start off with main window open only
 window1, windowP, windowA, windowC = make_win1(), None, None, None
