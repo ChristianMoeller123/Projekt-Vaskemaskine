@@ -41,8 +41,9 @@ def ObjFromAttrib(attribute, value, obj_list): #finds all objects with a macthin
 
 # XML data handling
 # Load the XML file
-tree = ET.parse('Disassembly-PAC-sheet-bosch.xml')
-
+#tree = ET.parse('Disassembly-PAC-sheet-bosch.xml')
+#tree = ET.parse('Disassembly-PAC-sheet-gorenje-1.xml')
+tree = ET.parse('Disassembly-PAC-sheet.xml')
 # Get the root element
 root = tree.getroot()
 
@@ -55,8 +56,16 @@ for i in range(len(rows)): #iterate over all rows
         cells[i].append(child.text) #Put all row data in a row in the list
 
 # Only keep the data values in the relevant cells, the rest is put in desc list
-desc = cells[0:4]
+
+
+desc = cells[0:5] #for Kettle
+del cells[0:5]
+
+'''
+
+desc = cells[0:4] #for bosch and gorenje?
 del cells[0:4]
+'''
 
 # Creating empty lists for P/A/C instances:   
 AllParents = []

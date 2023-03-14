@@ -173,30 +173,32 @@ def make_win1():
     ]
     return sg.Window("Graph Window", layout, finalize=True, resizable=True)
 def make_winP(obj):
-    layout = [[sg.Text('Parent: '+obj.ID)],
+    layout = [[sg.Text('Parent element with ID: '+obj.ID)],
               [sg.Text('Description: ' + obj.Desc)],
               [sg.Button('Add DF'), sg.Button('Exit')]]
     return sg.Window('Parent Window', layout, finalize=True)
 def make_winA(obj):
-    layout = [[sg.Text('Action: '+obj.ID)],
+    layout = [[sg.Text('Action element with ID: '+obj.ID)],
               [sg.Text('ActionID: ' + obj.ActionID)],
               [sg.Text('Description: ' + obj.Desc)],
               [sg.Text('Detailed description: ' + obj.DescDetail)],
               [sg.Text('Number of times repeated: ' + obj.Times)],
               [sg.Text('Tool: ' + obj.Tool)],
-              [sg.Text('DEI: ' + str(obj.DEI))],
+              [sg.Text('DEI for Action: ' + str(obj.DEI))],
+              [sg.Text('Path DEI to Action: '+str(pathDEI(obj.ID)))],
               [sg.Button('Add DF'), sg.Button('Exit')]]
     return sg.Window('Action Window', layout, finalize=True)
 def make_winC(obj):
-    layout = [[sg.Text('Child: '+obj.ID)],
+    layout = [[sg.Text('Child element with ID: '+obj.ID)],
               [sg.Text('Description: ' + obj.Desc + ' Amount: ' + str(obj.Number))],
               [sg.Text('End of Life: ' + obj.EoL)],
               [sg.Button('Add DF'), sg.Button('Exit')],
               [sg.Text('Graphical display of Child')],
               [sg.Image(obj.imgFile, size=(400, 400))]]
     return sg.Window('Child Window', layout, finalize=True)
-window1, windowP, windowA, windowC = make_win1(), None, None, None        # start off with main window open only
 
+# start off with main window open only
+window1, windowP, windowA, windowC = make_win1(), None, None, None
 
 graph = window1["-GRAPH-"]
 
@@ -283,11 +285,12 @@ graph.draw_image(filename = 'img4.png', location = ((1050,0)))
 #print('pathDEI to 2A1-1C1 is supposed to be 2, and is: '+str(pathDEI('2A1-1C1')))
 #print('pathDEI to 10A1-9C4 is supposed to be 9, and is: '+str(pathDEI('10A1-9C4')))
 
-# Run the event loop
+# --- Run the event loop ---
 while True:
     window, event, values = sg.read_all_windows()
-    # Exit the program if the window is closed
+    # Exit the program or close windows
     if event == sg.WIN_CLOSED or event == 'Exit':
+        # WIN_CLOSED Doesn't work for window1
         window.close()
         if window == windowP:  # if closing win 2, mark as closed
             windowP = None
