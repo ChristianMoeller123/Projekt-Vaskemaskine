@@ -173,25 +173,31 @@ def make_win1():
     ]
     return sg.Window("Graph Window", layout, finalize=True, resizable=True)
 def make_winP(obj):
-    layout = [[sg.Text('Parent element with ID: '+obj.ID)],
-              [sg.Text('Description: ' + obj.Desc)],
+    layout = [
+              [sg.Table([['ID', obj.ID],
+                         ['Description', obj.Desc]],
+                         ['Attribute', 'Value'], num_rows=2)],
               [sg.Button('Add DF'), sg.Button('Exit')]]
     return sg.Window('Parent Window', layout, finalize=True)
 def make_winA(obj):
-    layout = [[sg.Text('Action element with ID: '+obj.ID)],
-              [sg.Text('ActionID: ' + obj.ActionID)],
-              [sg.Text('Description: ' + obj.Desc)],
-              [sg.Text('Detailed description: ' + obj.DescDetail)],
-              [sg.Text('Number of times repeated: ' + obj.Times)],
-              [sg.Text('Tool: ' + obj.Tool)],
-              [sg.Text('DEI for Action: ' + str(obj.DEI))],
-              [sg.Text('Path DEI to Action: '+str(pathDEI(obj.ID)))],
+    layout = [
+              [sg.Table([['ID', obj.ID],
+                         ['ActionID', obj.ActionID],
+                         ['Description', obj.Desc],
+                         ['Detailed description', obj.DescDetail],
+                         ['Number of times repeated', obj.Times],
+                         ['Tool', obj.Tool],
+                         ['DEI for Action', obj.DEI],
+                         ['Path DEI to Action', pathDEI(obj.ID)]],
+                        ['Attribute', 'Value'], num_rows=8)],
               [sg.Button('Add DF'), sg.Button('Exit')]]
     return sg.Window('Action Window', layout, finalize=True)
 def make_winC(obj):
-    layout = [[sg.Text('Child element with ID: '+obj.ID)],
-              [sg.Text('Description: ' + obj.Desc + ' Amount: ' + str(obj.Number))],
-              [sg.Text('End of Life: ' + obj.EoL)],
+    layout = [[sg.Table([['ID', obj.ID],
+                         ['Description', obj.Desc],
+                         ['Amount', obj.Number],
+                         ['End of Life', obj.EoL]],
+                        ['Attribute', 'Value'], num_rows=8)],
               [sg.Button('Add DF'), sg.Button('Exit')],
               [sg.Text('Graphical display of Child')],
               [sg.Image(obj.imgFile, size=(400, 400))]]
@@ -333,6 +339,8 @@ Old method to display images
                                                            location=(x, y))  # Draw image at location
                             child.imgDisp = True
 '''
+
+#Change colors of PAC model as options?
 
 # Close the PySimpleGUI window
 window1.close()
