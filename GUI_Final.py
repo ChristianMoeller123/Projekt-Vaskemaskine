@@ -18,6 +18,8 @@ with open('objects.pickle', 'rb') as f:
     AllDisassemblies = x['Disassemblies']
     AllPACUnits = x['PACUnits']
 
+# --- Define functions ---
+
 # Element size of the squares in PAC model
     sizeX = 150
     sizeY = 60
@@ -109,7 +111,7 @@ def pathDEI(ID):
     return pathDEI
 
 
-# Define the graph layout
+# # --- Define the graph layout ---
 
 # Initial distances between elements
 xSpace = 200
@@ -147,30 +149,58 @@ def largestLayer(layer, maxBreadth):
 maxBreadth = largestLayer([AllPACUnits[0]], 0)
 canvY = (maxBreadth+1)*maxChildren*ySpace
 
-graph_layout = [
-    [sg.Graph(
-        canvas_size=(canvX, canvY),
-        graph_bottom_left=(0, math.floor(-canvY/2)),
-        graph_top_right=(canvX, canvY/2),
-        background_color="white",
-        key="-GRAPH-",
-        drag_submits=True,
-        enable_events=True
-    )]
-]
-
-# Define the PySimpleGUI layout
-layout = [
-    [sg.Column(graph_layout, scrollable=True, size=(1200, 800))]
-]
-
-# Create the PySimpleGUI window
-window = sg.Window("Graph Window", layout, finalize=True, resizable=True)
 
 
-graph = window["-GRAPH-"]
+# --- Create the PySimpleGUI windows ---
+
+def make_win1():
+    graph_layout = [
+        [sg.Graph(
+            canvas_size=(canvX, canvY),
+            graph_bottom_left=(0, math.floor(-canvY / 2)),
+            graph_top_right=(canvX, canvY / 2),
+            background_color="white",
+            key="-GRAPH-",
+            drag_submits=True,
+            enable_events=True
+        )]
+    ]
+
+    # Define the PySimpleGUI layout
+    layout = [
+        [sg.Button('Options'), sg.Button('Exit')],
+        [sg.Column(graph_layout, scrollable=True, size=(1200, 800))]
+    ]
+    return sg.Window("Graph Window", layout, finalize=True, resizable=True)
+def make_winP(obj):
+    layout = [[sg.Text('Parent: '+obj.ID)],
+              [sg.Text('Description: ' + obj.Desc)],
+              [sg.Button('Add DF'), sg.Button('Exit')]]
+    return sg.Window('Parent Window', layout, finalize=True)
+def make_winA(obj):
+    layout = [[sg.Text('Action: '+obj.ID)],
+              [sg.Text('ActionID: ' + obj.ActionID)],
+              [sg.Text('Description: ' + obj.Desc)],
+              [sg.Text('Detailed description: ' + obj.DescDetail)],
+              [sg.Text('Number of times repeated: ' + obj.Times)],
+              [sg.Text('Tool: ' + obj.Tool)],
+              [sg.Text('DEI: ' + str(obj.DEI))],
+              [sg.Button('Add DF'), sg.Button('Exit')]]
+    return sg.Window('Action Window', layout, finalize=True)
+def make_winC(obj):
+    layout = [[sg.Text('Child: '+obj.ID)],
+              [sg.Text('Description: ' + obj.Desc + ' Amount: ' + str(obj.Number))],
+              [sg.Text('End of Life: ' + obj.EoL)],
+              [sg.Button('Add DF'), sg.Button('Exit')],
+              [sg.Text('Graphical display of Child')],
+              [sg.Image(obj.imgFile, size=(400, 400))]]
+    return sg.Window('Child Window', layout, finalize=True)
+window1, windowP, windowA, windowC = make_win1(), None, None, None        # start off with main window open only
 
 
+graph = window1["-GRAPH-"]
+
+# --- DRAW THE PAC MODEL IN THE GRAPH ----
 
 # Add the tree from the AllPACUnits list to the graph
 def drawTree(layer, posX):
@@ -255,30 +285,51 @@ graph.draw_image(filename = 'img4.png', location = ((1050,0)))
 
 # Run the event loop
 while True:
-    event, values = window.read()
-    if event.endswith('+UP'):  # If a click happens
-        x, y = values["-GRAPH-"]  # Record the location
-        for i in range(x-math.floor(sizeX/2), x+math.floor(sizeX/2)):  # Check if the mouse was in ANY rectangle (this is stupid)
-            for j in range(y-math.floor(sizeY/2), y+math.floor(sizeY/2)):
-                elem = AllPACUnits[0].DFSNonRecursive('Children', 'pos', (i, j))  # Find obj at location
-                if elem:  # If an object at the click position is found:
-                    if elem[0].imgDisp:  # Delete image if image already exists
-                        graph.DeleteFigure(elem[0].img)
-                        elem[0].imgDisp = False
-                    else:  # Else draw
-                        elem[0].img = graph.draw_image(filename=elem[0].imgFile, location=(x, y))  # Draw image at location
-                        elem[0].imgDisp = True
-    # HVIS KLIKKET IKKE ER KORT NOK, SKER DER FEJL!
+    window, event, values = sg.read_all_windows()
     # Exit the program if the window is closed
-    if event == sg.WINDOW_CLOSED:
-        break
-# Loop elements, compare cpos with +- space of click x and y. Give every element a +- space attribute
-# Don't have to store the +- in elements, you can do it from cpos
+    if event == sg.WIN_CLOSED or event == 'Exit':
+        window.close()
+        if window == windowP:  # if closing win 2, mark as closed
+            windowP = None
+        elif window == windowA:  # if closing win 2, mark as closed
+            windowA = None
+        elif window == windowC:  # if closing win 2, mark as closed
+            windowC = None
+        elif window == window1:  # if closing win 1, exit program
+            break
 
-"""        
-maybe add this to determine when mouse button is released?
-while not event.endswith('+UP'):
-    pass
-"""
+    #  event, values = window1.read()
+    print(window.Title, event, values)
+    if window == window1 and event.endswith('+UP'):  # If a click happens
+        x, y = values["-GRAPH-"]  # Record the location
+        for unit in AllPACUnits:
+            if unit.Parent.pos[0] - sizeX / 2 <= x <= unit.Parent.pos[0] + sizeX / 2 and\
+                        unit.Parent.pos[1] - sizeY / 2 <= y <= unit.Parent.pos[1] + sizeY / 2:
+                #  Create Parent window
+                windowP = make_winP(unit.Parent)
+            elif unit.Action.pos[0] - sizeX / 2 <= x <= unit.Action.pos[0] + sizeX / 2 and\
+                        unit.Action.pos[1] - sizeY / 2 <= y <= unit.Action.pos[1] + sizeY / 2:
+                windowA = make_winA(unit.Action)
+            elif isinstance(unit.Children, list):  # If there are more than 1 child in the PAC unit
+                for child in unit.Children:
+                    if child.pos[0] - sizeX / 2 <= x <= child.pos[0] + sizeX / 2 and\
+                        child.pos[1] - sizeY / 2 <= y <= child.pos[1] + sizeY / 2:
+                        #  Create child window
+                        windowC = make_winC(child)  # Open the information window
+            elif unit.Children.pos[0] - sizeX / 2 <= x <= unit.Children.pos[0] + sizeX / 2 and\
+                        unit.Children.pos[1] - sizeY / 2 <= y <= unit.Children.pos[1] + sizeY / 2:  # If there is only 1 child in the PAC unit
+                windowC = make_winC(unit.Children)  # Open the information window
+
+'''
+Old method to display images
+                        if child.imgDisp:  # Delete image if image already exists
+                            graph.DeleteFigure(child.img)
+                            child.imgDisp = False
+                        elif not child.imgDisp:  # Else draw
+                            child.img = graph.draw_image(filename=child.imgFile,
+                                                           location=(x, y))  # Draw image at location
+                            child.imgDisp = True
+'''
+
 # Close the PySimpleGUI window
-window.close()
+window1.close()
