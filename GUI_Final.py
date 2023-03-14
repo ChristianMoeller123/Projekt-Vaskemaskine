@@ -35,11 +35,11 @@ def drawSquare(posx, posy, obj):
     elif IDAsLetters[0] == 'A':
         graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),
                        (posx + sizeX/2, posy - sizeY/2)
-                       ,fill_color = 'gray', line_color = 'gray', line_width = 2)
+                       ,fill_color = 'teal', line_color = 'teal', line_width = 2)
     elif IDAsLetters[0] == 'C' or IDAsLetters[0] ==  'c':
         graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),
                        (posx + sizeX/2, posy - sizeY/2)
-                       ,fill_color = 'yellow', line_color = 'yellow', line_width = 2)
+                       ,fill_color = 'sky blue', line_color = 'sky blue', line_width = 2)
     graph.draw_text(obj.ID, (posx, posy))
     obj.pos = (posx, posy)
 
@@ -59,7 +59,7 @@ def drawDashedLine(start, end, col):
     distance = (dx ** 2 + dy ** 2) ** 0.5
 
     # Calculate the number of dashes needed to cover the distance
-    dash_length = 5  # Length of each dash in pixels
+    dash_length = 10  # Length of each dash in pixels
     num_dashes = math.ceil(distance / dash_length / 2)
 
     # Calculate the coordinates of each dash
@@ -249,9 +249,9 @@ graph.draw_image(filename = 'img4.png', location = ((1050,0)))
 """
 
 # path DEI test
-print('pathDEI to 14A1-13C2 is supposed to be 4, and is: '+str(pathDEI('14A1-13C2')))
-print('pathDEI to 2A1-1C1 is supposed to be 2, and is: '+str(pathDEI('2A1-1C1')))
-print('pathDEI to 10A1-9C4 is supposed to be 9, and is: '+str(pathDEI('10A1-9C4')))
+#print('pathDEI to 14A1-13C2 is supposed to be 4, and is: '+str(pathDEI('14A1-13C2')))
+#print('pathDEI to 2A1-1C1 is supposed to be 2, and is: '+str(pathDEI('2A1-1C1')))
+#print('pathDEI to 10A1-9C4 is supposed to be 9, and is: '+str(pathDEI('10A1-9C4')))
 
 # Run the event loop
 while True:

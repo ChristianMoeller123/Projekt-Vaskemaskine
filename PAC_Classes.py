@@ -74,7 +74,7 @@ class PACUnit:
         self.PACID = PACID
         self.Parent = Parent
         self.Children = []
-        self.Action = Action
+        self.Action = Action #action til liste?
         self.TreeChildren = []  # Empty tree children list
         self.Name = '[Insert very intelligent name for the PAC unit here, so Giovanni will be proud]'
         self.RootsDrawn = 0
