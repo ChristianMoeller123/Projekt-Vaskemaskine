@@ -78,6 +78,7 @@ class PACUnit:
         self.TreeChildren = []  # Empty tree children list
         self.Name = '[Insert very intelligent name for the PAC unit here, so Giovanni will be proud]'
         self.RootsDrawn = 0
+        self.pos = ()
 
     def addTreeChildren(self, obj):  # Function to add children
         self.TreeChildren.append(obj)

@@ -20,13 +20,13 @@ And a tree structure is added to PACUnit instances.
 """
 # Importing libraries
 import xml.etree.ElementTree as ET #XML
-import re # Library for handling strings
-import pickle # object read/write
+import re  # Library for handling strings
+import pickle  # object read/write
 
-from PAC_Classes import Parent, Action, Child, Disassembly, PACUnit # Import PAC Classes
+from PAC_Classes import Parent, Action, Child, Disassembly, PACUnit  # Import PAC Classes
 
 
-def ObjFromAttrib(attribute, value, obj_list): #finds all objects with a macthing value in the obj list given
+def ObjFromAttrib(attribute, value, obj_list):  #  finds all objects with a macthing value in the obj list given
     matching_list = []
     for obj in obj_list:
         if getattr(obj, attribute) == value:

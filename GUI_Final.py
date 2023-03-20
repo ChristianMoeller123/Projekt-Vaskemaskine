@@ -86,6 +86,15 @@ def drawUnitLine(start, end, n):
     drawDashedLine((start[0] + turn, end[1]), end, colorlist[n])
 # Color code lines for each layer
 
+#  Function to draw unit elements in the tree graph
+def draw_unit(posX, posY, unit):
+    graphTree.draw_circle((posX, posY), 10)
+    graphTree.draw_text(str(unit.PACID), (posX,posY))
+
+#  Function to draw lines between tree elements
+def draw_unitLine(posXu, posYu, posXc, posYc):
+    graphTree.draw_line((posXu+10, posYu), (posXc-10, posYc))
+
 # Function to find DEI for a given path:
 def pathDEI(ID):
     elem, path = AllPACUnits[0].DFSNonRecursive('Action', 'ID', ID)
@@ -125,11 +134,8 @@ for unit in AllPACUnits:
             maxChildren = len(unit.Children)
 
 
-canvX = (3*xSpace+sizeX)*len(AllPACUnits)
-
-
-# Function to find max height
-def largestLayer(layer, maxBreadth):
+# Function to find max height and length
+def largestLayer(layer, maxBreadth, maxLength):
     nextLayer = []
     for i in range(len(layer)):  # Draw all PACUnits in same layer
         # Update number of units in next layer
@@ -141,16 +147,18 @@ def largestLayer(layer, maxBreadth):
         maxBreadth = len(layer)
 
     if nextLayer:  # Recursive call with the next layer, if it exists
-        maxBreadth = largestLayer(nextLayer, maxBreadth)
+        maxLength += 1
+        maxBreadth, maxLength = largestLayer(nextLayer, maxBreadth, maxLength)
     elif nextLayer == 0:  # Otherwise stop
-        return maxBreadth
-    return maxBreadth
+        return maxBreadth, maxLength
+    return maxBreadth, maxLength
 
-maxBreadth = largestLayer([AllPACUnits[0]], 0)
+maxBreadth, maxLength = largestLayer([AllPACUnits[0]], 0, 0)
 canvY = (maxBreadth+1)*maxChildren*ySpace
+canvX = (unitSpace)*(maxLength+1)
 
-
-
+canvYT = (maxBreadth+1)*40
+canvXT = (maxLength+1)*40
 # --- Create the PySimpleGUI windows ---
 
 def make_win1():
@@ -165,11 +173,22 @@ def make_win1():
             enable_events=True
         )]
     ]
+    graph_tree_layout = [
+        [sg.Graph(
+            canvas_size=(canvXT, canvYT),
+            graph_bottom_left=(0, math.floor(-canvYT / 2)),
+            graph_top_right=(canvXT, canvYT / 2),
+            background_color="white",
+            key="-GRAPH_TREE-",
+            drag_submits=True,
+            enable_events=True
+        )]
+    ]
 
     # Define the PySimpleGUI layout
     layout = [
         [sg.Button('Options'), sg.Button('Exit')],
-        [sg.Column(graph_layout, scrollable=True, size=(1200, 800))]
+        [sg.Column(graph_layout, scrollable=True, size=(1200, 800)), sg.Column(graph_tree_layout, scrollable=True, size=(400,200))],
     ]
     return sg.Window("Graph Window", layout, finalize=True, resizable=True, use_custom_titlebar=True)
 def make_winP(obj):
@@ -202,11 +221,11 @@ def make_winC(obj):
               [sg.Text('Graphical display of Child')],
               [sg.Image(obj.imgFile, size=(400, 400))]]
     return sg.Window('Child '+obj.ID, layout, finalize=True, resizable=True)
-
 # start off with main window open only
 window1, windowP, windowA, windowC = make_win1(), None, None, None
 
 graph = window1["-GRAPH-"]
+graphTree = window1["-GRAPH_TREE-"]
 
 # --- DRAW THE PAC MODEL IN THE GRAPH ----
 
@@ -279,6 +298,38 @@ for unit in AllPACUnits:
                 drawUnitLine((unit.Children.pos[0] + sizeX/2, unit.Children.pos[1]), (root.Parent.pos[0] - sizeX/2, root.Parent.pos[1]), unit.RootsDrawn)
                 unit.RootsDrawn = unit.RootsDrawn + 1
                 # print('from ' + str(unit.Children.PACID) + ' to ' + str(root.Parent.PACID))
+
+#  --- DRAW THE GRAPH TREE ---
+ySpaceTree = 40
+xSpaceTree = 40
+def drawGraphTree(layer, posX):
+    nextLayer = []
+    for i in range(len(layer)):  # Draw all PACUnits in same layer
+        posY = ((math.floor(len(layer)/2))-i)*ySpaceTree
+
+        # Draw Parent
+        draw_unit(posX, posY, layer[i])
+        layer[i].pos = (posX, posY)
+
+
+        # Update number of units in next layer
+        if len(layer[i].TreeChildren) != 0:
+            for k in range(len(layer[i].TreeChildren)):
+                nextLayer.append(layer[i].TreeChildren[k]) # Appends one unit at a time to get good list of next layer
+
+    posX = posX + xSpaceTree
+
+    if nextLayer:  # Recursive call with the next layer, if it exists
+        drawGraphTree(nextLayer, posX)
+    elif nextLayer == 0:  # Otherwise stop
+        return
+    return
+# Starting position:
+drawGraphTree([AllPACUnits[0]], 10)  # Draw the tree from the root
+
+for unit in AllPACUnits:
+    for tree in unit.TreeChildren:
+        draw_unitLine(unit.pos[0], unit.pos[1], tree.pos[0], tree.pos[1])
 """
 graph.draw_image(filename = 'img1.png', location = ((150,0)))
 graph.draw_image(filename = 'img2.png', location = ((450,0)))
