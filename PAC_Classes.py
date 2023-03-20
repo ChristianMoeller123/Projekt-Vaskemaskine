@@ -62,13 +62,13 @@ class Child:
                 PACindex = index
         return int(self.ID[:PACindex])
 class Disassembly:
-    def __init__(self, ID): #DA is Disassembly action, which is the action needed to perform due to the DF
-        self.ID = ID
+    def __init__(self, DFID): #DA is Disassembly action, which is the action needed to perform due to the DF
+        self.ID = 'N/A'
         self.DFEffect = 'N/A' #DA effect on action
         self.DAType = 'N/A' #Destructive, semi-destructive or non destructive
         self.DATool = 'N/A' #Extra tool needed
         self.DType = 'N/A' #DF1, DF2 or DF3 with relation!
-        self.DFID = 'N/A' #Which Parent/Action/Child ID is connected to the DF
+        self.DFID = DFID #Which Parent/Action/Child ID is connected to the DF
 class PACUnit:
     def __init__(self, PACID):
         self.PACID = PACID

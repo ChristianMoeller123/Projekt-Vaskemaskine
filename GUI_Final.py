@@ -23,6 +23,9 @@ with open('objects.pickle', 'rb') as f:
     # Element size of the squares in PAC model
     sizeX = 150
     sizeY = 60
+
+colors = ['green', 'teal', 'sky blue', 'lime']
+
 def drawSquare(posx, posy, obj):
     # Draw square function. Input: P/A/C obj, center pos
     # Output: Square element
@@ -33,15 +36,19 @@ def drawSquare(posx, posy, obj):
     if IDAsLetters[0] == 'P':
         graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),
                              (posx + sizeX/2, posy - sizeY/2)
-                             ,fill_color = 'green', line_color = 'green', line_width = 2)
+                             ,fill_color = colors[0], line_color = colors[0], line_width = 2)
     elif IDAsLetters[0] == 'A':
         graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),
                              (posx + sizeX/2, posy - sizeY/2)
-                             ,fill_color = 'teal', line_color = 'teal', line_width = 2)
-    elif IDAsLetters[0] == 'C' or IDAsLetters[0] ==  'c':
+                             ,fill_color = colors[1], line_color = colors[1], line_width = 2)
+    elif IDAsLetters[0] == 'C':
         graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),
                              (posx + sizeX/2, posy - sizeY/2)
-                             ,fill_color = 'sky blue', line_color = 'sky blue', line_width = 2)
+                             ,fill_color = colors[2], line_color = colors[2], line_width = 2)
+    elif IDAsLetters[0] ==  'c': #  Fasteners
+        graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),
+                             (posx + sizeX/2, posy - sizeY/2)
+                             ,fill_color = colors[3], line_color = colors[3], line_width = 2)
     graph.draw_text(obj.ID, (posx, posy))
     obj.pos = (posx, posy)
 
@@ -136,7 +143,53 @@ def ObjFromAttrib(attribute, value, obj_list):  #  finds all objects with a mact
         return matching_list[0]
     return matching_list
 
+#  --- Find information about components and fasteners ---
+totalComponents = 0  #  Total components without fasteners
+Fasteners = [[0], [0]] # list of fasteners. Fasteners[0] = names, Fasteners[1] = amount
 
+for unit in AllPACUnits:
+    if isinstance(unit.Children, list):
+        for children in unit.Children:
+            IDAsLetters = " ".join(re.split("[^a-zA-Z]*", children.ID)).strip()
+            if IDAsLetters[0] == 'C':
+                totalComponents += int(children.Number)
+            elif IDAsLetters[0] == 'c':
+                #  Check if fastener already exists
+                if children.Desc in Fasteners[1]:
+                    #  Find the row where it is
+                    row = Fasteners[1].index(children.Desc)
+                    #  Add to amount
+                    Fasteners[0][row] += int(children.Number)
+                else: #  If it doesn't exist
+                    if not Fasteners[1][0]: #  If it's the first element
+                        Fasteners[1][0] = children.Desc
+                        Fasteners[0][0] = int(children.Number)
+                    else:  #  Otherwise just append
+                        Fasteners[1].append(children.Desc)
+                        Fasteners[0].append(int(children.Number))
+    else:
+        IDAsLetters = " ".join(re.split("[^a-zA-Z]*", unit.Children.ID)).strip()
+        if IDAsLetters[0] == 'C':
+            totalComponents += int(unit.Children.Number)
+        elif IDAsLetters[0] == 'c':
+            #  Check if fastener already exists
+            if unit.Children.Desc in Fasteners[1]:
+                #  Find the row where it is
+                row = Fasteners[1].index(unit.Children.Desc)
+                #  Add to amount
+                Fasteners[0][row] += int(unit.Children.Number)
+            else:
+                if not Fasteners[1][0]:  # If it's the first element
+                    Fasteners[1][0] = unit.Children.Desc
+                    Fasteners[0][0] = int(unit.Children.Number)
+                else:  # Otherwise just append
+                    Fasteners[1].append(unit.Children.Desc)
+                    Fasteners[0].append(int(unit.Children.Number))
+#  Make fasteners array compatible with the table element
+FastenersNew = []
+for i in range(len(Fasteners[1])):
+    FastenersNew.append([Fasteners[1][i], Fasteners[0][i]])
+Fasteners = FastenersNew
 
 # # --- Define the graph layout ---
 
@@ -172,7 +225,7 @@ def largestLayer(layer, maxBreadth, maxLength):
     return maxBreadth, maxLength
 
 maxBreadth, maxLength = largestLayer([AllPACUnits[0]], 0, 0)
-canvY = (maxBreadth+1)*maxChildren*ySpace
+canvY = (maxBreadth+1.5)*maxChildren*ySpace
 canvX = (unitSpace)*(maxLength+1)
 
 canvYT = (maxBreadth+1)*40
@@ -205,8 +258,15 @@ def make_win1():
 
     # Define the PySimpleGUI layout
     layout = [
-        [sg.Button('Options'), sg.Button('Exit')],
-        [sg.Column(graph_layout, scrollable=True, size=(1200, 800)), sg.Column(graph_tree_layout, scrollable=True, size=(400,200))],
+        [sg.Button('Options'), sg.Button('Exit'), sg.T('Total amount of components without fasteners: '+str(totalComponents))],
+        [sg.Column(graph_layout, scrollable=True, size=(800, 600)), [sg.Column(graph_tree_layout, scrollable=True, size=(400,200)),
+         sg.Table(values=Fasteners, headings=['Fastener', 'Amount'],
+                   auto_size_columns=True,
+                   display_row_numbers=True,
+                   justification='center',
+                   num_rows=len(Fasteners[1]),
+                   expand_x=False,
+                   expand_y=True,)]]
     ]
     return sg.Window("Graph Window", layout, finalize=True, resizable=True, use_custom_titlebar=True)
 def make_winP(obj):
@@ -231,7 +291,7 @@ def make_winC(obj):
     layout = [[sg.Text('Child element with ID: '+obj.ID)],
               [sg.Text('Description: ' + obj.Desc + ' Amount: ' + str(obj.Number))],
               [sg.Text('End of Life: ' + obj.EoL)],
-              [sg.Button('Add DF'), sg.Button('Exit')],
+              [sg.Button('Add DF'), sg.Button('Exit'), sg.Button('Add image')],
               [sg.Frame('DFs', [[sg.T('Information about DFs')]], key='-FRAME-')],
               [sg.Text('Graphical display of Child')],
               [sg.Image(obj.imgFile, size=(400, 400))]]
@@ -293,6 +353,22 @@ def drawTree(layer, posX):
 posX = 100
 drawTree([AllPACUnits[0]], posX)  # Draw the tree from the root
 
+#  Draw info squares
+if isinstance(AllPACUnits[0], list):
+    posYInfo = (len(AllPACUnits[0].Children) + 4) * ySpace
+else:
+    posYInfo = 4*ySpace
+graph.draw_rectangle((posX-sizeX/2, posYInfo + sizeY/2), (posX + sizeX/2, posYInfo - sizeY/2), fill_color = colors[0])
+graph.draw_text('Parent', (posX, posYInfo))
+
+graph.draw_rectangle(((posX+xSpace)-sizeX/2, posYInfo + sizeY/2), ((posX+xSpace) + sizeX/2, posYInfo - sizeY/2), fill_color = colors[1])
+graph.draw_text('Action', ((posX+xSpace), posYInfo))
+
+graph.draw_rectangle(((posX+2*xSpace)-sizeX/2, posYInfo + sizeY/2), ((posX+2*xSpace) + sizeX/2, posYInfo - sizeY/2), fill_color = colors[2])
+graph.draw_text('Component child', ((posX+2*xSpace), posYInfo))
+
+graph.draw_rectangle(((posX+(2*xSpace))-sizeX/2, posYInfo+ySpace + sizeY/2), ((posX+(2*xSpace)) + sizeX/2, posYInfo+ySpace - sizeY/2), fill_color = colors[3])
+graph.draw_text('Fastener child', ((posX+(2*xSpace), posYInfo+ySpace)))
 
 # Draw lines between pac units
 # This is done by comparing all children IDs with all Parent IDs, if any matches, a line is drawn between them
@@ -401,7 +477,6 @@ while True:
             windowC = None
         elif window == window1:  # if closing win 1, exit program
             break
-
     #  event, values = window1.read()
     print(window.Title, event, values)
     if window == window1 and event.endswith('+UP'):  # If a click happens
