@@ -95,6 +95,13 @@ def draw_unit(posX, posY, unit):
 def draw_unitLine(posXu, posYu, posXc, posYc):
     graphTree.draw_line((posXu+10, posYu), (posXc-10, posYc))
 
+
+#  Draw Disassembly square
+def drawDisassemblySquare(posx, posy):
+    graph.draw_rectangle((posx - (sizeX / 2 + 2), posy + (sizeY / 2 + 2)),
+                         (posx + (sizeX / 2 + 2), posy - (sizeY / 2 + 2))
+                         , line_color='red', line_width=2)
+
 # Function to find DEI for a given path:
 def pathDEI(ID):
     elem, path = AllPACUnits[0].DFSNonRecursive('Action', 'ID', ID)
@@ -118,6 +125,17 @@ def pathDEI(ID):
          if unit:
              pathDEI = pathDEI + unit.Action.DEI
     return pathDEI
+
+
+def ObjFromAttrib(attribute, value, obj_list):  #  finds all objects with a macthing value in the obj list given
+    matching_list = []
+    for obj in obj_list:
+        if getattr(obj, attribute) == value:
+            matching_list.append(obj)
+    if len(matching_list) == 1:
+        return matching_list[0]
+    return matching_list
+
 
 
 # # --- Define the graph layout ---
@@ -192,32 +210,29 @@ def make_win1():
     ]
     return sg.Window("Graph Window", layout, finalize=True, resizable=True, use_custom_titlebar=True)
 def make_winP(obj):
-    layout = [
-              [sg.Table([['ID', obj.ID],
-                         ['Description', obj.Desc]],
-                         ['Attribute', 'Value'], num_rows=2)],
+    layout = [[sg.Text('Parent element with ID: '+obj.ID)],
+              [sg.Text('Description: ' + obj.Desc)],
+              [sg.Frame('DFs', [[sg.T('Information about DFs')]], key='-FRAME-')],
               [sg.Button('Add DF'), sg.Button('Exit')]]
     return sg.Window('Parent '+obj.ID, layout, finalize=True, resizable=True)
 def make_winA(obj):
-    layout = [
-              [sg.Table([['ID', obj.ID],
-                         ['ActionID', obj.ActionID],
-                         ['Description', obj.Desc],
-                         ['Detailed description', obj.DescDetail],
-                         ['Number of times repeated', obj.Times],
-                         ['Tool', obj.Tool],
-                         ['DEI for Action', obj.DEI],
-                         ['Path DEI to Action', pathDEI(obj.ID)]],
-                        ['Attribute', 'Value'], num_rows=8)],
+    layout = [[sg.Text('Action element with ID: ' + obj.ID)],
+              [sg.Text('ActionID: ' + obj.ActionID)],
+              [sg.Text('Description: ' + obj.Desc)],
+              [sg.Text('Detailed description: ' + obj.DescDetail)],
+              [sg.Text('Number of times repeated: ' + obj.Times)],
+              [sg.Text('Tool: ' + obj.Tool)],
+              [sg.Text('DEI for Action: ' + str(obj.DEI))],
+              [sg.Text('Path DEI to Action: ' + str(pathDEI(obj.ID)))],
+              [sg.Frame('DFs',[[sg.T('Information about DFs')]], key='-FRAME-')],
               [sg.Button('Add DF'), sg.Button('Exit')]]
     return sg.Window('Action '+obj.ID, layout, finalize=True, resizable=True)
 def make_winC(obj):
-    layout = [[sg.Table([['ID', obj.ID],
-                         ['Description', obj.Desc],
-                         ['Amount', obj.Number],
-                         ['End of Life', obj.EoL]],
-                        ['Attribute', 'Value'], num_rows=8)],
+    layout = [[sg.Text('Child element with ID: '+obj.ID)],
+              [sg.Text('Description: ' + obj.Desc + ' Amount: ' + str(obj.Number))],
+              [sg.Text('End of Life: ' + obj.EoL)],
               [sg.Button('Add DF'), sg.Button('Exit')],
+              [sg.Frame('DFs', [[sg.T('Information about DFs')]], key='-FRAME-')],
               [sg.Text('Graphical display of Child')],
               [sg.Image(obj.imgFile, size=(400, 400))]]
     return sg.Window('Child '+obj.ID, layout, finalize=True, resizable=True)
@@ -324,9 +339,10 @@ def drawGraphTree(layer, posX):
     elif nextLayer == 0:  # Otherwise stop
         return
     return
-# Starting position:
+#  Draw the graph tree
 drawGraphTree([AllPACUnits[0]], 10)  # Draw the tree from the root
 
+#  Draw lines between elements
 for unit in AllPACUnits:
     for tree in unit.TreeChildren:
         draw_unitLine(unit.pos[0], unit.pos[1], tree.pos[0], tree.pos[1])
@@ -337,6 +353,34 @@ graph.draw_image(filename = 'img3.png', location = ((750,0)))
 graph.draw_image(filename = 'img4.png', location = ((1050,0)))
 """
 
+# ID DEFINITION:  PACUNIT D N/A - ELEMENT AFFECTED - ELEMENT ORIGIN
+
+#  DF Display
+for dis in AllDisassemblies:
+    IDorigin = dis.DFID #PROBLEM HER! Forskel mellem XML reader og initial GUI i DFID definition
+    IDAsLetters = " ".join(re.split("[^a-zA-Z]*", IDorigin)).strip()  # Keeps the letters, strip removes spaces
+    if IDAsLetters[0] == 'P':
+        Origin = AllPACUnits[0].DFSNonRecursive('Parent', 'ID', IDorigin)
+        drawDisassemblySquare(Origin[0].pos[0], Origin[0].pos[1])
+    if IDAsLetters[0] == 'A':
+        Origin = AllPACUnits[0].DFSNonRecursive('Action', 'ID', IDorigin)
+        drawDisassemblySquare(Origin[0].pos[0], Origin[0].pos[1])
+    if IDAsLetters[0] == 'C' or IDAsLetters[0] == 'c':
+        Origin = AllPACUnits[0].DFSNonRecursive('Children', 'ID', IDorigin)
+        drawDisassemblySquare(Origin[0].pos[0], Origin[0].pos[1])
+
+#  DF propagate
+
+#  DF create
+
+'''
+  --- DF PROBLEMS ---
+Propagation: when does it stop? If it does
+
+What if two children are welded together as a consequence of a DF?
+
+ID: number after D should be the number of DFs on current element, not type. Type is already implicit in ID (P/A/C)
+'''
 # path DEI test
 #print('pathDEI to 14A1-13C2 is supposed to be 4, and is: '+str(pathDEI('14A1-13C2')))
 #print('pathDEI to 2A1-1C1 is supposed to be 2, and is: '+str(pathDEI('2A1-1C1')))
@@ -367,18 +411,105 @@ while True:
                         unit.Parent.pos[1] - sizeY / 2 <= y <= unit.Parent.pos[1] + sizeY / 2:
                 #  Create Parent window
                 windowP = make_winP(unit.Parent)
+                #  Extend layout according to DFs
+                matching_list = ObjFromAttrib('DFID', unit.Parent.ID,
+                                              AllDisassemblies)  # DFID kommer ikke til at passe med initial GUI
+                if isinstance(matching_list, list):
+                    for dis in matching_list:
+                        window.extend_layout(windowP['-FRAME-'], [
+                            [sg.HSeparator()],
+                            [sg.T("DF ID: " + dis.ID)],
+                            [sg.T("DF effect: " + dis.DFEffect)],
+                            [sg.T("Disassembly Type: " + dis.DAType)],
+                            [sg.T("Disassembly Tool: " + dis.DATool)],
+                            [sg.T("DF Type: " + dis.DType)],
+                            [sg.T("Affected element: " + dis.DFID)]])
+                else:
+                    window.extend_layout(windowP['-FRAME-'], [
+                        [sg.HSeparator()],
+                        [sg.T("DF ID: " + matching_list.ID)],
+                        [sg.T("DF effect: " + matching_list.DFEffect)],
+                        [sg.T("Disassembly Type: " + matching_list.DAType)],
+                        [sg.T("Disassembly Tool: " + matching_list.DATool)],
+                        [sg.T("DF Type: " + matching_list.DType)],
+                        [sg.T("Affected element: " + matching_list.DFID)]])
             elif unit.Action.pos[0] - sizeX / 2 <= x <= unit.Action.pos[0] + sizeX / 2 and\
                         unit.Action.pos[1] - sizeY / 2 <= y <= unit.Action.pos[1] + sizeY / 2:
                 windowA = make_winA(unit.Action)
+                #  Extend layout according to DFs
+                matching_list = ObjFromAttrib('DFID', unit.Action.ID, AllDisassemblies) # DFID kommer ikke til at passe med initial GUI
+                if isinstance(matching_list, list):
+                    for dis in matching_list:
+                        window.extend_layout(windowA['-FRAME-'],[
+                        [sg.HSeparator()],
+                        [sg.T("DF ID: "+dis.ID)],
+                        [sg.T("DF effect: "+dis.DFEffect)],
+                        [sg.T("Disassembly Type: "+dis.DAType)],
+                        [sg.T("Disassembly Tool: "+dis.DATool)],
+                        [sg.T("DF Type: "+dis.DType)],
+                        [sg.T("Affected element: "+dis.DFID)]])
+                else:
+                    window.extend_layout(windowA['-FRAME-'], [
+                        [sg.HSeparator()],
+                        [sg.T("DF ID: " + matching_list.ID)],
+                        [sg.T("DF effect: " + matching_list.DFEffect)],
+                        [sg.T("Disassembly Type: " + matching_list.DAType)],
+                        [sg.T("Disassembly Tool: " + matching_list.DATool)],
+                        [sg.T("DF Type: " + matching_list.DType)],
+                        [sg.T("Affected element: " + matching_list.DFID)]])
             elif isinstance(unit.Children, list):  # If there are more than 1 child in the PAC unit
                 for child in unit.Children:
                     if child.pos[0] - sizeX / 2 <= x <= child.pos[0] + sizeX / 2 and\
                         child.pos[1] - sizeY / 2 <= y <= child.pos[1] + sizeY / 2:
                         #  Create child window
                         windowC = make_winC(child)  # Open the information window
+                        #  Extend layout according to DFs
+                        matching_list = ObjFromAttrib('DFID', child.ID,
+                                                      AllDisassemblies)  # DFID kommer ikke til at passe med initial GUI
+                        if isinstance(matching_list, list):
+                            for dis in matching_list:
+                                window.extend_layout(windowC['-FRAME-'], [
+                                    [sg.HSeparator()],
+                                    [sg.T("DF ID: " + dis.ID)],
+                                    [sg.T("DF effect: " + dis.DFEffect)],
+                                    [sg.T("Disassembly Type: " + dis.DAType)],
+                                    [sg.T("Disassembly Tool: " + dis.DATool)],
+                                    [sg.T("DF Type: " + dis.DType)],
+                                    [sg.T("Affected element: " + dis.DFID)]])
+                        else:
+                            window.extend_layout(windowC['-FRAME-'], [
+                                [sg.HSeparator()],
+                                [sg.T("DF ID: " + matching_list.ID)],
+                                [sg.T("DF effect: " + matching_list.DFEffect)],
+                                [sg.T("Disassembly Type: " + matching_list.DAType)],
+                                [sg.T("Disassembly Tool: " + matching_list.DATool)],
+                                [sg.T("DF Type: " + matching_list.DType)],
+                                [sg.T("Affected element: " + matching_list.DFID)]])
             elif unit.Children.pos[0] - sizeX / 2 <= x <= unit.Children.pos[0] + sizeX / 2 and\
                         unit.Children.pos[1] - sizeY / 2 <= y <= unit.Children.pos[1] + sizeY / 2:  # If there is only 1 child in the PAC unit
                 windowC = make_winC(unit.Children)  # Open the information window
+                #  Extend layout according to DFs
+                matching_list = ObjFromAttrib('DFID', unit.Children.ID,
+                                              AllDisassemblies)  # DFID kommer ikke til at passe med initial GUI
+                if isinstance(matching_list, list):
+                    for dis in matching_list:
+                        window.extend_layout(windowC['-FRAME-'], [
+                            [sg.HSeparator()],
+                            [sg.T("DF ID: " + dis.ID)],
+                            [sg.T("DF effect: " + dis.DFEffect)],
+                            [sg.T("Disassembly Type: " + dis.DAType)],
+                            [sg.T("Disassembly Tool: " + dis.DATool)],
+                            [sg.T("DF Type: " + dis.DType)],
+                            [sg.T("Affected element: " + dis.DFID)]])
+                else:
+                    window.extend_layout(windowC['-FRAME-'], [
+                        [sg.HSeparator()],
+                        [sg.T("DF ID: " + matching_list.ID)],
+                        [sg.T("DF effect: " + matching_list.DFEffect)],
+                        [sg.T("Disassembly Type: " + matching_list.DAType)],
+                        [sg.T("Disassembly Tool: " + matching_list.DATool)],
+                        [sg.T("DF Type: " + matching_list.DType)],
+                        [sg.T("Affected element: " + matching_list.DFID)]])
 
 '''
 Old method to display images

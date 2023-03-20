@@ -22,6 +22,7 @@ And a tree structure is added to PACUnit instances.
 import xml.etree.ElementTree as ET #XML
 import re  # Library for handling strings
 import pickle  # object read/write
+import os
 
 from PAC_Classes import Parent, Action, Child, Disassembly, PACUnit  # Import PAC Classes
 
@@ -39,8 +40,8 @@ def ObjFromAttrib(attribute, value, obj_list):  #  finds all objects with a mact
 # XML data handling
 # Load the XML file
 #tree = ET.parse('Disassembly-PAC-sheet-bosch.xml')
-#tree = ET.parse('Disassembly-PAC-sheet-gorenje-1.xml')
-tree = ET.parse('Disassembly-PAC-sheet.xml')
+tree = ET.parse('Disassembly-PAC-sheet-gorenje-1.xml')
+#tree = ET.parse('Disassembly-PAC-sheet.xml')
 # Get the root element
 root = tree.getroot()
 
@@ -54,7 +55,7 @@ for i in range(len(rows)): #iterate over all rows
 
 # Only keep the data values in the relevant cells, the rest is put in desc list
 
-
+'''
 desc = cells[0:5] #for Kettle
 del cells[0:5]
 
@@ -62,7 +63,7 @@ del cells[0:5]
 
 desc = cells[0:4] #for bosch and gorenje?
 del cells[0:4]
-'''
+
 
 # Creating empty lists for P/A/C instances:   
 AllParents = []
@@ -217,3 +218,7 @@ objects = {"Parents": AllParents, "Actions": AllActions, "Children": AllChildren
 # Deserializes the objects (find et link?)
 with open('objects.pickle', 'wb') as f:
     pickle.dump(objects, f)
+
+
+#Run GUI Final
+os.system('python GUI_Final.py')
