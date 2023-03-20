@@ -43,9 +43,9 @@ class Action:
                 PACindex = index
         return int(self.ID[:PACindex])
 class Child:
-    def __init__(self, ID, Desc, Number, EoL):
+    def __init__(self, ID, Desc, Number, EoL): # less to initiate
         self.ID = ID
-        self.Desc = Desc
+        self.Desc = Desc #  part names from BOM
         self.Number = Number #Number of children
         self.EoL = EoL #End of Life for child
         self.PACID = self.extract_PACID()

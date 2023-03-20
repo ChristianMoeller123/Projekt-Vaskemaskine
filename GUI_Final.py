@@ -18,9 +18,9 @@ with open('objects.pickle', 'rb') as f:
     AllDisassemblies = x['Disassemblies']
     AllPACUnits = x['PACUnits']
 
-# --- Define functions ---
+    # --- Define functions ---
 
-# Element size of the squares in PAC model
+    # Element size of the squares in PAC model
     sizeX = 150
     sizeY = 60
 def drawSquare(posx, posy, obj):
@@ -32,16 +32,16 @@ def drawSquare(posx, posy, obj):
     IDAsLetters = " ".join(re.split("[^a-zA-Z]*", obj.ID)).strip()
     if IDAsLetters[0] == 'P':
         graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),
-                       (posx + sizeX/2, posy - sizeY/2)
-                       ,fill_color = 'green', line_color = 'green', line_width = 2)
+                             (posx + sizeX/2, posy - sizeY/2)
+                             ,fill_color = 'green', line_color = 'green', line_width = 2)
     elif IDAsLetters[0] == 'A':
         graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),
-                       (posx + sizeX/2, posy - sizeY/2)
-                       ,fill_color = 'teal', line_color = 'teal', line_width = 2)
+                             (posx + sizeX/2, posy - sizeY/2)
+                             ,fill_color = 'teal', line_color = 'teal', line_width = 2)
     elif IDAsLetters[0] == 'C' or IDAsLetters[0] ==  'c':
         graph.draw_rectangle((posx - sizeX/2, posy + sizeY/2),
-                       (posx + sizeX/2, posy - sizeY/2)
-                       ,fill_color = 'sky blue', line_color = 'sky blue', line_width = 2)
+                             (posx + sizeX/2, posy - sizeY/2)
+                             ,fill_color = 'sky blue', line_color = 'sky blue', line_width = 2)
     graph.draw_text(obj.ID, (posx, posy))
     obj.pos = (posx, posy)
 
@@ -171,7 +171,7 @@ def make_win1():
         [sg.Button('Options'), sg.Button('Exit')],
         [sg.Column(graph_layout, scrollable=True, size=(1200, 800))]
     ]
-    return sg.Window("Graph Window", layout, finalize=True, resizable=True)
+    return sg.Window("Graph Window", layout, finalize=True, resizable=True, use_custom_titlebar=True)
 def make_winP(obj):
     layout = [
               [sg.Table([['ID', obj.ID],

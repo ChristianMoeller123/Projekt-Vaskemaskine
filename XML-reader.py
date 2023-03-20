@@ -186,9 +186,8 @@ for row in range(len(cells)):
 
 #DesiredPAC = AllPACUnits[0].DFSNonRecursive('Parent', 'ID', '5P1-4C4')
 # Create a dictionary with the lists in:
+
 objects = {"Parents": AllParents, "Actions": AllActions, "Children": AllChildren, "Disassemblies": AllDisassemblies, "PACUnits": AllPACUnits}
 # Deserializes the objects (find et link?)
 with open('objects.pickle', 'wb') as f:
     pickle.dump(objects, f)
-    
-        
