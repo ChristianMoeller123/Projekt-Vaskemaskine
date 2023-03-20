@@ -10,9 +10,9 @@ Parent, Action, Child and Disassembly classes with the respective attributes
 # Class definitions. Parents, children and actions has their own classes
 class Parent:
 
-    def __init__(self, ID, Desc):
+    def __init__(self, ID):
         self.ID = ID
-        self.Desc = Desc
+        self.Desc = 'N/A'
         self.PACID = self.extract_PACID()
         self.pos = ()
 
@@ -24,13 +24,13 @@ class Parent:
                 PACindex = index
         return int(self.ID[:PACindex])
 class Action:
-    def __init__(self, ID, ActionID, Desc, DescDetail, Times, Tool):
+    def __init__(self, ID):
         self.ID = ID
-        self.ActionID = ActionID
-        self.Desc = Desc
-        self.DescDetail = DescDetail #Detailed description of action
-        self.Times = Times #Amount of times action is repeated
-        self.Tool = Tool #Tool needed to perform action
+        self.ActionID = 'N/A'
+        self.Desc = 'N/A'
+        self.DescDetail = 'N/A' #Detailed description of action
+        self.Times = 0 #Amount of times action is repeated
+        self.Tool = 'N/A' #Tool needed to perform action
         self.PACID = self.extract_PACID()
         self.pos = ()
         self.DEI = 1
@@ -43,11 +43,11 @@ class Action:
                 PACindex = index
         return int(self.ID[:PACindex])
 class Child:
-    def __init__(self, ID, Desc, Number, EoL): # less to initiate
+    def __init__(self, ID): # less to initiate
         self.ID = ID
-        self.Desc = Desc #  part names from BOM
-        self.Number = Number #Number of children
-        self.EoL = EoL #End of Life for child
+        self.Desc = 'N/A' #  part names from BOM
+        self.Number = 0 #Number of children
+        self.EoL = 'N/A' #End of Life for child
         self.PACID = self.extract_PACID()
         self.pos = ()
         self.imgDisp = False
@@ -62,13 +62,13 @@ class Child:
                 PACindex = index
         return int(self.ID[:PACindex])
 class Disassembly:
-    def __init__(self, ID, DFEffect, DAType, DATool, DType, DFID): #DA is Disassembly action, which is the action needed to perform due to the DF
+    def __init__(self, ID): #DA is Disassembly action, which is the action needed to perform due to the DF
         self.ID = ID
-        self.DFEffect = DFEffect #DA effect on action
-        self.DAType = DAType #Destructive, semi-destructive or non destructive
-        self.DATool = DATool #Extra tool needed
-        self.DType = DType #DF1, DF2 or DF3 with relation!
-        self.DFID = DFID #Which Parent/Action/Child ID is connected to the DF
+        self.DFEffect = 'N/A' #DA effect on action
+        self.DAType = 'N/A' #Destructive, semi-destructive or non destructive
+        self.DATool = 'N/A' #Extra tool needed
+        self.DType = 'N/A' #DF1, DF2 or DF3 with relation!
+        self.DFID = 'N/A' #Which Parent/Action/Child ID is connected to the DF
 class PACUnit:
     def __init__(self, PACID):
         self.PACID = PACID

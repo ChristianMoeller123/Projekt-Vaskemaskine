@@ -25,9 +25,6 @@ import pickle # object read/write
 
 from PAC_Classes import Parent, Action, Child, Disassembly, PACUnit # Import PAC Classes
 
-def disassemblyInstance(ID, DFEffect, DAType, DATool, DType, DFID): # A Disassembly instance
-    instance = Disassembly(ID, DFEffect, DAType, DATool, DType, DFID)
-    AllDisassemblies.append(instance)
 
 def ObjFromAttrib(attribute, value, obj_list): #finds all objects with a macthing value in the obj list given
     matching_list = []
@@ -99,20 +96,44 @@ for row in range(len(cells)):
     # The information put into the instances is based on the information given in the excel. There is a standard
     # format for each class
     if IDAsLetters[0] == 'P': # A parent
-        instance = Parent(cells[row][0], cells[row][1])
+        instance = Parent(cells[row][0])
+        if cells[row][1]:
+            instance.Desc = cells[row][1]
         AllParents.append(instance)
+
         if len(cells[row]) == 7:
-            disassemblyInstance(cells[row][2], cells[row][3], cells[row][4],\
-                                cells[row][5], cells[row][6], cells[row][0])
+            DisInstance = Disassembly(cells[row][2])
+            DisInstance.DFEffect = cells[row][3]
+            DisInstance.DAType = cells[row][4]
+            DisInstance.DATool = cells[row][5]
+            DisInstance.DType = cells[row][6]
+            DisInstance.DFID = cells[row][0]
+            AllDisassemblies.append(DisInstance)
+
     elif IDAsLetters[0] == 'A': # An action
-        instance = Action(cells[row][0], cells[row][1], cells[row][2], cells[row][3],\
-        cells[row][4], cells[row][5])
+        instance = Action(cells[row][0])
+        instance.ActionID = cells[row][1]
+        instance.Desc = cells[row][2]
+        instance.DescDetail = cells[row][3]
+        instance.Times = cells[row][4]
+        instance.Tool = cells[row][5]
+
         AllActions.append(instance)
         if len(cells[row]) == 11:
-            disassemblyInstance(cells[row][6], cells[row][7], cells[row][8],\
-                                cells[row][9], cells[row][10], cells[row][0])
+            DisInstance = Disassembly(cells[row][6])
+            DisInstance.DFEffect = cells[row][7]
+            DisInstance.DAType = cells[row][8]
+            DisInstance.DATool = cells[row][9]
+            DisInstance.DType = cells[row][10]
+            DisInstance.DFID = cells[row][0]
+
+            AllDisassemblies.append(DisInstance)
     elif IDAsLetters[0] == 'C' or IDAsLetters[0] == 'c': # A child
-        instance = Child(cells[row][0], cells[row][1], cells[row][2], cells[row][3])
+        instance = Child(cells[row][0])
+        instance.Desc = cells[row][1]
+        instance.Number = cells[row][2]
+        instance.EoL = cells[row][3]
+
         instance.imgDisp = False
         #Assign random images:
         if i == 1:
@@ -129,8 +150,13 @@ for row in range(len(cells)):
             i = 1
         AllChildren.append(instance)
         if len(cells[row]) == 9:
-            disassemblyInstance(cells[row][4], cells[row][5], cells[row][6],\
-                                cells[row][7], cells[row][8], cells[row][0])
+            DisInstance = Disassembly(cells[row][4])
+            DisInstance.DFEffect = cells[row][5]
+            DisInstance.DAType = cells[row][6]
+            DisInstance.DATool = cells[row][7]
+            DisInstance.DType = cells[row][8]
+            DisInstance.DFID = cells[row][0]
+            AllDisassemblies.append(DisInstance)
 
 
 
