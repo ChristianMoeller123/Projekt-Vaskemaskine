@@ -225,7 +225,7 @@ def largestLayer(layer, maxBreadth, maxLength):
     return maxBreadth, maxLength
 
 maxBreadth, maxLength = largestLayer([AllPACUnits[0]], 0, 0)
-canvY = (maxBreadth+1.5)*maxChildren*ySpace
+canvY = (maxBreadth+2)*maxChildren*ySpace
 canvX = (unitSpace)*(maxLength+1)
 
 canvYT = (maxBreadth+1)*40
