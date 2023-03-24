@@ -7,6 +7,36 @@ Created on Tue Feb 21 08:16:48 2023
 Parent, Action, Child and Disassembly classes with the respective attributes
 """
 
+def CI(**kwargs):
+    #  Call the function with a key:
+    #  RR = CI(M_rec = 194, M_collEoL = 19)
+    #  Input variables has to match the needed variables of output (CREATE ERROR FUNCTION!)
+    returnList = []
+    inputList = []
+    for key in kwargs.items():
+        inputList.append(key[0])
+    if 'M_rec' in inputList:
+        RR = kwargs['M_rec'] / kwargs['M_collEoL']
+        returnList.append(RR)
+    if 'M_res' in inputList:
+        RE = kwargs['M_res'] / kwargs['M_collEoL']
+        returnList.append(RE)
+    #  MCI
+    # V   = Element Virgin mass
+    # W   = Overall amount of unrecoverable waste
+    # M_c = Child mass
+    # Wf  = Waste generated to produce feedstock
+    # Wc  = Waste generated in the recycling process
+    # L   = Actual realised lifetime
+    # Lav = Product design life based on market average
+    if 'V' in inputList:
+        LFI = (kwargs['V'] + kwargs['W']) / (2 * kwargs['M_c'] + (kwargs['Wf'] - kwargs['Wc']) / 2)
+        X = kwargs['L'] / kwargs['Lav']
+        MCI = 1 - LFI * (0.9 / X)
+        returnList.append(MCI)
+
+    return returnList  # Returns RR, RE, MCI accoring to input
+
 # Class definitions. Parents, children and actions has their own classes
 class Parent:
 
@@ -53,7 +83,27 @@ class Child:
         self.imgDisp = False
         self.imgFile = ''
         self.img = ''
-
+        #  CI Values
+        self.isLeaf = True
+        self.M_collEoL = False
+        #  RE
+        self.M_res = False
+        if self.M_res:
+            self.RE = CI(M_res=self.M_res, M_collEoL=self.M_collEoL)
+        #  RR
+        self.M_rec = False
+        if self.M_rec:
+            self.RR = CI(M_rec = self.M_rec, M_collEoL = self.M_collEoL)
+        #  MCI
+        self.V = False
+        self.W = False
+        self.M_c = False
+        self.Wf = False
+        self.Wc = False
+        self.L = False
+        self.Lav = False
+        if self.V:
+            self.MCI = CI(V = self.V, W = self.W, M_c = self.M_c, Wf = self.Wf, Wc = self.Wc, L = self.L, Lav = self.Lav)
     def extract_PACID(self):
         PACindex = len(self.ID)
         for char in "PACc":
@@ -61,6 +111,7 @@ class Child:
             if index != -1 and index < PACindex:  # Bliver -1 hvis bogstavet ikke findes i stringen
                 PACindex = index
         return int(self.ID[:PACindex])
+
 class Disassembly:
     def __init__(self, DFID): #DA is Disassembly action, which is the action needed to perform due to the DF
         self.ID = 'N/A'

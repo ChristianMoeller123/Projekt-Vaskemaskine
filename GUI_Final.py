@@ -191,6 +191,46 @@ for i in range(len(Fasteners[1])):
     FastenersNew.append([Fasteners[1][i], Fasteners[0][i]])
 Fasteners = FastenersNew
 
+#   --- Add CI for all leaf children ---
+CIRR = []
+CIRE = []
+CIMCI = []
+for unit in AllPACUnits:
+    if isinstance(unit.Children, list):
+        for children in unit.Children:
+            if children.isLeaf:
+                if children.M_res:
+                    CIRE.append(children.M_res)
+                if children.M_rec:
+                    CIRR.append(children.M_rec)
+                if children.V:
+                    CIMCI.append(children.MCI)
+    else:
+        if unit.Children.isLeaf:
+            if unit.Children.M_res:
+                CIRE.append(unit.Children.M_res)
+            if unit.Children.M_rec:
+                CIRR.append(unit.Children.M_rec)
+            if unit.Children.V:
+                CIMCI.append(unit.Children.MCI)
+#  Find the averages if of CI's if they exist
+if CIRE:
+    CIRE = sum(CIRE) / len(CIRE)
+    CIRE = str(CIRE)
+elif not CIRE:
+    CIRE = 'N/A'
+if CIRR:
+    CIRR = sum(CIRR) / len(CIRE)
+    CIRR = str(CIRR)
+elif not CIRR:
+    CIRR = 'N/A'
+if CIMCI:
+    CIMCI = sum(CIMCI) / len(CIMCI)
+    CIMCI = str(CIMCI)
+elif not CIMCI:
+    CIMCI = 'N/A'
+
+
 # # --- Define the graph layout ---
 
 # Initial distances between elements
@@ -224,7 +264,7 @@ def largestLayer(layer, maxBreadth, maxLength):
         return maxBreadth, maxLength
     return maxBreadth, maxLength
 
-maxBreadth, maxLength = largestLayer([AllPACUnits[0]], 0, 0)
+maxBreadth, maxLength = largestLayer([AllPACUnits[0]], 2, 0)
 canvY = (maxBreadth+2)*maxChildren*ySpace
 canvX = (unitSpace)*(maxLength+1)
 
@@ -258,7 +298,8 @@ def make_win1():
 
     # Define the PySimpleGUI layout
     layout = [
-        [sg.Button('Options'), sg.Button('Exit'), sg.T('Total amount of components without fasteners: '+str(totalComponents))],
+        [sg.Button('Options'), sg.Button('Exit')],
+        [sg.T('Total amount of components without fasteners: '+str(totalComponents)), sg.T('RR: '+CIRR+' RE: '+CIRE+' MCI: '+CIMCI)],
         [sg.Column(graph_layout, scrollable=True, size=(800, 600)), [sg.Column(graph_tree_layout, scrollable=True, size=(400,200)),
          sg.Table(values=Fasteners, headings=['Fastener', 'Amount'],
                    auto_size_columns=True,
@@ -289,7 +330,8 @@ def make_winA(obj):
     return sg.Window('Action '+obj.ID, layout, finalize=True, resizable=True)
 def make_winC(obj):
     layout = [[sg.Text('Child element with ID: '+obj.ID)],
-              [sg.Text('Description: ' + obj.Desc + ' Amount: ' + str(obj.Number))],
+              [sg.Text('Description: ' + obj.Desc)],
+              [sg.Text('Amount: ' + str(obj.Number))],
               [sg.Text('End of Life: ' + obj.EoL)],
               [sg.Button('Add DF'), sg.Button('Exit'), sg.Button('Add image')],
               [sg.Frame('DFs', [[sg.T('Information about DFs')]], key='-FRAME-')],
@@ -354,10 +396,7 @@ posX = 100
 drawTree([AllPACUnits[0]], posX)  # Draw the tree from the root
 
 #  Draw info squares
-if isinstance(AllPACUnits[0], list):
-    posYInfo = (len(AllPACUnits[0].Children) + 4) * ySpace
-else:
-    posYInfo = 4*ySpace
+posYInfo = (len(AllPACUnits[0].Children)+4)*ySpace
 graph.draw_rectangle((posX-sizeX/2, posYInfo + sizeY/2), (posX + sizeX/2, posYInfo - sizeY/2), fill_color = colors[0])
 graph.draw_text('Parent', (posX, posYInfo))
 
@@ -370,7 +409,7 @@ graph.draw_text('Component child', ((posX+2*xSpace), posYInfo))
 graph.draw_rectangle(((posX+(2*xSpace))-sizeX/2, posYInfo+ySpace + sizeY/2), ((posX+(2*xSpace)) + sizeX/2, posYInfo+ySpace - sizeY/2), fill_color = colors[3])
 graph.draw_text('Fastener child', ((posX+(2*xSpace), posYInfo+ySpace)))
 
-# Draw lines between pac units
+# Draw lines between pac units and define leaf nodes in PAC model
 # This is done by comparing all children IDs with all Parent IDs, if any matches, a line is drawn between them
 # If there only is one child in the PAC unit, then it does not iterate over all children, and if it's a list,
 # It iterates over all of them.
@@ -382,6 +421,8 @@ for unit in AllPACUnits:
                     drawUnitLine((child.pos[0] + sizeX/2, child.pos[1]), (root.Parent.pos[0] - sizeX/2, root.Parent.pos[1]), unit.RootsDrawn)
                     unit.RootsDrawn = unit.RootsDrawn + 1
                     # print('from '+str(child.PACID) +' to ' +str(root.Parent.PACID))
+                    #  Define child as not a leaf node
+                    child.isLeaf = False
     else:  # If there is only 1 child in the PAC unit
         for root in unit.TreeChildren:
             if unit.Children.ID[:unit.Children.ID.index('-')] == root.Parent.ID[root.Parent.ID.index('-')+1:]:
@@ -389,6 +430,8 @@ for unit in AllPACUnits:
                 drawUnitLine((unit.Children.pos[0] + sizeX/2, unit.Children.pos[1]), (root.Parent.pos[0] - sizeX/2, root.Parent.pos[1]), unit.RootsDrawn)
                 unit.RootsDrawn = unit.RootsDrawn + 1
                 # print('from ' + str(unit.Children.PACID) + ' to ' + str(root.Parent.PACID))
+                #  Define child as not a leaf node
+                unit.Children.isLeaf = False
 
 #  --- DRAW THE GRAPH TREE ---
 ySpaceTree = 40
