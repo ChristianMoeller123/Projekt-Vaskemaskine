@@ -25,8 +25,7 @@ action_type = ["Separate", "Remove", "Unscrew", "Disconnect"]
 EoL = ["Recyclable", "Non Recyclable"]
 yes_no = ["Yes", "No"]
 
-i = -1
-j = 0
+
 
 check_PAC_ID = []
 PAC_unit = 1
@@ -46,10 +45,13 @@ child_diff = [0]
 error = [0]
 
 
-
 #This function creates the row of the parent disassembly failure, it does so by the program calling a defined row when starting
 # and then being able to add similar rows to that.
 def create_parent_DF(row_counter, row_number_view):
+    # Input: row_counter is the actual row which is about to be showed, counting visible and non visible.
+    # Input: row_number_view is the row number for the currently visible rows
+    # Output: this function returns a row with the parent DF failure setup, with combo and input key named after the row_counter
+
     if row_counter == 0:
         row = [sg.pin(
             sg.Column(
@@ -76,8 +78,10 @@ def create_parent_DF(row_counter, row_number_view):
         return row
 
 
-#Comboen for action_ID_for_DF virker, men skal opdateres løbende under tilføjning af ny action
 def create_action_DF(row_counter, row_number_view):
+    # Input: row_counter is the actual row which is about to be showed, counting visible and non visible.
+    # Input: row_number_view is the row number for the currently visible rows
+    # Output: this function returns a row with the action DF failure setup, with combo and input key named after the row_counter
     action_ID_for_DF = list(range(1,row_action[1][-1]+1))
     if row_counter == 0:
         row = [sg.pin(
@@ -107,6 +111,9 @@ def create_action_DF(row_counter, row_number_view):
         return row
 
 def create_child_DF(row_counter, row_number_view):
+    # Input: row_counter is the actual row which is about to be showed, counting visible and non visible.
+    # Input: row_number_view is the row number for the currently visible rows
+    # Output: this function returns a row with the child DF failure setup, with combo and input key named after the row_counter
     child_ID_for_DF = list(range(1,row_child[1][-1]+1))
     if row_counter == 0:
         row = [sg.pin(
@@ -136,6 +143,9 @@ def create_child_DF(row_counter, row_number_view):
         return row
 
 def create_action(row_counter, row_number_view):
+    # Input: row_counter is the actual row which is about to be showed, counting visible and non visible.
+    # Input: row_number_view is the row number for the currently visible rows
+    # Output: this function returns a row with the action setup. These rows start from the second action visible, because we always need atleast one action
     if row_counter == 0:
         row = [sg.pin(
             sg.Column(
@@ -161,6 +171,9 @@ def create_action(row_counter, row_number_view):
         return row
 
 def create_child(row_counter, row_number_view):
+    # Input: row_counter is the actual row which is about to be showed, counting visible and non visible.
+    # Input: row_number_view is the row number for the currently visible rows
+    # Output: this function returns a row with the child setup. These rows start from the second action visible, because we always need atleast one action
     if row_counter == 0:
         row = [sg.pin(
             sg.Column(
@@ -185,15 +198,19 @@ def create_child(row_counter, row_number_view):
         return row
 
 def is_valid_path(filepath):
+    #Input: Takes a filepath for the computer
+    #Output: Returns an error if the file path does not exist
+    #This function hasn't been used yet, but can become useful when implementing the files directly in the input GUI
     if filepath and Path(filepath).exists():
         return True
     sg.popup_error("Filepath not correct")
     return False
 
-def is_valid_name(name,BOM_array,i):
-    i = i+1
-    if len(name) == i:
-        i = i-1
+def is_valid_name(name,BOM_array):
+    #Input: Name is the given name of an BOM part wished to be put in the BOM table
+    #Input: BOM_array is the current list of names in the BOM table
+    #Output: If no name has been filled in an error will be returned, if the name repeats an error will be returned or else the name is considered valid
+    if window["BOM names"].get() == '':
         sg.popup_error("Name not filled in correct")
         return False
     flatten_BOM = np.array(BOM_array)
@@ -202,10 +219,8 @@ def is_valid_name(name,BOM_array,i):
         return False
     return True
 
-def is_valid_quantity(quantity,i):
-    i = i + 1
-    if len(quantity) == i:
-        i = i - 1
+def is_valid_quantity(quantity):
+    if window["BOM quantity"].get() == '':
         sg.popup_error("Quantity not filled in correct")
         return False
     if quantity.isdigit():
@@ -593,7 +608,7 @@ while True:
 
 
         #  Run final GUI
-        os.system('python GUI_Final.py')
+        os.system('GUI_Final.py')
 
 
         #sg.popup_error("Not yet implemented")
@@ -606,8 +621,7 @@ while True:
 
     ##BOM tab
     if event == "Add":
-        if is_valid_name(values["BOM names"], BOM_array, i) & is_valid_quantity(values["BOM quantity"], i):
-            j = j+1
+        if is_valid_name(values["BOM names"], BOM_array) & is_valid_quantity(values["BOM quantity"]):
             BOM_array.append([values["BOM names"], values["BOM quantity"]])
             window["-TABLE-"].update(values=BOM_array)
             window["BOM names"].update('')
@@ -1010,20 +1024,10 @@ while True:
 
         matching_list = PAC_search(PAC_unit, AllActions)
 
-
-
-
     #Lav en Delete PAC unit knap, så når man kommer til at trykke next ved en fejl og skaber et PAC unit man ikke skal bruge den sletter det
     # så man ikke får fejl når man prøver at bruge finish PAC model. Delete skal også kunne fjerne de givne ID'er som er blevet registreret deri
     # til sidst skal den også også sige at hvis man slettet et PAC unit midtvejs at den ikke kan gøre det fordi der er andre PAC units der afhænger af den og man skal slette dem først
-    if event == "-FINISH_PAC_MODEL-":
-        print(error)
-        for rows in range(0,len(error)):
-            if error[rows] > 0:
-                sg.popup_error(f"PAC unit {rows} haven't been filled out correctly, return to it and fill it out to finish PAC model")
-                continue
-        #Dump alle classes til en pickle fil
-        continue
+
 window.close()
 
 
