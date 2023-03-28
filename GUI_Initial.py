@@ -353,6 +353,12 @@ tab_group = [
 window = sg.Window("Initial GUI", tab_group, resizable=True)
 
 def child_relation_ID_1(ID):
+    #This function appends the children which are not fasteners to a list, to be used to select a new parent, which
+    #then can be used to know what children a PAC unit is related to
+    #This function only relates to the first child which is non deleteable in the GUI
+    #The input ID is the first 3 values of the PAC ID
+    #The output if the child is not a fastener is a 2D list with the first column being the name and the second being the
+    #first 3 values of the PAC ID
     if window["-CHILD_NAME-"].get() == "":
         sg.popup_error("Children must have a name")
         error[PAC_unit-1] += 1
@@ -367,6 +373,13 @@ def child_relation_ID_1(ID):
         children_name_ID[1].append(ID)
 
 def child_relation_ID(ID, row_counter):
+    # This function appends the children which are not fasteners to a list, to be used to select a new parent, which
+    # then can be used to know what children a PAC unit is related to
+    # This function only relates to the all added children after the first
+    # The input ID is the first 3 values of the PAC ID
+    # The input row_counter is used to index the correct child, because there can be several
+    # The output if the child is not a fastener is a 2D list with the first column being the name and the second being the
+    # first 3 values of the PAC ID
     if window[f"-CHILD_PAC_ID_{row_counter}-"].get() == "":
         sg.popup_error("Children must have a name")
         error[PAC_unit - 1] += 1
@@ -381,11 +394,21 @@ def child_relation_ID(ID, row_counter):
         children_name_ID[1].append(ID)
 
 def child_relation_name(Name):
+    #This function takes the name of a child and gives back the ID which is the 3 first values in the PAC ID
+    #Input is a name which is the first column in the children_name_ID list
+    #Output is the ID from the second column in the children_name_ID_list
     i = children_name_ID[0].index(Name)
     ID = children_name_ID[1][i]
     return ID
 
 def parent_class_1(ID_Input):
+    #This function is called when a PAC unit is checked and inserts all information from the parent in the first PAC unit
+    #into the AllParents class. Firstly it checks if the PAC ID already exist, if there has been checked for the PAC unit
+    #already, if not it creates the PAC ID and inserts that and the name in the AllParents class. If the PAC ID already
+    #exist it only changes the name.
+    #This function is only used for the first PAC units parent
+    #Input is the PAC ID
+    #Output is the addition of the parent to the AllParents class
     if not AllParents:
         ID = ""
     else:
@@ -412,6 +435,13 @@ def parent_class_1(ID_Input):
         print(matching_list.Desc)
 
 def parent_class(ID_Input):
+    # This function is called when a PAC unit is checked and inserts all information from the parent in the given PAC unit
+    # into the AllParents class. Firstly it checks if the PAC ID already exist, if there has been checked for the PAC unit
+    # already, if not it creates the PAC ID and inserts that and the name in the AllParents class. If the PAC ID already
+    # exist it only changes the name.
+    # This function is used for all parents after the first PAC unit
+    # Input is the PAC ID
+    # Output is the addition of the parent to the AllParents class
     if not AllParents:
         ID = ""
     else:
@@ -438,6 +468,13 @@ def parent_class(ID_Input):
         print(matching_list.Desc)
 
 def action_class_1(ID_Input):
+    # This function is called when a PAC unit is checked and inserts all information from the action in the given PAC unit
+    # into the AllActions class. Firstly it checks if the PAC ID already exist, if there has been checked for the PAC unit
+    # already, if not it creates the PAC ID and inserts that and the name in the AllActions class. If the PAC ID already
+    # exist it only changes the name.
+    # This function is used for the first action in each PAC unit
+    # Input is the PAC ID
+    # Output is the addition of the action to the AllActions class
     if not AllActions:
         ID = ""
     else:
@@ -465,6 +502,11 @@ def action_class_1(ID_Input):
         print(matching_list.Desc)
 
 def action_class(ID_Input, row_counter):
+    #This function takes all actions after the first and add them to the strings of the different values given to the object
+    #in the AllActions class.
+    #Input the PAC ID
+    #Input the row_counter to know which action is being indexed
+    #Output an addition to the AllActions for the given PAC unit
     matching_list = ObjFromAttrib('ID', ID_Input, AllActions)
     matching_list.Desc = matching_list.Desc + " & " + window[f"-ACTION_TYPE_{row_counter}-"].get()
     matching_list.DescDetail = matching_list.DescDetail + " & " + window[f"-ACTION_DESCRIPTION_{row_counter}-"].get()
@@ -474,6 +516,13 @@ def action_class(ID_Input, row_counter):
     print(matching_list.Desc)
 
 def child_class_1(ID_Input):
+    # This function is called when a PAC unit is checked and inserts all information from the child in the given PAC unit
+    # into the AllChildren class. Firstly it checks if the PAC ID already exist, if there has been checked for the PAC unit
+    # already, if not it creates the PAC ID and inserts that and the name in the AllChildren class. If the PAC ID already
+    # exist it only changes the name.
+    # This function is used for the first child in each PAC unit
+    # Input is the PAC ID
+    # Output is the addition of the child to the AllChildren class
     if not AllChildren:
         ID = ""
     else:
@@ -499,6 +548,14 @@ def child_class_1(ID_Input):
         #print(matching_list.Desc)
 
 def child_class(ID_Input, row_counter):
+    # This function is called when a PAC unit is checked and inserts all information from the child in the given PAC unit
+    # into the AllChildren class. Firstly it checks if the PAC ID already exist, if there has been checked for the PAC unit
+    # already, if not it creates the PAC ID and inserts that and the name in the AllChildren class. If the PAC ID already
+    # exist it only changes the name.
+    # This function is used for all children after the first in a given PAC unit
+    # Input is the PAC ID
+    # Input is also the row_counter to know which child is being indexed
+    # Output is the addition of the child to the AllChildren class
     if not AllChildren:
         ID = ""
     else:
@@ -552,7 +609,11 @@ def parent_DF_class(ID_Input,row_counter):
         #print("Object found")
         #print(matching_list.DFEffect)
 
-def action_DF_affected_ID(): #Den her virker ikke af en eller anden grund. Drop numpy pga PAC unit problemer
+def action_DF_affected_ID():
+    #This function is used to make sure the affected action counter for the disassembly failure is updated when a new
+    #action is added
+    #No input is needed, because we can check everything from the global variable PAC_unit
+    #The function returns no value but updates the affected action counter in the function
     if PAC_unit > 1:
         counter = 1
     else:
@@ -565,6 +626,10 @@ def action_DF_affected_ID(): #Den her virker ikke af en eller anden grund. Drop 
             window[f"-ACTION_ID_FOR_DF_{rows}-"].update(values=list(range(1, counter+1)))
 
 def child_DF_affected_ID():
+    # This function is used to make sure the affected child counter for the disassembly failure is updated when a new
+    # child is added
+    # No input is needed, because we can check everything from the global variable PAC_unit
+    # The function returns no value but updates the affected child counter in the function
     if PAC_unit > 1:
         counter = 1
     else:
