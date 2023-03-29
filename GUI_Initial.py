@@ -1086,6 +1086,11 @@ while True:
                 window["-PARENT_NAME_COMBO-"].update(AllPACUnits[PAC_unit - 1].Parent.Desc)
                 window[f"-PARENT_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Parent.ID)
 
+            # Updating Parent DF's
+            for rows in range(1, len(row_parent_DF[1])):
+                if row_parent_DF[2][rows] == 1 and row_parent_DF[3][rows] == PAC_unit:
+                    window[('-ROW_PARENT_DF-', rows)].update(visible=True)
+
             # Updating Actions
 
             if "&" in AllPACUnits[PAC_unit - 1].Action.Desc:
@@ -1107,6 +1112,11 @@ while True:
             for rows in range(1, len(row_action[1])):
                 if row_action[2][rows] == 1 and row_action[3][rows] == PAC_unit:
                     window[('-ROW_ACTION-', rows)].update(visible=True)
+
+            # Updating Action DF's
+            for rows in range(1, len(row_action_DF[1])):
+                if row_action_DF[2][rows] == 1 and row_action_DF[3][rows] == PAC_unit:
+                    window[('-ROW_ACTION_DF-', rows)].update(visible=True)
 
             # Updating Children
             counter = 0
@@ -1138,6 +1148,11 @@ while True:
                 for rows in range(1, len(row_child[1])):
                     if row_child[2][rows] == 1 and row_child[3][rows] == PAC_unit:
                         window[('-ROW_CHILD-', rows)].update(visible=True)
+
+            # Updating Child DF's
+            for rows in range(1, len(row_child_DF[1])):
+                if row_child_DF[2][rows] == 1 and row_child_DF[3][rows] == PAC_unit:
+                    window[('-ROW_CHILD_DF-', rows)].update(visible=True)
 
         window.refresh()
         window["-CHILD_SCROLL-"].contents_changed()
@@ -1172,6 +1187,11 @@ while True:
             window["-PARENT_NAME_COMBO-"].update(AllPACUnits[PAC_unit-1].Parent.Desc)
             window[f"-PARENT_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Parent.ID)
 
+        #Updating Parent DF's
+        for rows in range(1, len(row_parent_DF[1])):
+            if row_parent_DF[2][rows] == 1 and row_parent_DF[3][rows] == PAC_unit:
+                window[('-ROW_PARENT_DF-', rows)].update(visible=True)
+
         #Updating Actions
 
         if "&" in AllPACUnits[PAC_unit-1].Action.Desc:
@@ -1190,6 +1210,12 @@ while True:
         for rows in range(1, len(row_action[1])):
             if row_action[2][rows] == 1 and row_action[3][rows] == PAC_unit:
                 window[('-ROW_ACTION-', rows)].update(visible=True)
+
+        # Updating Action DF's
+        for rows in range(1, len(row_action_DF[1])):
+            if row_action_DF[2][rows] == 1 and row_action_DF[3][rows] == PAC_unit:
+                window[('-ROW_ACTION_DF-', rows)].update(visible=True)
+
 
         #Updating Children
         counter = 0
@@ -1222,6 +1248,15 @@ while True:
                 if row_child[2][rows] == 1 and row_child[3][rows] == PAC_unit:
                     window[('-ROW_CHILD-', rows)].update(visible=True)
 
+        # Updating Child DF's
+        for rows in range(1, len(row_child_DF[1])):
+            if row_child_DF[2][rows] == 1 and row_child_DF[3][rows] == PAC_unit:
+                window[('-ROW_CHILD_DF-', rows)].update(visible=True)
+
+        window.refresh()
+        window["-CHILD_SCROLL-"].contents_changed()
+        window["-ACTION_SCROLL-"].contents_changed()
+        window["-PARENT_SCROLL-"].contents_changed()
 
     #Lav en Delete PAC unit knap, så når man kommer til at trykke next ved en fejl og skaber et PAC unit man ikke skal bruge den sletter det
     # så man ikke får fejl når man prøver at bruge finish PAC model. Delete skal også kunne fjerne de givne ID'er som er blevet registreret deri
