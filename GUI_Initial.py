@@ -24,8 +24,8 @@ tool_type = ["Hand", "Drill", "Hammer", "Screwdriver"]
 action_type = ["Separate", "Remove", "Unscrew", "Disconnect"]
 EoL = ["Recyclable", "Non Recyclable"]
 yes_no = ["Yes", "No"]
-
-
+origin = ["Origin here"]
+origin_local = ["Origen here"]
 
 check_PAC_ID = []
 PAC_unit = 1
@@ -61,6 +61,7 @@ def create_parent_DF(row_counter, row_number_view):
                     sg.T("Disassembly type:"),
                     sg.Combo(disassembly_action_type, key=f"-PARENT_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
                     sg.Combo(tool_type, key=f"-PARENT_TOOL_TYPE_{row_counter}-"),
+                    sg.T("Origin of DF:"), sg.Combo(origin, key=f"-PARENT_ORIGIN_{row_counter}-", readonly=True),
                     sg.T(f"DF ID: {row_number_view}", key=f"-PARENT_DF_ID_{row_counter}-")]],
                 justification="center", key=('-ROW_PARENT_DF-', row_counter), visible=False
             ))]
@@ -72,11 +73,12 @@ def create_parent_DF(row_counter, row_number_view):
               sg.Button("X", key=('-DEL_PARENT_DF-', row_counter)),
               sg.T("Failure description:"), sg.I(key=f"-PARENT_FAILURE_DESCRIPTION_{row_counter}-", s=25), sg.T("Disassembly type:"),
               sg.Combo(disassembly_action_type, key=f"-PARENT_DISASSEMBlY_TYPE_{row_counter}-"), sg.T("Tool:"),
-              sg.Combo(tool_type, key=f"-PARENT_TOOL_TYPE_{row_counter}-"), sg.T(f"DF ID: {row_number_view}", key=f"-PARENT_DF_ID_{row_counter}-")]],
+              sg.Combo(tool_type, key=f"-PARENT_TOOL_TYPE_{row_counter}-"),
+              sg.T("Origin of DF:"), sg.Combo(origin, key=f"-PARENT_ORIGIN_{row_counter}-", readonly=True),
+              sg.T(f"DF ID: {row_number_view}", key=f"-PARENT_DF_ID_{row_counter}-")]],
             justification="center", key=('-ROW_PARENT_DF-', row_counter)
         ))]
         return row
-
 
 def create_action_DF(row_counter, row_number_view):
     # Input: row_counter is the actual row which is about to be showed, counting visible and non visible.
@@ -93,6 +95,7 @@ def create_action_DF(row_counter, row_number_view):
                     sg.T("Disassembly type:"),
                     sg.Combo(disassembly_action_type, key=f"-ACTION_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
                     sg.Combo(tool_type, key=f"-ACTION_TOOL_TYPE_{row_counter}-"),
+                    sg.T("Origin of DF:"), sg.Combo(origin, key=f"-ACTION_ORIGIN_{row_counter}-", readonly=True),
                     sg.T(f"DF ID: {row_number_view}", key=f"-ACTION_DF_ID_{row_counter}-")]],
                 justification="center", key=('-ROW_ACTION_DF-', row_counter), visible=False
             ))]
@@ -105,7 +108,9 @@ def create_action_DF(row_counter, row_number_view):
               sg.T("Affected action:"), sg.Combo(action_ID_for_DF, key=f"-ACTION_ID_FOR_DF_{row_counter}-"),
               sg.T("Failure description:"), sg.I(key=f"-ACTION_FAILURE_DESCRIPTION_{row_counter}-", s=25), sg.T("Disassembly type:"),
               sg.Combo(disassembly_action_type, key=f"-ACTION_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
-              sg.Combo(tool_type, key=f"-ACTION_TOOL_TYPE_{row_counter}-"), sg.T(f"DF ID: {row_number_view}", key=f"-ACTION_DF_ID_{row_counter}-")]],
+              sg.Combo(tool_type, key=f"-ACTION_TOOL_TYPE_{row_counter}-"),
+              sg.T("Origin of DF:"), sg.Combo(origin, key=f"-ACTION_ORIGIN_{row_counter}-", readonly=True),
+              sg.T(f"DF ID: {row_number_view}", key=f"-ACTION_DF_ID_{row_counter}-")]],
             justification="center", key=('-ROW_ACTION_DF-', row_counter)
         ))]
         return row
@@ -125,6 +130,7 @@ def create_child_DF(row_counter, row_number_view):
                     sg.T("Disassembly type:"),
                     sg.Combo(disassembly_action_type, key=f"-CHILD_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
                     sg.Combo(tool_type, key=f"-CHILD_TOOL_TYPE_{row_counter}-"),
+                    sg.T("Origin of DF:"), sg.Combo(origin, key=f"-CHILD_ORIGIN_{row_counter}-", readonly=True),
                     sg.T(f"DF ID: {row_number_view}", key=f"-CHILD_DF_ID_{row_counter}-")]],
                 justification="center", key=('-ROW_CHILD_DF-', row_counter), visible=False
             ))]
@@ -137,7 +143,9 @@ def create_child_DF(row_counter, row_number_view):
               sg.T("Affected child:"), sg.Combo(child_ID_for_DF,key=f"-CHILD_ID_FOR_DF_{row_counter}-"),
               sg.T("Failure description:"), sg.I(key=f"-CHILD_FAILURE_DESCRIPTION_{row_counter}-", s=25), sg.T("Disassembly type:"),
               sg.Combo(disassembly_action_type, key=f"-CHILD_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
-              sg.Combo(tool_type, key=f"-CHILD_TOOL_TYPE_{row_counter}-"), sg.T(f"DF ID: {row_number_view}", key=f"-CHILD_DF_ID_{row_counter}-")]],
+              sg.Combo(tool_type, key=f"-CHILD_TOOL_TYPE_{row_counter}-"),
+              sg.T("Origin of DF:"), sg.Combo(origin, key=f"-CHILD_ORIGIN_{row_counter}-", readonly=True),
+              sg.T(f"DF ID: {row_number_view}", key=f"-CHILD_DF_ID_{row_counter}-")]],
             justification="center", key=('-ROW_CHILD_DF-', row_counter)
         ))]
         return row
@@ -163,8 +171,8 @@ def create_action(row_counter, row_number_view):
         sg.Column(
             [[
               sg.Button("X", key=('-DEL_ACTION-', row_counter)),
-              sg.T("Action name:"), sg.Combo(action_type, key=f"-ACTION_TYPE_{row_counter}-", s=25), sg.T("Action description:"),
-              sg.I(key=f"-ACTION_DESCRIPTION_{row_counter}-", s=25), sg.T("Action times:"), sg.I(key=f"-ACTION_TIMES_NUMBER_{row_counter}-", s=5),
+              sg.T("Action name:"), sg.Combo(action_type, key=f"-ACTION_TYPE_{row_counter}-", s=25),
+              sg.I(key=f"-ACTION_DESCRIPTION_{row_counter}-", s=25, visible=False), sg.T("Action times:"), sg.I(key=f"-ACTION_TIMES_NUMBER_{row_counter}-", s=5),
               sg.T("Tool:"), sg.Combo(tool_type, key=f"-ACTION_TOOL_TYPE_{row_counter}-"), sg.T(f"Action PAC ID: {row_number_view}", key=f"-ACTION_PAC_ID_{row_counter}-")]],
             justification="center", key=('-ROW_ACTION-', row_counter)
         ))]
@@ -304,17 +312,17 @@ PAC_layout = [
               [sg.Column([[sg.T("Disassembly failure parent")]], justification="center")],
               [sg.Column([create_parent_DF(0,1)],key='-PARENT_DF_PANEL-', justification="center")],
               [sg.Column([[sg.Button('Add DF',key='-ADD_ITEM_PARENT_DF-')]], justification="center")],
-              ],key="-PARENT_SCROLL-", scrollable=True, vertical_scroll_only=True, size=[1200,150])],
+              ],key="-PARENT_SCROLL-", scrollable=True, vertical_scroll_only=True, size=[1400,150])],
 
               [sg.HSeparator()],
               [sg.Column([
               [sg.Column([[sg.T("Action")]], justification="center")],
-              [sg.Column([[sg.T("Action name:"), sg.Combo(action_type, key="-ACTION_TYPE-", s=25), sg.T("Action description:"), sg.I(key="-ACTION_DESCRIPTION-", s=25), sg.T("Action times:"), sg.I(key="-ACTION_TIMES_NUMBER-", s=5), sg.T("Tool:"), sg.Combo(tool_type,key="-ACTION_TOOL_TYPE-"), sg.T("Action PAC ID:", key="-ACTION_PAC_ID-")]], justification="center")],
+              [sg.Column([[sg.T("Action name:"), sg.Combo(action_type, key="-ACTION_TYPE-", s=25), sg.T("Action description:"), sg.I(key="-ACTION_DESCRIPTION-", s=25, tooltip="Write description for all actions here"), sg.T("Action times:"), sg.I(key="-ACTION_TIMES_NUMBER-", s=5), sg.T("Tool:"), sg.Combo(tool_type,key="-ACTION_TOOL_TYPE-"), sg.T("Action PAC ID:", key="-ACTION_PAC_ID-")]], justification="center")],
               [sg.Column([create_action(0,1)],key='-ACTION_PANEL-', justification="center")],
               [sg.Column([[sg.Button('Add Action',key='-ADD_ITEM_ACTION-')]], justification="center")],
               [sg.Column([[sg.T("Disassembly failure action")]], justification="center")],
               [sg.Column([create_action_DF(0,1)],key='-ACTION_DF_PANEL-', justification="center")],
-              [sg.Column([[sg.Button('Add DF',key='-ADD_ITEM_ACTION_DF-')]], justification="center")]],key="-ACTION_SCROLL-", scrollable=True, vertical_scroll_only=True, size=[1200,200])],
+              [sg.Column([[sg.Button('Add DF',key='-ADD_ITEM_ACTION_DF-')]], justification="center")]],key="-ACTION_SCROLL-", scrollable=True, vertical_scroll_only=True, size=[1400,200])],
 
 
               [sg.HSeparator()],
@@ -326,7 +334,7 @@ PAC_layout = [
               [sg.Column([[sg.Button('Add Child',key='-ADD_ITEM_CHILD-')]], justification="center")],
               [sg.Column([[sg.T("Disassembly failure child")]], justification="center")],
               [sg.Column([create_child_DF(0,1)],key='-CHILD_DF_PANEL-', justification="center")],
-              [sg.Column([[sg.Button('Add DF',key='-ADD_ITEM_CHILD_DF-')]], justification="center")]], key="-CHILD_SCROLL-", scrollable=True, vertical_scroll_only=True, size=[1200,200])],
+              [sg.Column([[sg.Button('Add DF',key='-ADD_ITEM_CHILD_DF-')]], justification="center")]], key="-CHILD_SCROLL-", scrollable=True, vertical_scroll_only=True, size=[1400,200])],
 
 
               [sg.HSeparator()],
@@ -342,7 +350,7 @@ tab_group = [
             sg.Tab('PAC', PAC_layout)]],
 
         tab_location='topleft',title_color='White', tab_background_color='Gray', selected_title_color='Black',
-        selected_background_color='White', border_width=5, size=[1200,780]),
+        selected_background_color='White', border_width=5, size=[1350,780]),
         sg.B("Start timer"), sg.B("Finish PAC model", key="-FINISH_PAC_MODEL-")
     ]
 ]
@@ -509,7 +517,6 @@ def action_class(ID_Input, row_counter):
     #Output an addition to the AllActions for the given PAC unit
     matching_list = ObjFromAttrib('ID', ID_Input, AllActions)
     matching_list.Desc = matching_list.Desc + " & " + window[f"-ACTION_TYPE_{row_counter}-"].get()
-    matching_list.DescDetail = matching_list.DescDetail + " & " + window[f"-ACTION_DESCRIPTION_{row_counter}-"].get()
     matching_list.Times = matching_list.Times + " & " + window["-ACTION_TIMES_NUMBER-"].get()
     matching_list.Tool = matching_list.Tool + " & " + window["-ACTION_TOOL_TYPE-"].get()
     print("Combined Actions")
@@ -582,6 +589,7 @@ def child_class(ID_Input, row_counter):
     else:
         print('VI HAR FUCKET OP')
 
+#Genovervej denne function
 def parent_DF_class(ID_Input,row_counter):
     if not AllDisassemblies:
         ID = ""
@@ -941,17 +949,20 @@ while True:
                     parent_DF_class(f"{PAC_unit}D{row_parent_DF[1][rows]}-{PAC_unit}P1-000",rows)
             for rows in row_action_DF[0]:
                 if row_action_DF[2][rows] == 1 and row_action_DF[3][rows] == PAC_unit:
-                    window[f"-ACTION_DF_ID_{row_action_DF[0][rows]}-"].update(f"Action DF ID: {PAC_unit}D{row_action_DF[1][rows]}-{PAC_unit}A1-000")
-            #Det her skal gøres for det child det passer til, det samme skal ske ved action
+                    action_ID_for_DF = values[f"-ACTION_ID_FOR_DF_{row_action_DF[0][rows]}-"]
+                    if action_ID_for_DF == "": #Checks if the DF has been correctly set to a specific action
+                        sg.popup_error("Remember to fill out what action is affected by the disassembly failure")
+                        error[PAC_unit - 1] += 1
+                        continue
+                    window[f"-ACTION_DF_ID_{row_action_DF[0][rows]}-"].update(f"Action DF ID: {PAC_unit}D{row_action_DF[1][rows]}-{PAC_unit}C{action_ID_for_DF}-000")
             for rows in row_child_DF[0]:
                 if row_child_DF[2][rows] == 1 and row_child_DF[3][rows] == PAC_unit:
                     child_ID_for_DF = values[f"-CHILD_ID_FOR_DF_{row_child_DF[0][rows]}-"]
                     if child_ID_for_DF == "": #Checks if the DF has been correctly set to a specific child
-                        sg.popup_error("Remember to fill out what child is affected by the disassembly")
+                        sg.popup_error("Remember to fill out what child is affected by the disassembly failure")
                         error[PAC_unit - 1] += 1
                         continue
                     window[f"-CHILD_DF_ID_{row_child_DF[0][rows]}-"].update(f"Child DF ID: {PAC_unit}D{row_child_DF[1][rows]}-{PAC_unit}C{child_ID_for_DF}-000")
-
         else:
             if window["-PARENT_NAME_COMBO-"].get() == "":
                 sg.popup_error("Fill out the name of the parent before checking the PAC ID's")
@@ -997,7 +1008,12 @@ while True:
                     parent_DF_class(f"{PAC_unit}D{row_parent_DF[1][rows]}-{PAC_unit}P1-000", rows)
             for rows in row_action_DF[0]:
                 if row_action_DF[2][rows] == 1 and row_action_DF[3][rows] == PAC_unit:
-                    window[f"-ACTION_DF_ID_{row_action_DF[0][rows]}-"].update(f"Action DF ID: {PAC_unit}D{row_action_DF[1][rows]-action_DF_diff[PAC_unit-1]}-{PAC_unit}A1-000")
+                    action_ID_for_DF = values[f"-ACTION_ID_FOR_DF_{row_action_DF[0][rows]}-"]
+                    if action_ID_for_DF == "":  # Checks if the DF has been correctly set to a specific action
+                        sg.popup_error("Remember to fill out what action is affected by the disassembly failure")
+                        error[PAC_unit - 1] += 1
+                        continue
+                    window[f"-ACTION_DF_ID_{row_action_DF[0][rows]}-"].update(f"Action DF ID: {PAC_unit}D{row_action_DF[1][rows]-action_DF_diff[PAC_unit-1]}-{PAC_unit}C{action_ID_for_DF}-000")
             for rows in row_child_DF[0]:
                 if row_child_DF[2][rows] == 1 and row_child_DF[3][rows] == PAC_unit:
                     child_ID_for_DF = values[f"-CHILD_ID_FOR_DF_{row_child_DF[0][rows]}-"]
@@ -1008,6 +1024,10 @@ while True:
                         continue
                     window[f"-CHILD_DF_ID_{row_child_DF[0][rows]}-"].update(
                         f"Child DF ID: {PAC_unit}D{row_child_DF[1][rows]-child_DF_diff[PAC_unit-1]}-{PAC_unit}C{child_ID_for_DF}-000")
+        AllPACUnits = [PACUnit(i) for i in range(1, check_PAC_ID[-1] + 1)]
+        PACUnitInsert(AllParents, AllPACUnits)
+        PACUnitInsert(AllChildren, AllPACUnits)
+        PACUnitInsert(AllActions, AllPACUnits)
 
     if event == "-NEXT_PAC_UNIT-":
         if PAC_unit not in check_PAC_ID:
@@ -1024,35 +1044,100 @@ while True:
         window["-PARENT_NAME_COMBO-"].update(values=children_name_ID[0])
         window["-PARENT_NAME-"].update(visible=False)
         window["-PARENT_NAME_COMBO-"].update(visible=True)
+        print(check_PAC_ID)
+        print(PAC_unit)
+        if PAC_unit not in check_PAC_ID:
+            #The part that clear the PAC information
+            window["-PARENT_NAME-"].update('')
+            window["-PARENT_PAC_ID-"].update('')
+            window["-ACTION_TYPE-"].update('')
+            window["-ACTION_PAC_ID-"].update('')
+            window["-ACTION_DESCRIPTION-"].update('')
+            window["-ACTION_TIMES_NUMBER-"].update('')
+            window["-ACTION_TOOL_TYPE-"].update('')
+            window["-CHILD_NAME-"].update('')
+            window["-CHILD_PAC_ID-"].update('')
+            window["-CHILD_QUANTITY-"].update('')
+            window["-EoL-"].update('')
+            window["-FASTENER-"].update('')
 
-        #The part that clear the PAC information
-        window["-PARENT_NAME-"].update('')
-        window["-ACTION_TYPE-"].update('')
-        window["-ACTION_DESCRIPTION-"].update('')
-        window["-ACTION_TIMES_NUMBER-"].update('')
-        window["-ACTION_TOOL_TYPE-"].update('')
-        window["-CHILD_NAME-"].update('')
-        window["-CHILD_QUANTITY-"].update('')
-        window["-EoL-"].update('')
-        window["-FASTENER-"].update('')
-        #Husk at fjern visibility ordenligt ved at ændre 3. kolonne i matrixen, samt gem hvilke kolonner der allerede var viste
+            #Removing all visible windows of children and actions
+            parent_DF_diff.append(row_parent_DF[1][-1]+parent_DF_diff[-1])
+            for rows in row_parent_DF[0]:
+                window[('-ROW_PARENT_DF-', rows)].update(visible=False)
+            action_diff.append(row_action[1][-1] + action_diff[-1])
+            for rows in row_action[0]:
+                window[('-ROW_ACTION-', rows)].update(visible=False)
+            child_diff.append(row_child[1][-1] + child_diff[-1])
+            for rows in range(1,len(row_child[0])):
+                window[('-ROW_CHILD-', rows)].update(visible=False)
+            action_DF_diff.append(row_action_DF[1][-1] + action_DF_diff[-1])
+            for rows in row_action_DF[0]:
+                window[('-ROW_ACTION_DF-', rows)].update(visible=False)
+            child_DF_diff.append(row_child_DF[1][-1] + child_DF_diff[-1])
+            for rows in row_child_DF[0]:
+                window[('-ROW_CHILD_DF-', rows)].update(visible=False)
+        else:
+            # Updating Parent
+            if PAC_unit == 1:
+                window["-PARENT_NAME-"].update(AllPACUnits[PAC_unit - 1].Parent.Desc)
+                window["-PARENT_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Parent.ID)
+            else:
+                window["-PARENT_NAME_COMBO-"].update(AllPACUnits[PAC_unit - 1].Parent.Desc)
+                window[f"-PARENT_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Parent.ID)
 
-        #Removing all visible windows of children and actions
-        parent_DF_diff.append(row_parent_DF[1][-1]+parent_DF_diff[-1])
-        for rows in row_parent_DF[0]:
-            window[('-ROW_PARENT_DF-', rows)].update(visible=False)
-        action_diff.append(row_action[1][-1] + action_diff[-1])
-        for rows in row_action[0]:
-            window[('-ROW_ACTION-', rows)].update(visible=False)
-        child_diff.append(row_child[1][-1] + child_diff[-1])
-        for rows in range(1,len(row_child[0])):
-            window[('-ROW_CHILD-', rows)].update(visible=False)
-        action_DF_diff.append(row_action_DF[1][-1] + action_DF_diff[-1])
-        for rows in row_action_DF[0]:
-            window[('-ROW_ACTION_DF-', rows)].update(visible=False)
-        child_DF_diff.append(row_child_DF[1][-1] + child_DF_diff[-1])
-        for rows in row_child_DF[0]:
-            window[('-ROW_CHILD_DF-', rows)].update(visible=False)
+            # Updating Actions
+
+            if "&" in AllPACUnits[PAC_unit - 1].Action.Desc:
+                window["-ACTION_TYPE-"].update(
+                    AllPACUnits[PAC_unit - 1].Action.Desc[:AllPACUnits[PAC_unit - 1].Action.Desc.index('&') - 1])
+                window["-ACTION_TIMES_NUMBER-"].update(
+                    AllPACUnits[PAC_unit - 1].Action.Times[:AllPACUnits[PAC_unit - 1].Action.Times.index('&') - 1])
+                window["-ACTION_TOOL_TYPE-"].update(
+                    AllPACUnits[PAC_unit - 1].Action.Tool[:AllPACUnits[PAC_unit - 1].Action.Tool.index('&') - 1])
+                window["-ACTION_DESCRIPTION-"].update(AllPACUnits[PAC_unit - 1].Action.DescDetail)
+                window["-ACTION_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Action.ID)
+            else:
+                window["-ACTION_TYPE-"].update(AllPACUnits[PAC_unit - 1].Action.Desc)
+                window["-ACTION_TIMES_NUMBER-"].update(AllPACUnits[PAC_unit - 1].Action.Times)
+                window["-ACTION_TOOL_TYPE-"].update(AllPACUnits[PAC_unit - 1].Action.Tool)
+                window["-ACTION_DESCRIPTION-"].update(AllPACUnits[PAC_unit - 1].Action.DescDetail)
+                window["-ACTION_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Action.ID)
+
+            for rows in range(1, len(row_action[1])):
+                if row_action[2][rows] == 1 and row_action[3][rows] == PAC_unit:
+                    window[('-ROW_ACTION-', rows)].update(visible=True)
+
+            # Updating Children
+            counter = 0
+            for rows in row_child[1]:
+                if row_child[2][rows - 1] == 1 and row_child[3][rows - 1] == PAC_unit:
+                    counter += 1
+            if counter == 0:
+                window["-CHILD_NAME-"].update(AllPACUnits[PAC_unit - 1].Children.Desc)
+                window["-CHILD_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Children.ID)
+                window["-EoL-"].update(AllPACUnits[PAC_unit - 1].Children.EoL)
+                window["-CHILD_QUANTITY-"].update(AllPACUnits[PAC_unit - 1].Children.Number)
+                IDAsLetters = " ".join(re.split("[^a-zA-Z]*", AllPACUnits[PAC_unit - 1].Children.ID)).strip()
+                if IDAsLetters[0] == 'c':
+                    window["-FASTENER-"].update("Yes")
+                else:
+                    window["-FASTENER-"].update("No")
+
+            else:
+                window["-CHILD_NAME-"].update(AllPACUnits[PAC_unit - 1].Children[0].Desc)
+                window["-CHILD_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Children[0].ID)
+                window["-EoL-"].update(AllPACUnits[PAC_unit - 1].Children[0].EoL)
+                window["-CHILD_QUANTITY-"].update(AllPACUnits[PAC_unit - 1].Children[0].Number)
+                IDAsLetters = " ".join(re.split("[^a-zA-Z]*", AllPACUnits[PAC_unit - 1].Children[0].ID)).strip()
+                if IDAsLetters[0] == 'c':
+                    window["-FASTENER-"].update("Yes")
+                else:
+                    window["-FASTENER-"].update("No")
+
+                for rows in range(1, len(row_child[1])):
+                    if row_child[2][rows] == 1 and row_child[3][rows] == PAC_unit:
+                        window[('-ROW_CHILD-', rows)].update(visible=True)
 
         window.refresh()
         window["-CHILD_SCROLL-"].contents_changed()
@@ -1078,16 +1163,65 @@ while True:
             window["-PREVIOUS_PAC_UNIT-"].update(visible=False)
             window["-DELETE_PAC_UNIT-"].update(visible=False)
 
-        if PAC_unit == 1:
-            matching_list = PAC_search(PAC_unit, AllParents)
-            window["-PARENT_NAME-"].update(matching_list.Desc)
-            window[f"-PARENT_PAC_ID-"].update(matching_list.ID)
-        else:
-            matching_list = PAC_search(PAC_unit, AllParents)
-            window["-PARENT_NAME_COMBO-"].update(matching_list.Desc)
-            window[f"-PARENT_PAC_ID-"].update(matching_list.ID)
 
-        matching_list = PAC_search(PAC_unit, AllActions)
+        #Updating Parent
+        if PAC_unit == 1:
+            window["-PARENT_NAME-"].update(AllPACUnits[PAC_unit-1].Parent.Desc)
+            window["-PARENT_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Parent.ID)
+        else:
+            window["-PARENT_NAME_COMBO-"].update(AllPACUnits[PAC_unit-1].Parent.Desc)
+            window[f"-PARENT_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Parent.ID)
+
+        #Updating Actions
+
+        if "&" in AllPACUnits[PAC_unit-1].Action.Desc:
+            window["-ACTION_TYPE-"].update(AllPACUnits[PAC_unit-1].Action.Desc[:AllPACUnits[PAC_unit-1].Action.Desc.index('&')-1])
+            window["-ACTION_TIMES_NUMBER-"].update(AllPACUnits[PAC_unit-1].Action.Times[:AllPACUnits[PAC_unit-1].Action.Times.index('&')-1])
+            window["-ACTION_TOOL_TYPE-"].update(AllPACUnits[PAC_unit-1].Action.Tool[:AllPACUnits[PAC_unit-1].Action.Tool.index('&')-1])
+            window["-ACTION_DESCRIPTION-"].update(AllPACUnits[PAC_unit-1].Action.DescDetail)
+            window["-ACTION_PAC_ID-"].update(AllPACUnits[PAC_unit-1].Action.ID)
+        else:
+            window["-ACTION_TYPE-"].update(AllPACUnits[PAC_unit - 1].Action.Desc)
+            window["-ACTION_TIMES_NUMBER-"].update(AllPACUnits[PAC_unit - 1].Action.Times)
+            window["-ACTION_TOOL_TYPE-"].update(AllPACUnits[PAC_unit - 1].Action.Tool)
+            window["-ACTION_DESCRIPTION-"].update(AllPACUnits[PAC_unit - 1].Action.DescDetail)
+            window["-ACTION_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Action.ID)
+
+        for rows in range(1, len(row_action[1])):
+            if row_action[2][rows] == 1 and row_action[3][rows] == PAC_unit:
+                window[('-ROW_ACTION-', rows)].update(visible=True)
+
+        #Updating Children
+        counter = 0
+        for rows in row_child[1]:
+            if row_child[2][rows-1] == 1 and row_child[3][rows-1] == PAC_unit:
+                counter += 1
+        if counter == 0:
+            window["-CHILD_NAME-"].update(AllPACUnits[PAC_unit-1].Children.Desc)
+            window["-CHILD_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Children.ID)
+            window["-EoL-"].update(AllPACUnits[PAC_unit - 1].Children.EoL)
+            window["-CHILD_QUANTITY-"].update(AllPACUnits[PAC_unit - 1].Children.Number)
+            IDAsLetters = " ".join(re.split("[^a-zA-Z]*", AllPACUnits[PAC_unit - 1].Children.ID)).strip()
+            if IDAsLetters[0] == 'c':
+                window["-FASTENER-"].update("Yes")
+            else:
+                window["-FASTENER-"].update("No")
+
+        else:
+            window["-CHILD_NAME-"].update(AllPACUnits[PAC_unit - 1].Children[0].Desc)
+            window["-CHILD_PAC_ID-"].update(AllPACUnits[PAC_unit - 1].Children[0].ID)
+            window["-EoL-"].update(AllPACUnits[PAC_unit - 1].Children[0].EoL)
+            window["-CHILD_QUANTITY-"].update(AllPACUnits[PAC_unit - 1].Children[0].Number)
+            IDAsLetters = " ".join(re.split("[^a-zA-Z]*", AllPACUnits[PAC_unit - 1].Children[0].ID)).strip()
+            if IDAsLetters[0] == 'c':
+                window["-FASTENER-"].update("Yes")
+            else:
+                window["-FASTENER-"].update("No")
+
+            for rows in range(1, len(row_child[1])):
+                if row_child[2][rows] == 1 and row_child[3][rows] == PAC_unit:
+                    window[('-ROW_CHILD-', rows)].update(visible=True)
+
 
     #Lav en Delete PAC unit knap, så når man kommer til at trykke next ved en fejl og skaber et PAC unit man ikke skal bruge den sletter det
     # så man ikke får fejl når man prøver at bruge finish PAC model. Delete skal også kunne fjerne de givne ID'er som er blevet registreret deri
