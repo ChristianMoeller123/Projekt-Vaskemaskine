@@ -223,4 +223,4 @@ with open('objects.pickle', 'wb') as f:
 
 
 #Run GUI Final
-os.system('python GUI_Final.py')
+os.system('GUI_Final.py')
