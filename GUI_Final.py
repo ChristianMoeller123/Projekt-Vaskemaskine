@@ -23,6 +23,7 @@ with open('objects.pickle', 'rb') as f:
     # Element size of the squares in PAC model
     sizeX = 150
     sizeY = 60
+# RUN MOST
 
 colors = ['green', 'teal', 'sky blue', 'lime']
 
@@ -143,6 +144,40 @@ def ObjFromAttrib(attribute, value, obj_list):  #  finds all objects with a mact
         return matching_list[0]
     return matching_list
 
+#  CI calculator function
+def CI(**kwargs):
+    #  Call the function with a key:
+    #  RR = CI(M_rec = 194, M_collEoL = 19)
+    #  Input variables has to match the needed variables of output (CREATE ERROR FUNCTION!)
+    #returnList = []
+    inputList = []
+    for key in kwargs.items():
+        inputList.append(key[0])
+    if 'M_rec' in inputList:
+        RR = kwargs['M_rec']/kwargs['M_collEoL']
+        return round(RR, 2)
+        #returnList.append(RR)
+    if 'M_res' in inputList:
+        RE = kwargs['M_res']/kwargs['M_collEoL']
+        return round(RE, 2)
+        #returnList.append(RE)
+    #  MCI
+    # V   = Element Virgin mass
+    # W   = Overall amount of unrecoverable waste
+    # M_c = Child mass
+    # Wf  = Waste generated to produce feedstock
+    # Wc  = Waste generated in the recycling process
+    # L   = Actual realised lifetime
+    # Lav = Product design life based on market average
+    if 'V' in inputList:
+        LFI = (kwargs['V']+kwargs['W'])/(2*kwargs['M_c']+(kwargs['Wf']-kwargs['Wc'])/2)
+        X = kwargs['L']/kwargs['Lav']
+        MCI = 1-LFI*(0.9/X)
+        #returnList.append(MCI)
+        return round(MCI, 2)
+
+    return #  ???
+
 #  --- Find information about components and fasteners ---
 totalComponents = 0  #  Total components without fasteners
 Fasteners = [[0], [0]] # list of fasteners. Fasteners[0] = names, Fasteners[1] = amount
@@ -187,9 +222,10 @@ for unit in AllPACUnits:
                     Fasteners[0].append(int(unit.Children.Number))
 #  Make fasteners array compatible with the table element
 FastenersNew = []
-for i in range(len(Fasteners[1])):
-    FastenersNew.append([Fasteners[1][i], Fasteners[0][i]])
-Fasteners = FastenersNew
+if Fasteners[0][1]:
+    for i in range(len(Fasteners[1])):
+        FastenersNew.append([Fasteners[1][i], Fasteners[0][i]])
+    Fasteners = FastenersNew
 
 #   --- Add CI for all leaf children ---
 CIRR = []
@@ -200,19 +236,19 @@ for unit in AllPACUnits:
         for children in unit.Children:
             if children.isLeaf:
                 if children.M_res:
-                    CIRE.append(children.M_res)
+                    CIRE.append(CI(M_res=children.M_res, M_collEoL=children.M_collEoL))
                 if children.M_rec:
-                    CIRR.append(children.M_rec)
+                    CIRR.append(CI(M_rec=children.M_rec, M_collEoL=children.M_collEoL))
                 if children.V:
-                    CIMCI.append(children.MCI)
+                    CIMCI.append(CI(V=children.V, W=children.W, M_c=children.M_c, Wf=children.Wf, Wc=children.Wc, L=children.L, Lav=children.Lav))
     else:
         if unit.Children.isLeaf:
             if unit.Children.M_res:
-                CIRE.append(unit.Children.M_res)
+                CIRE.append(CI(M_res=unit.Children.M_res, M_collEoL=unit.Children.M_collEoL))
             if unit.Children.M_rec:
-                CIRR.append(unit.Children.M_rec)
+                CIRR.append(CI(M_res=unit.Children.M_rec, M_collEoL=unit.Children.M_collEoL))
             if unit.Children.V:
-                CIMCI.append(unit.Children.MCI)
+                CIMCI.append(CI(V=unit.Children.V, W=unit.Children.W, M_c=unit.Children.M_c, Wf=unit.Children.Wf, Wc=unit.Children.Wc, L=unit.Children.L, Lav=unit.Children.Lav))
 #  Find the averages if of CI's if they exist
 if CIRE:
     CIRE = sum(CIRE) / len(CIRE)
@@ -295,17 +331,19 @@ def make_win1():
             enable_events=True
         )]
     ]
-
+    row_number = 1
+    if Fasteners[1][0]:
+        row_number = len(Fasteners[1])
     # Define the PySimpleGUI layout
     layout = [
         [sg.Button('Options'), sg.Button('Exit')],
         [sg.T('Total amount of components without fasteners: '+str(totalComponents)), sg.T('RR: '+CIRR+' RE: '+CIRE+' MCI: '+CIMCI)],
-        [sg.Column(graph_layout, scrollable=True, size=(800, 600)), [sg.Column(graph_tree_layout, scrollable=True, size=(400,200)),
+        [sg.Column(graph_layout, scrollable=True, size=(1800, 600)), [sg.Column(graph_tree_layout, scrollable=True, size=(400,200)),
          sg.Table(values=Fasteners, headings=['Fastener', 'Amount'],
                    auto_size_columns=True,
                    display_row_numbers=True,
                    justification='center',
-                   num_rows=len(Fasteners[1]),
+                   num_rows=row_number,
                    expand_x=False,
                    expand_y=True,)]]
     ]
@@ -395,6 +433,7 @@ def drawTree(layer, posX):
 posX = 100
 drawTree([AllPACUnits[0]], posX)  # Draw the tree from the root
 
+'''
 #  Draw info squares
 posYInfo = (len(AllPACUnits[0].Children)+4)*ySpace
 graph.draw_rectangle((posX-sizeX/2, posYInfo + sizeY/2), (posX + sizeX/2, posYInfo - sizeY/2), fill_color = colors[0])
@@ -408,6 +447,7 @@ graph.draw_text('Component child', ((posX+2*xSpace), posYInfo))
 
 graph.draw_rectangle(((posX+(2*xSpace))-sizeX/2, posYInfo+ySpace + sizeY/2), ((posX+(2*xSpace)) + sizeX/2, posYInfo+ySpace - sizeY/2), fill_color = colors[3])
 graph.draw_text('Fastener child', ((posX+(2*xSpace), posYInfo+ySpace)))
+'''
 
 # Draw lines between pac units and define leaf nodes in PAC model
 # This is done by comparing all children IDs with all Parent IDs, if any matches, a line is drawn between them

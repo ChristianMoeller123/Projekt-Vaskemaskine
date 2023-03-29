@@ -39,9 +39,10 @@ def ObjFromAttrib(attribute, value, obj_list):  #  finds all objects with a mact
 
 # XML data handling
 # Load the XML file
-tree = ET.parse('Disassembly-PAC-sheet-bosch.xml')
+#tree = ET.parse('Disassembly-PAC-sheet-bosch.xml')
 #tree = ET.parse('Disassembly-PAC-sheet-gorenje-1.xml')
 #tree = ET.parse('Disassembly-PAC-sheet.xml')
+tree = ET.parse('Disassembly-PAC-sheet-kettle.xml')
 # Get the root element
 root = tree.getroot()
 
@@ -55,7 +56,7 @@ for i in range(len(rows)): #iterate over all rows
 
 # Only keep the data values in the relevant cells, the rest is put in desc list
 
-'''
+
 desc = cells[0:5] #for Kettle
 del cells[0:5]
 
@@ -63,7 +64,7 @@ del cells[0:5]
 
 desc = cells[0:4] #for bosch and gorenje?
 del cells[0:4]
-
+'''
 
 # Creating empty lists for P/A/C instances:   
 AllParents = []
@@ -134,21 +135,6 @@ for row in range(len(cells)):
         instance.Desc = cells[row][1]
         instance.Number = cells[row][2]
         instance.EoL = cells[row][3]
-
-        instance.imgDisp = False
-        #Assign random images:
-        if i == 1:
-            instance.imgFile = 'img1.png'
-            i = 2
-        elif i == 2:
-            instance.imgFile = 'img2.png'
-            i = 3
-        elif i == 3:
-            instance.imgFile = 'img3.png'
-            i = 4
-        elif i == 4:
-            instance.imgFile = 'img4.png'
-            i = 1
         AllChildren.append(instance)
         if len(cells[row]) == 9:
             DisInstance = Disassembly(cells[row][4])
@@ -192,6 +178,22 @@ for row in range(len(cells)):
     AllPACUnits[UnitID-1].Action = ObjFromAttrib('PACID', UnitID, AllActions)
     AllPACUnits[UnitID-1].Children = ObjFromAttrib('PACID', UnitID, AllChildren)# test
     #AllPACUnits[UnitID - 1].Children.append(ObjFromAttrib('PACID', UnitID, AllChildren))
+
+
+#  Insert images for demonstration
+#  2c1-1C1
+child = AllPACUnits[0].DFSNonRecursive('Children', 'ID', '2c1-1C1')
+#child[0].M_res = 10  #  Dummy CI values
+#child[0].M_collEoL = 0.5
+child[0].imgFile = 'Cross-Head-Screw.png'
+#  3C2-2C3
+child = AllPACUnits[0].DFSNonRecursive('Children', 'ID', '3C2-2C3')
+#child[0].M_res = 2  #  Dummy CI values
+#child[0].M_collEoL = 15
+child[0].imgFile = 'Kettlebody no metal ring.png'
+
+
+
 
 """
     Extra commands (ignore!)
