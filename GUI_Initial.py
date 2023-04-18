@@ -24,8 +24,8 @@ tool_type = ["Hand", "Drill", "Hammer", "Screwdriver"]
 action_type = ["Separate", "Remove", "Unscrew", "Disconnect"]
 EoL = ["Recyclable", "Non Recyclable"]
 yes_no = ["Yes", "No"]
-origin_PAC_unit = [["Origen here"]]
-origin_global = ["Origen here"]
+origin_PAC_unit = [["Origin here"]]
+origin_global = ["Origin here"]
 check_PAC_ID = []
 PAC_unit = 1
 
@@ -73,7 +73,7 @@ def create_parent_DF(row_counter, row_number_view):
             [[
               sg.Button("X", key=('-DEL_PARENT_DF-', row_counter)),
               sg.T("Failure description:"), sg.I(key=f"-PARENT_FAILURE_DESCRIPTION_{row_counter}-", s=25), sg.T("Disassembly type:"),
-              sg.Combo(disassembly_action_type, key=f"-PARENT_DISASSEMBlY_TYPE_{row_counter}-"), sg.T("Tool:"),
+              sg.Combo(disassembly_action_type, key=f"-PARENT_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
               sg.Combo(tool_type, key=f"-PARENT_TOOL_TYPE_{row_counter}-"),
               sg.T("Origin of DF:"), sg.Combo(origin_global, key=f"-PARENT_ORIGIN_{row_counter}-", readonly=True),
               sg.T(f"DF ID: {row_number_view}", key=f"-PARENT_DF_ID_{row_counter}-")]],
@@ -608,8 +608,8 @@ def parent_DF_class(ID_Input,row_counter):
     if ID != ID_Input:
         instance = Disassembly(ID_Input)
         if window[f"-PARENT_FAILURE_DESCRIPTION_{row_counter}-"] != "": instance.DFEffect = window[f"-PARENT_FAILURE_DESCRIPTION_{row_counter}-"].get()
-        if window[f"-PARENT_DISASSEMBlY_TYPE_{row_counter}-"] != "": instance.DAType = window[
-            f"-PARENT_DISASSEMBlY_TYPE_{row_counter}-"].get()
+        if window[f"-PARENT_DISASSEMBLY_TYPE_{row_counter}-"] != "": instance.DAType = window[
+            f"-PARENT_DISASSEMBLY_TYPE_{row_counter}-"].get()
         if window[f"-PARENT_TOOL_TYPE_{row_counter}-"] != "": instance.DATool = window[f"-PARENT_TOOL_TYPE_{row_counter}-"].get()
 
         AllDisassemblies.append(instance)
@@ -618,8 +618,35 @@ def parent_DF_class(ID_Input,row_counter):
     else:
         matching_list = ObjFromAttrib('DFID', ID_Input, AllDisassemblies)
         matching_list.DFEffect = window[f"-PARENT_FAILURE_DESCRIPTION_{row_counter}-"].get()
-        matching_list.DAType = window[f"-PARENT_DISASSEMBlY_TYPE_{row_counter}-"].get()
+        matching_list.DAType = window[f"-PARENT_DISASSEMBLY_TYPE_{row_counter}-"].get()
         matching_list.DATool = window[f"-PARENT_TOOL_TYPE_{row_counter}-"].get()
+        #print("Object found")
+        #print(matching_list.DFEffect)
+
+def action_DF_class(ID_Input,row_counter):
+    if not AllDisassemblies:
+        ID = ""
+    else:
+        for rows in AllDisassemblies:
+            ID = getattr(rows, 'DFID')
+            if ID == ID_Input:
+                continue
+
+    if ID != ID_Input:
+        instance = Disassembly(ID_Input)
+        if window[f"-ACTION_FAILURE_DESCRIPTION_{row_counter}-"] != "": instance.DFEffect = window[f"-ACTION_FAILURE_DESCRIPTION_{row_counter}-"].get()
+        if window[f"-ACTION_DISASSEMBLY_TYPE_{row_counter}-"] != "": instance.DAType = window[
+            f"-ACTION_DISASSEMBLY_TYPE_{row_counter}-"].get()
+        if window[f"-ACTION_TOOL_TYPE_{row_counter}-"] != "": instance.DATool = window[f"-ACTION_TOOL_TYPE_{row_counter}-"].get()
+
+        AllDisassemblies.append(instance)
+        #print("Object not found")
+        #print(instance.DFID, instance.DFEffect)
+    else:
+        matching_list = ObjFromAttrib('DFID', ID_Input, AllDisassemblies)
+        matching_list.DFEffect = window[f"-ACTION_FAILURE_DESCRIPTION_{row_counter}-"].get()
+        matching_list.DAType = window[f"-ACTION_DISASSEMBLY_TYPE_{row_counter}-"].get()
+        matching_list.DATool = window[f"-ACTION_TOOL_TYPE_{row_counter}-"].get()
         #print("Object found")
         #print(matching_list.DFEffect)
 
@@ -681,7 +708,7 @@ def update_action_DF():
                 if rows in origin_number_action_DF[PAC_unit - 1] and origin_number_action_DF[PAC_unit-1].count(rows) <= 1:
                     if PAC_unit == 1:
                         print(window[f"-ACTION_ORIGIN_{rows}-"].get())
-                        if window[f"-ACTION_ORIGIN_{rows}-"].get() == "Origen here":
+                        if window[f"-ACTION_ORIGIN_{rows}-"].get() == "Origin here":
                             origin_PAC_unit[0].append(f"1A1-000-000-1D{row_action_DF[1][rows]}")
                         else:
                             origin_PAC_unit[0].append(f"1A1-000-1P1-1D{row_action_DF[1][rows]}")
@@ -775,7 +802,13 @@ while True:
         row_parent_DF[2].append(0)
         row_parent_DF[3].append(PAC_unit)
 
-        origin_PAC_unit[PAC_unit-1].pop(max([index for (index, item) in enumerate(origin_PAC_unit[PAC_unit-1]) if f"{PAC_unit}P1" in item]))
+        for rows in range(len(origin_PAC_unit[PAC_unit-1])):
+            if origin_PAC_unit[PAC_unit-1][rows][0:3] == f"{PAC_unit}P1":
+                result = rows
+        try:
+            origin_PAC_unit[PAC_unit-1].pop(result)
+        except NameError:
+            continue
         row_parent_DF[0].pop(-2)
         row_parent_DF[1].pop(-2)
         row_parent_DF[2].pop(-2)
@@ -811,7 +844,14 @@ while True:
         row_action_DF[2].append(0)
         row_action_DF[3].append(PAC_unit)
         window[('-ROW_ACTION_DF-', event[1])].update(visible=False)
-        origin_PAC_unit[PAC_unit-1].pop(max([index for (index, item) in enumerate(origin_PAC_unit[PAC_unit-1]) if f"{PAC_unit}A1" in item]))
+
+        for rows in range(len(origin_PAC_unit[PAC_unit-1])):
+            if origin_PAC_unit[PAC_unit-1][rows][0:3] == f"{PAC_unit}A1":
+                result = rows
+        try:
+            origin_PAC_unit[PAC_unit-1].pop(result)
+        except NameError:
+            continue
         row_action_DF[0].pop(-2)
         row_action_DF[1].pop(-2)
         row_action_DF[2].pop(-2)
@@ -982,7 +1022,8 @@ while True:
                         child_class(f'{PAC_unit}c{row_child[1][rows]}-000',row_child[0][rows])
             for rows in row_parent_DF[0]:
                 if row_parent_DF[2][rows] == 1 and row_parent_DF[3][rows] == PAC_unit:
-                    parent_DF_class(f"1P1-000-000-1D{rows}", rows)
+                    window[f"-PARENT_DF_ID_{row_parent_DF[0][rows]}-"].update(f"Parent DF ID: 1P1-000-000-1D{row_parent_DF[1][rows]}")
+                    parent_DF_class(f"1P1-000-000-1D{row_parent_DF[1][rows]}", rows)
             for rows in row_action_DF[0]:
                 if row_action_DF[2][rows] == 1 and row_action_DF[3][rows] == PAC_unit:
                     action_ID_for_DF = values[f"-ACTION_ID_FOR_DF_{row_action_DF[0][rows]}-"]
@@ -990,7 +1031,15 @@ while True:
                         sg.popup_error("Remember to fill out what action is affected by the disassembly failure")
                         error[PAC_unit - 1] += 1
                         continue
-                    window[f"-ACTION_DF_ID_{row_action_DF[0][rows]}-"].update(f"Action DF ID: {PAC_unit}D{row_action_DF[1][rows]}-{PAC_unit}C{action_ID_for_DF}-000")
+                    if window[f"-ACTION_ORIGIN_{rows}-"].get() == "Origin here":
+                        window[f"-ACTION_DF_ID_{row_action_DF[0][rows]}-"].update(f"Action DF ID: 1A{row_action_DF[1][rows]}-000-000-1D{row_action_DF[1][rows]}")
+                        action_DF_class(f"1A{row_action_DF[1][rows]}-000-000-1D{row_action_DF[1][rows]}", rows)
+                    else:
+                        relation = origin_PAC_unit[PAC_unit-1][origin_number_action_DF[PAC_unit-1].index(row_action_DF[1][rows])][8:11]
+                        print(relation)
+                        window[f"-ACTION_DF_ID_{row_action_DF[0][rows]}-"].update(f"Action DF ID: 1A{row_action_DF[1][rows]}-000-{relation}-1D{row_action_DF[1][rows]}")
+                        action_DF_class(f"1A{row_action_DF[1][rows]}-000-{relation}-1D{row_action_DF[1][rows]}", rows)
+
             for rows in row_child_DF[0]:
                 if row_child_DF[2][rows] == 1 and row_child_DF[3][rows] == PAC_unit:
                     child_ID_for_DF = values[f"-CHILD_ID_FOR_DF_{row_child_DF[0][rows]}-"]
