@@ -24,9 +24,8 @@ tool_type = ["Hand", "Drill", "Hammer", "Screwdriver"]
 action_type = ["Separate", "Remove", "Unscrew", "Disconnect"]
 EoL = ["Recyclable", "Non Recyclable"]
 yes_no = ["Yes", "No"]
-origin = ["Origin here"]
-origin_local = ["Origen here"]
-
+origin_PAC_unit = [["Origen here"]]
+origin_global = ["Origen here"]
 check_PAC_ID = []
 PAC_unit = 1
 
@@ -43,7 +42,9 @@ child_DF_diff = [0]
 action_diff = [0]
 child_diff = [0]
 error = [0]
-
+origin_number_parent_DF = [[]]
+origin_number_action_DF = [[]]
+origin_number_child_DF = [[]]
 
 #This function creates the row of the parent disassembly failure, it does so by the program calling a defined row when starting
 # and then being able to add similar rows to that.
@@ -61,7 +62,7 @@ def create_parent_DF(row_counter, row_number_view):
                     sg.T("Disassembly type:"),
                     sg.Combo(disassembly_action_type, key=f"-PARENT_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
                     sg.Combo(tool_type, key=f"-PARENT_TOOL_TYPE_{row_counter}-"),
-                    sg.T("Origin of DF:"), sg.Combo(origin, key=f"-PARENT_ORIGIN_{row_counter}-", readonly=True),
+                    sg.T("Origin of DF:"), sg.Combo(origin_global, key=f"-PARENT_ORIGIN_{row_counter}-", readonly=True),
                     sg.T(f"DF ID: {row_number_view}", key=f"-PARENT_DF_ID_{row_counter}-")]],
                 justification="center", key=('-ROW_PARENT_DF-', row_counter), visible=False
             ))]
@@ -74,7 +75,7 @@ def create_parent_DF(row_counter, row_number_view):
               sg.T("Failure description:"), sg.I(key=f"-PARENT_FAILURE_DESCRIPTION_{row_counter}-", s=25), sg.T("Disassembly type:"),
               sg.Combo(disassembly_action_type, key=f"-PARENT_DISASSEMBlY_TYPE_{row_counter}-"), sg.T("Tool:"),
               sg.Combo(tool_type, key=f"-PARENT_TOOL_TYPE_{row_counter}-"),
-              sg.T("Origin of DF:"), sg.Combo(origin, key=f"-PARENT_ORIGIN_{row_counter}-", readonly=True),
+              sg.T("Origin of DF:"), sg.Combo(origin_global, key=f"-PARENT_ORIGIN_{row_counter}-", readonly=True),
               sg.T(f"DF ID: {row_number_view}", key=f"-PARENT_DF_ID_{row_counter}-")]],
             justification="center", key=('-ROW_PARENT_DF-', row_counter)
         ))]
@@ -84,6 +85,11 @@ def create_action_DF(row_counter, row_number_view):
     # Input: row_counter is the actual row which is about to be showed, counting visible and non visible.
     # Input: row_number_view is the row number for the currently visible rows
     # Output: this function returns a row with the action DF failure setup, with combo and input key named after the row_counter
+    origin_without_actions = []
+    for values in range(len(origin_PAC_unit[PAC_unit-1])):
+        if origin_PAC_unit[PAC_unit-1][values][0:3] != f"{PAC_unit}A1":
+            origin_without_actions.append(origin_PAC_unit[PAC_unit-1][values])
+
     action_ID_for_DF = list(range(1,row_action[1][-1]+1))
     if row_counter == 0:
         row = [sg.pin(
@@ -95,7 +101,7 @@ def create_action_DF(row_counter, row_number_view):
                     sg.T("Disassembly type:"),
                     sg.Combo(disassembly_action_type, key=f"-ACTION_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
                     sg.Combo(tool_type, key=f"-ACTION_TOOL_TYPE_{row_counter}-"),
-                    sg.T("Origin of DF:"), sg.Combo(origin, key=f"-ACTION_ORIGIN_{row_counter}-", readonly=True),
+                    sg.T("Origin of DF:"), sg.Combo(origin_without_actions, key=f"-ACTION_ORIGIN_{row_counter}-", readonly=True),
                     sg.T(f"DF ID: {row_number_view}", key=f"-ACTION_DF_ID_{row_counter}-")]],
                 justification="center", key=('-ROW_ACTION_DF-', row_counter), visible=False
             ))]
@@ -109,7 +115,7 @@ def create_action_DF(row_counter, row_number_view):
               sg.T("Failure description:"), sg.I(key=f"-ACTION_FAILURE_DESCRIPTION_{row_counter}-", s=25), sg.T("Disassembly type:"),
               sg.Combo(disassembly_action_type, key=f"-ACTION_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
               sg.Combo(tool_type, key=f"-ACTION_TOOL_TYPE_{row_counter}-"),
-              sg.T("Origin of DF:"), sg.Combo(origin, key=f"-ACTION_ORIGIN_{row_counter}-", readonly=True),
+              sg.T("Origin of DF:"), sg.Combo(origin_without_actions, key=f"-ACTION_ORIGIN_{row_counter}-", readonly=True),
               sg.T(f"DF ID: {row_number_view}", key=f"-ACTION_DF_ID_{row_counter}-")]],
             justification="center", key=('-ROW_ACTION_DF-', row_counter)
         ))]
@@ -130,7 +136,7 @@ def create_child_DF(row_counter, row_number_view):
                     sg.T("Disassembly type:"),
                     sg.Combo(disassembly_action_type, key=f"-CHILD_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
                     sg.Combo(tool_type, key=f"-CHILD_TOOL_TYPE_{row_counter}-"),
-                    sg.T("Origin of DF:"), sg.Combo(origin, key=f"-CHILD_ORIGIN_{row_counter}-", readonly=True),
+                    sg.T("Origin of DF:"), sg.Combo(origin_PAC_unit[PAC_unit-1], key=f"-CHILD_ORIGIN_{row_counter}-", readonly=True),
                     sg.T(f"DF ID: {row_number_view}", key=f"-CHILD_DF_ID_{row_counter}-")]],
                 justification="center", key=('-ROW_CHILD_DF-', row_counter), visible=False
             ))]
@@ -144,7 +150,7 @@ def create_child_DF(row_counter, row_number_view):
               sg.T("Failure description:"), sg.I(key=f"-CHILD_FAILURE_DESCRIPTION_{row_counter}-", s=25), sg.T("Disassembly type:"),
               sg.Combo(disassembly_action_type, key=f"-CHILD_DISASSEMBLY_TYPE_{row_counter}-"), sg.T("Tool:"),
               sg.Combo(tool_type, key=f"-CHILD_TOOL_TYPE_{row_counter}-"),
-              sg.T("Origin of DF:"), sg.Combo(origin, key=f"-CHILD_ORIGIN_{row_counter}-", readonly=True),
+              sg.T("Origin of DF:"), sg.Combo(origin_PAC_unit[PAC_unit-1], key=f"-CHILD_ORIGIN_{row_counter}-", readonly=True),
               sg.T(f"DF ID: {row_number_view}", key=f"-CHILD_DF_ID_{row_counter}-")]],
             justification="center", key=('-ROW_CHILD_DF-', row_counter)
         ))]
@@ -655,6 +661,30 @@ def PAC_search(PAC_unit, PAC_list):
             matching_list = row
     return matching_list
 
+def update_parent_DF():
+    # Continously updating the DF
+    for rows in row_parent_DF[0]:
+        if row_parent_DF[2][rows] == 1 and row_parent_DF[3][rows] == PAC_unit:
+            # The if statement below will only work once a new button has happened been clicked  in the GUI
+            if window[f"-PARENT_ORIGIN_{rows}-"].get() != "":
+                origin_number_parent_DF[PAC_unit - 1].append(rows)
+                if rows in origin_number_parent_DF[PAC_unit - 1] and origin_number_parent_DF[PAC_unit - 1].count(rows) <= 1:
+                    if PAC_unit == 1:
+                        origin_PAC_unit[0].append(f"1P1-000-000-1D{row_parent_DF[1][rows]}")
+
+def update_action_DF():
+    for rows in row_action_DF[0]:
+        if row_action_DF[2][rows] == 1 and row_action_DF[3][rows] == PAC_unit:
+            # The if statement below will only work once a new button has happened been clicked  in the GUI
+            if window[f"-ACTION_ORIGIN_{rows}-"].get() != "":
+                origin_number_action_DF[PAC_unit-1].append(rows)
+                if rows in origin_number_action_DF[PAC_unit - 1] and origin_number_action_DF[PAC_unit-1].count(rows) <= 1:
+                    if PAC_unit == 1:
+                        print(window[f"-ACTION_ORIGIN_{rows}-"].get())
+                        if window[f"-ACTION_ORIGIN_{rows}-"].get() == "Origen here":
+                            origin_PAC_unit[0].append(f"1A1-000-000-1D{row_action_DF[1][rows]}")
+                        else:
+                            origin_PAC_unit[0].append(f"1A1-000-1P1-1D{row_action_DF[1][rows]}")
 
 
 
@@ -717,6 +747,9 @@ while True:
             window["Disassembly image"].update(filename="Table setup.png")
 
     #PAC tab
+
+    update_parent_DF()
+    update_action_DF()
     if event == '-ADD_ITEM_PARENT_DF-':
         row_parent_DF[0].append(row_parent_DF[0][-1]+1)
         row_parent_DF[1].append(row_parent_DF[1][-1] + 1)
@@ -742,6 +775,7 @@ while True:
         row_parent_DF[2].append(0)
         row_parent_DF[3].append(PAC_unit)
 
+        origin_PAC_unit[PAC_unit-1].pop(max([index for (index, item) in enumerate(origin_PAC_unit[PAC_unit-1]) if f"{PAC_unit}P1" in item]))
         row_parent_DF[0].pop(-2)
         row_parent_DF[1].pop(-2)
         row_parent_DF[2].pop(-2)
@@ -777,6 +811,7 @@ while True:
         row_action_DF[2].append(0)
         row_action_DF[3].append(PAC_unit)
         window[('-ROW_ACTION_DF-', event[1])].update(visible=False)
+        origin_PAC_unit[PAC_unit-1].pop(max([index for (index, item) in enumerate(origin_PAC_unit[PAC_unit-1]) if f"{PAC_unit}A1" in item]))
         row_action_DF[0].pop(-2)
         row_action_DF[1].pop(-2)
         row_action_DF[2].pop(-2)
@@ -892,6 +927,8 @@ while True:
         # Same as for the action DF
         child_DF_affected_ID()
 
+
+
     if event == "-CHECK_PAC_ID-":
         #Her skal der laves et tjek for om det givne PAC unit allerede er blevet gemt og hvis det er skal værdierne bare opdateres i stedet for at gemmes igen
         error[PAC_unit - 1] = 0
@@ -945,8 +982,7 @@ while True:
                         child_class(f'{PAC_unit}c{row_child[1][rows]}-000',row_child[0][rows])
             for rows in row_parent_DF[0]:
                 if row_parent_DF[2][rows] == 1 and row_parent_DF[3][rows] == PAC_unit:
-                    window[f"-PARENT_DF_ID_{row_parent_DF[0][rows]}-"].update(f"Parent DF ID: {PAC_unit}D{row_parent_DF[1][rows]}-{PAC_unit}P1-000")
-                    parent_DF_class(f"{PAC_unit}D{row_parent_DF[1][rows]}-{PAC_unit}P1-000",rows)
+                    parent_DF_class(f"1P1-000-000-1D{rows}", rows)
             for rows in row_action_DF[0]:
                 if row_action_DF[2][rows] == 1 and row_action_DF[3][rows] == PAC_unit:
                     action_ID_for_DF = values[f"-ACTION_ID_FOR_DF_{row_action_DF[0][rows]}-"]
@@ -1258,9 +1294,8 @@ while True:
         window["-ACTION_SCROLL-"].contents_changed()
         window["-PARENT_SCROLL-"].contents_changed()
 
-    #Lav en Delete PAC unit knap, så når man kommer til at trykke next ved en fejl og skaber et PAC unit man ikke skal bruge den sletter det
-    # så man ikke får fejl når man prøver at bruge finish PAC model. Delete skal også kunne fjerne de givne ID'er som er blevet registreret deri
-    # til sidst skal den også også sige at hvis man slettet et PAC unit midtvejs at den ikke kan gøre det fordi der er andre PAC units der afhænger af den og man skal slette dem først
+    update_parent_DF()
+    update_action_DF()
 
 window.close()
 
