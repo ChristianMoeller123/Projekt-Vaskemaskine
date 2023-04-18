@@ -131,8 +131,8 @@ def pathDEI(ID):
     # sum DEIs in path
     for unit in pathReconstruct:
          if unit:
-             pathDEI = pathDEI + unit.Action.DEI
-    return pathDEI
+             pathDEI = pathDEI + unit.Action.ActionDEI + unit.Action.DFDEI
+    return round(pathDEI, 2)
 
 
 def ObjFromAttrib(attribute, value, obj_list):  #  finds all objects with a macthing value in the obj list given
@@ -361,7 +361,8 @@ def make_winA(obj):
               [sg.Text('Detailed description: ' + obj.DescDetail)],
               [sg.Text('Number of times repeated: ' + obj.Times)],
               [sg.Text('Tool: ' + obj.Tool)],
-              [sg.Text('DEI for Action: ' + str(obj.DEI))],
+              [sg.Text('DEI for Action: ' + str(obj.ActionDEI))],
+              [sg.Text('DEI for DF: ' + str(obj.DFDEI))],
               [sg.Text('Path DEI to Action: ' + str(pathDEI(obj.ID)))],
               [sg.Frame('DFs',[[sg.T('Information about DFs')]], key='-FRAME-')],
               [sg.Button('Add DF'), sg.Button('Exit')]]

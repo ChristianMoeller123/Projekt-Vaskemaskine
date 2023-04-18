@@ -40,9 +40,9 @@ def ObjFromAttrib(attribute, value, obj_list):  #  finds all objects with a mact
 # XML data handling
 # Load the XML file
 #tree = ET.parse('Disassembly-PAC-sheet-bosch.xml')
-#tree = ET.parse('Disassembly-PAC-sheet-gorenje-1.xml')
+tree = ET.parse('Disassembly-PAC-sheet-gorenje-1.xml')
 #tree = ET.parse('Disassembly-PAC-sheet.xml')
-tree = ET.parse('Disassembly-PAC-sheet-kettle.xml')
+#tree = ET.parse('Disassembly-PAC-sheet-kettle.xml')
 # Get the root element
 root = tree.getroot()
 
@@ -56,7 +56,7 @@ for i in range(len(rows)): #iterate over all rows
 
 # Only keep the data values in the relevant cells, the rest is put in desc list
 
-
+'''
 desc = cells[0:5] #for Kettle
 del cells[0:5]
 
@@ -64,7 +64,7 @@ del cells[0:5]
 
 desc = cells[0:4] #for bosch and gorenje?
 del cells[0:4]
-'''
+
 
 # Creating empty lists for P/A/C instances:   
 AllParents = []
@@ -179,7 +179,7 @@ for row in range(len(cells)):
     AllPACUnits[UnitID-1].Children = ObjFromAttrib('PACID', UnitID, AllChildren)# test
     #AllPACUnits[UnitID - 1].Children.append(ObjFromAttrib('PACID', UnitID, AllChildren))
 
-
+'''
 #  Insert images for demonstration
 #  2c1-1C1
 child = AllPACUnits[0].DFSNonRecursive('Children', 'ID', '2c1-1C1')
@@ -191,9 +191,19 @@ child = AllPACUnits[0].DFSNonRecursive('Children', 'ID', '3C2-2C3')
 #child[0].M_res = 2  #  Dummy CI values
 #child[0].M_collEoL = 15
 child[0].imgFile = 'Kettlebody no metal ring.png'
+'''
 
-
-
+# Define leaf nodes (might be a bit useless here)
+for unit in AllPACUnits:
+    if isinstance(unit.Children, list):  # If there are more than 1 child in the PAC unit
+        for child in unit.Children:
+            for root in unit.TreeChildren:
+                if child.ID[:child.ID.index('-')] == root.Parent.ID[root.Parent.ID.index('-') + 1:]:
+                    child.isLeaf = False
+    else:  # If there is only 1 child in the PAC unit
+        for root in unit.TreeChildren:
+            if unit.Children.ID[:unit.Children.ID.index('-')] == root.Parent.ID[root.Parent.ID.index('-')+1:]:
+                unit.Children.isLeaf = False
 
 """
     Extra commands (ignore!)
@@ -221,6 +231,7 @@ objects = {"Parents": AllParents, "Actions": AllActions, "Children": AllChildren
 with open('objects.pickle', 'wb') as f:
     pickle.dump(objects, f)
 
+#os.system('m-MOST.py')
 
 #Run GUI Final
-os.system('GUI_Final.py')
+os.system('python GUI_Final.py')
