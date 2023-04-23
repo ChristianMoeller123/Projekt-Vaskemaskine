@@ -63,7 +63,11 @@ class Action:
         self.Tool = 'N/A' #Tool needed to perform action
         self.PACID = self.extract_PACID()
         self.pos = ()
-        self.DEI = 1
+        self.DEISteps = []
+        self.DFDEI = 0
+        self.ActionDEI = 0
+        self.DEI = self.DFDEI + self.ActionDEI
+
 
     def extract_PACID(self):
         PACindex = len(self.ID)
