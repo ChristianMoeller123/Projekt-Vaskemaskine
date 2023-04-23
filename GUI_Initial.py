@@ -713,7 +713,7 @@ def PAC_search(PAC_unit, PAC_list):
         if row.PACID == PAC_unit:
             matching_list = row
     return matching_list
-
+#What the fuck
 def update_parent_DF():
     # Continously updating the DF
     for rows in row_parent_DF[0]:
