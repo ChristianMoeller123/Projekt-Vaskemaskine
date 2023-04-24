@@ -18,7 +18,9 @@ AllDisassemblies = []
 
 setup_type = ["Rectangular setup", "Circular setup", "Table setup"]
 BOM_array = []
-headings = ['Part name', 'Quantity']
+BOM_array_disp = []
+CI_list = []
+headings_list = [('Part name', True), ('Quantity', True), ('M rec', False), ('M res', False), ('M collected EoL', False), ('V', False), ('W', False), ('M c', False), ('Wf', False), ('Wc', False), ('L', False), ('Lav', False)]
 disassembly_action_type = ["Destructive", "Semi-Destructive", "Non destructive"]
 tool_type = ["Hand", "Drill", "Hammer", "Screwdriver"]
 action_type = ["Separate", "Remove", "Unscrew", "Disconnect"]
@@ -49,7 +51,78 @@ origin_number_action_DF = [[]]
 origin_number_child_DF = [[]]
 
 
+#  Handling BOM heading lists
+def toggle_CI(headings_list, index_list, vis):
+    updated_headings = headings_list.copy()
+    index_list = index_list if isinstance(index_list,list) else [index_list]
+    for index in index_list:
+        value, status = updated_headings[index]
+        updated_headings[index] = (value, vis)
+    sorted_headings = sorted(updated_headings, key=lambda x: updated_headings.index(x))
+    return headings_list, [value for value, status in sorted_headings if status]
+headings_list, headings = toggle_CI(headings_list, 1, True)
+headings_list, headings_RR = toggle_CI(headings_list, [2,4], True)
+headings_list, headings_RE = toggle_CI(headings_list, [3,4], True)
+headings_list, headings_MCI = toggle_CI(headings_list, list(range(5,12)), True)
+headings_list, headings_RRRE = toggle_CI(headings_list, list(range(2,5)), True)
+headings_list, headings_RRMCI = toggle_CI(headings_list, [2,4,5,6,7,8,9,10,11], True)
+headings_list, headings_REMCI = toggle_CI(headings_list, list(range(3,12)), True)
+headings_list, headings_RRREMCI = toggle_CI(headings_list, list(range(2,12)), True)
+prev_table = "-TABLE-"
 
+def visibility_func(CI_list, prev_table):
+    vis_string = ""
+    if "RR" in CI_list:
+        vis_string +="RR"
+    if "RE" in CI_list:
+        vis_string += "RE"
+    if "MCI" in CI_list:
+        vis_string += "MCI"
+    window[prev_table].update(visible=False)
+    next_table = f"-TABLE{vis_string}-"
+    window[next_table].update(visible=True)
+    return next_table
+def BOM_append(BOM_array, CI_list, prev_table):
+    appendlist = [values["BOM names"], values["BOM quantity"]]
+    inputlist = ["BOM names", "BOM quantity"]
+    if "RR" in CI_list and "RE" in CI_list:
+        appendlist.extend([values["-MREC-"], values["-MRES-"], values["-MEOL-"]])
+        inputlist.extend(["-MREC-", "-MRES-", "-MEOL-"])
+    elif "RR" in CI_list:
+        appendlist.extend([values["-MREC-"], values["-MEOL-"]])
+        inputlist.extend(["-MREC-", "-MEOL-"])
+    elif "RE" in CI_list:
+        appendlist.extend([values["-MRES-"], values["-MEOL-"]])
+        inputlist.extend(["-MRES-", "-MEOL-"])
+    if "MCI" in CI_list:
+        appendlist.extend([values["-V-"], values["-W-"], values["-MC-"], values["-WF-"], values["-WC-"], values["-L-"], values["-LAV-"]])
+        inputlist.extend(["-V-", "-W-", "-MC-", "-WF-", "-WC-", "-L-", "-LAV-"])
+    appendlisterror = appendlist[1:]
+    try:
+        errorlist = [int(num) if num.isdigit() else float(num) for num in appendlisterror]
+    except:
+        sg.popup_error("Please fill out all fields with numbers")
+        return
+    BOM_array.append(appendlist)
+    for input in inputlist:
+        window[input].update('')
+    return BOM_array
+
+def get_BOM_names():
+    BOM_names = []
+    for i in range(len(BOM_array_disp)):
+        if int(BOM_array_disp[i][1]):
+            BOM_names.append(BOM_array[i][0])
+    return BOM_names
+
+def BOM_quant_left(names_quant, BOM):
+    #  Takes a 2D array with names and quantities, ex: [[hest, 1],[abe, 2],[elefant, 6]]. And the BOM to change
+    #  Returns a BOM list with the remaining quantities on the list
+    for elem in names_quant:
+        for item in BOM:
+            if item[0] == elem[0]:
+                item[1] = int(item[1]) - int(elem[1])
+    return BOM
 
 #This function creates the row of the parent disassembly failure, it does so by the program calling a defined row when starting
 # and then being able to add similar rows to that.
@@ -198,10 +271,10 @@ def create_child(row_counter, row_number_view):
             sg.Column(
                 [[
                     sg.Button("X", key=('-DEL_CHILD-', row_counter)),
-                    sg.T("Child name:"), sg.I(key=f"-CHILD_NAME_{row_counter}-", s=25), sg.T("Quantity:"),
+                    sg.T("Child name:"), sg.Combo(get_BOM_names(), key=f"-CHILD_NAME_{row_counter}-", s=25), sg.T("Quantity:"),
                     sg.I(key=f"-CHILD_QUANTITY_{row_counter}-", s=5),
                     sg.T("EoL:"), sg.Combo(EoL, key=f"-EoL_{row_counter}-"), sg.T("Fastener:"), sg.Combo(yes_no, key=f"-FASTENER_{row_counter}-", readonly=True), sg.T(f"Child PAC ID: {row_number_view}", key=f"-CHILD_PAC_ID_{row_counter}-")]],
-                justification="center", key=('-ROW_CHILD-', row_counter), visible=False
+                justification="center", key=('-CHILD_ACTION-', row_counter), visible=False
             ))]
         return row
     else:
@@ -209,7 +282,7 @@ def create_child(row_counter, row_number_view):
         sg.Column(
             [[
               sg.Button("X", key=('-DEL_CHILD-', row_counter)),
-                sg.T("Child name:"), sg.I(key=f"-CHILD_NAME_{row_counter}-", s=25), sg.T("Quantity:"),
+                sg.T("Child name:"), sg.Combo(get_BOM_names(), key=f"-CHILD_NAME_{row_counter}-", s=25), sg.T("Quantity:"),
                 sg.I(key=f"-CHILD_QUANTITY_{row_counter}-", s=5),
                 sg.T("EoL:"), sg.Combo(EoL, key=f"-EoL_{row_counter}-"), sg.T("Fastener:"), sg.Combo(yes_no, key=f"-FASTENER_{row_counter}-", readonly=True), sg.T(f"Child PAC ID: {row_number_view}", key=f"-CHILD_PAC_ID_{row_counter}-")]],
             justification="center", key=('-ROW_CHILD-', row_counter)
@@ -300,13 +373,28 @@ def PACUnitInsert(PACList, AllPACUnits):
 
 
 MOST_layout = [[sg.T("Disassembly setup:"), sg.Combo(setup_type, key="Disassembly setup"),sg.B("Display")],
-               [sg.Column([[sg.Image('',key="Disassembly image")]], justification='center')]
+               [sg.Column([[sg.Image('',key="Disassembly image")]], justification='center')],
+               [sg.pin(sg.T("Distance A: ",key="-TA-", visible=False)), sg.pin(sg.I(key="-A-", s=6,visible=False)), sg.pin(sg.T("Distance to storage area: ",key="-TS-", visible=False)), sg.pin(sg.I(key="-S-", s=6, visible=False)), sg.pin(sg.B("Save", key="-SAVESETUP-", visible=False))]
                ]
 
 
-BOM_layout = [[sg.T("Input BOM from file:"), sg.I(key="BOM names file", s=35), sg.FileBrowse(file_types=())],
-              [sg.T("Input BOM names and quantity:"), sg.I(key="BOM names", s=20), sg.I(key="BOM quantity", s=6), sg.B("Add")],
-              [sg.Table(values=BOM_array, headings=headings, display_row_numbers=True, num_rows=10, key='-TABLE-', enable_events=True, enable_click_events=True, expand_x=True, justification="center", expand_y=False)]
+BOM_layout = [[sg.T("Choose Circularity Indices before inputting items. Do not change Circularity Indicies during item input!")],
+              [sg.T("Input BOM from file:"), sg.I(key="BOM names file", s=35), sg.FileBrowse(file_types=()), sg.T("Choose Circularity Indices: "), sg.Combo(["None", "RR", "RE", "MCI"], key='-CICHOICE-'), sg.B("Add CI", key="-ADDCI-")],
+              [sg.T("Input BOM names and quantity:"), sg.I(key="BOM names", s=20), sg.I(key="BOM quantity", s=6), sg.B("Add Item", key="Add")],
+              [sg.pin(sg.T("Mass recycled in kg (M rec): ", key="-TMRECRR-", visible=False)), sg.pin(sg.I(key="-MREC-", s=6, visible=False)), sg.pin(sg.T("Mass collected at EoL in kg (M collected EoL): ", key="-TEOL-", visible=False)), sg.pin(sg.I(key="-MEOL-", s=6, visible=False))],
+              [sg.pin(sg.T("Mass reused in kg (M res): ", key="-TMRESRE-", visible=False)), sg.pin(sg.I(key="-MRES-", s=6, visible=False))],
+              [sg.pin(sg.T("Virgin mass (V): ", key="-TV-", visible=False)), sg.pin(sg.I(key="-V-", s=6, visible=False)), sg.pin(sg.T("Unrecoverable waste (W): ", key="-TW-", visible=False)), sg.pin(sg.I(key="-W-", s=6, visible=False))],
+              [sg.pin(sg.T("Child mass (M c): ", key="-TMC-", visible=False)), sg.pin(sg.I(key="-MC-", s=6, visible=False)), sg.pin(sg.T("Waste from feedstock (Wf): ", key="-TWF-", visible=False)), sg.pin(sg.I(key="-WF-", s=6, visible=False))],
+              [sg.pin(sg.T("Waste from recycling process (Wc): ", key="-TWC-", visible=False)), sg.pin(sg.I(key="-WC-", s=6, visible=False)), sg.pin(sg.T("Actual realised lifetime (L): ", key="-TL-", visible=False)), sg.pin(sg.I(key="-L-", s=6, visible=False))],
+              [sg.pin(sg.T("Product average lifetime based on market (Lav): ", key="-TLAV-", visible=False)), sg.pin(sg.I(key="-LAV-", s=6, visible=False))],
+              [sg.pin(sg.Table(values=BOM_array, headings=headings, display_row_numbers=True, num_rows=10, key='-TABLE-', enable_events=True, enable_click_events=True, expand_x=False, justification="center", expand_y=False, visible=True, auto_size_columns = True))],
+              [sg.pin(sg.Table(values=BOM_array, headings=headings_RR, display_row_numbers=True, num_rows=10, key='-TABLERR-', enable_events=True, enable_click_events=True, expand_x=True, justification="center", expand_y=True, visible=False))],
+              [sg.pin(sg.Table(values=BOM_array, headings=headings_RE, display_row_numbers=True, num_rows=10, key='-TABLERE-', enable_events=True, enable_click_events=True, expand_x=True, justification="center", expand_y=True, visible=False))],
+              [sg.pin(sg.Table(values=BOM_array, headings=headings_MCI, display_row_numbers=True, num_rows=10, key='-TABLEMCI-', enable_events=True, enable_click_events=True, expand_x=True, justification="center", expand_y=True, visible=False))],
+              [sg.pin(sg.Table(values=BOM_array, headings=headings_RRRE, display_row_numbers=True, num_rows=10, key='-TABLERRRE-', enable_events=True, enable_click_events=True, expand_x=True, justification="center", expand_y=True, visible=False))],
+              [sg.pin(sg.Table(values=BOM_array, headings=headings_RRMCI, display_row_numbers=True, num_rows=10, key='-TABLERRMCI-', enable_events=True, enable_click_events=True, expand_x=True, justification="center", expand_y=True, visible=False))],
+              [sg.pin(sg.Table(values=BOM_array, headings=headings_REMCI, display_row_numbers=True, num_rows=10, key='-TABLEREMCI-', enable_events=True, enable_click_events=True, expand_x=True, justification="center", expand_y=True, visible=False))],
+              [sg.pin(sg.Table(values=BOM_array, headings=headings_RRREMCI, display_row_numbers=True, num_rows=10, key='-TABLERRREMCI-', enable_events=True, enable_click_events=True, expand_x=True, justification="center", expand_y=True, visible=False, auto_size_columns = True))]
 ]
 
 menu_def = [["Help", ["MOST", "BOM", "PAC"]],
@@ -342,7 +430,7 @@ PAC_layout = [
 
               [sg.Column([
               [sg.Column([[sg.T("Children")]], justification="center")],
-              [sg.Column([[sg.T("Child name:"), sg.I(key="-CHILD_NAME-", s=25), sg.T("Quantity:"), sg.I(key="-CHILD_QUANTITY-", s=5), sg.T("EoL:"), sg.Combo(EoL, key="-EoL-"), sg.T("Fastener:"), sg.Combo(yes_no, key="-FASTENER-", readonly=True), sg.T("Child PAC ID:", key="-CHILD_PAC_ID-")]], justification="center")],
+              [sg.Column([[sg.T("Child name:"), sg.Combo(get_BOM_names(), key="-CHILD_NAME-", s=25), sg.T("Quantity:"), sg.I(key="-CHILD_QUANTITY-", s=5), sg.T("EoL:"), sg.Combo(EoL, key="-EoL-"), sg.T("Fastener:"), sg.Combo(yes_no, key="-FASTENER-", readonly=True), sg.T("Child PAC ID:", key="-CHILD_PAC_ID-")]], justification="center")],
               [sg.Column([create_child(0,1)],key='-CHILD_PANEL-', justification="center")],
               [sg.Column([[sg.Button('Add Child',key='-ADD_ITEM_CHILD-')]], justification="center")],
               [sg.Column([[sg.T("Disassembly failure child")]], justification="center")],
@@ -1141,30 +1229,98 @@ while True:
         window["-ACTION_SCROLL-"].contents_changed()
         window["-PARENT_SCROLL-"].contents_changed()
 
-    ##BOM tab
+    #  BOM tab
+    if event == "-ADDCI-":
+        CI_list.append(values["-CICHOICE-"])
+        if BOM_array:
+            sg.popup_error("Please don't change CI's when adding items to BOM")
+            break
+        if values["-CICHOICE-"] == "None":
+            CI_list = []
+            window["-TMRECRR-"].update(visible=False)
+            window["-MREC-"].update(visible=False)
+            window["-TEOL-"].update(visible=False)
+            window["-MEOL-"].update(visible=False)
+            window["-TMRESRE-"].update(visible=False)
+            window["-MRES-"].update(visible=False)
+            window["-TV-"].update(visible=False)
+            window["-V-"].update(visible=False)
+            window["-TW-"].update(visible=False)
+            window["-W-"].update(visible=False)
+            window["-TMC-"].update(visible=False)
+            window["-MC-"].update(visible=False)
+            window["-TWF-"].update(visible=False)
+            window["-WF-"].update(visible=False)
+            window["-TWC-"].update(visible=False)
+            window["-WC-"].update(visible=False)
+            window["-TL-"].update(visible=False)
+            window["-L-"].update(visible=False)
+            window["-TLAV-"].update(visible=False)
+            window["-LAV-"].update(visible=False)
+            prev_table = visibility_func(CI_list, prev_table)
+            # BRUG Headings table
+        if values["-CICHOICE-"] == "RR":
+            window["-TMRECRR-"].update(visible=True)
+            window["-MREC-"].update(visible=True)
+            window["-TEOL-"].update(visible=True)
+            window["-MEOL-"].update(visible=True)
+            prev_table = visibility_func(CI_list, prev_table)
+        if values["-CICHOICE-"] == "RE":
+            window["-TMRESRE-"].update(visible=True)
+            window["-MRES-"].update(visible=True)
+            window["-TEOL-"].update(visible=True)
+            window["-MEOL-"].update(visible=True)
+            prev_table = visibility_func(CI_list, prev_table)
+
+        if values["-CICHOICE-"] == "MCI":
+            window["-TV-"].update(visible=True)
+            window["-V-"].update(visible=True)
+            window["-TW-"].update(visible=True)
+            window["-W-"].update(visible=True)
+            window["-TMC-"].update(visible=True)
+            window["-MC-"].update(visible=True)
+            window["-TWF-"].update(visible=True)
+            window["-WF-"].update(visible=True)
+            window["-TWC-"].update(visible=True)
+            window["-WC-"].update(visible=True)
+            window["-TL-"].update(visible=True)
+            window["-L-"].update(visible=True)
+            window["-TLAV-"].update(visible=True)
+            window["-LAV-"].update(visible=True)
+            prev_table = visibility_func(CI_list, prev_table)
     if event == "Add":
         if is_valid_name(values["BOM names"], BOM_array) & is_valid_quantity(values["BOM quantity"]):
-            BOM_array.append([values["BOM names"], values["BOM quantity"]])
-            window["-TABLE-"].update(values=BOM_array)
-            window["BOM names"].update('')
-            window["BOM quantity"].update('')
+            BOM_append(BOM_array, CI_list, prev_table)
+            window[prev_table].update(values=BOM_array)
+            BOM_array_disp = BOM_array
     if "+CLICKED+" in event:
+        print(event)
         if None in event[2] or -1 == event[2][0]:
             continue
-        ch =sg.popup_ok_cancel("Press OK to remove part", "Press Cancel to go back", title="OKCancel", grab_anywhere=True)
+        ch = sg.popup_ok_cancel("Press OK to remove part", "Press Cancel to go back", title="OKCancel",
+                                grab_anywhere=True)
         if ch == "OK":
-            BOM_array.remove([BOM_array[event[2][0]][0], BOM_array[event[2][0]][1]])
-            window["-TABLE-"].update(values=BOM_array)
+            BOM_array.remove(BOM_array[event[2][0]][:])
+            window[event[0]].update(values=BOM_array)
 
-    #MOST tab
+    # MOST tab
     if "Display" in event:
         if values["Disassembly setup"] == "Rectangular setup":
-            window["Disassembly image"].update(filename="Rectangular setup.png", size=(200,200))
+            window["Disassembly image"].update(filename="Rectangular setup.png", size=(200, 200))
+            window["-TA-"].update(visible=True)
+            window["-A-"].update(visible=True)
+            window["-TS-"].update(visible=True)
+            window["-S-"].update(visible=True)
+            window["-SAVESETUP-"].update(visible=True)
         if values["Disassembly setup"] == "Circular setup":
             window["Disassembly image"].update(filename="Circular setup.png")
         if values["Disassembly setup"] == "Table setup":
             window["Disassembly image"].update(filename="Table setup.png")
-
+    if event == "-SAVESETUP-":
+        A = values["-A-"]
+        S = values["-S-"]
+        os.environ['A'] = str(A)
+        os.environ['S'] = str(S)
     #PAC tab
 
     update_parent_DF()
@@ -1580,6 +1736,16 @@ while True:
         PACUnitInsert(AllActions, AllPACUnits)
 
     if event == "-NEXT_PAC_UNIT-":
+        #  Update the names in the BOM list
+        names_quant = []
+        if isinstance(AllPACUnits[PAC_unit - 1].Children, list):
+            for children in AllPACUnits[PAC_unit - 1].Children:
+                names_quant.append([children.Desc, children.Number])
+        else:
+            names_quant = [[AllPACUnits[PAC_unit - 1].Children.Desc, AllPACUnits[PAC_unit - 1].Children.Number]]
+        BOM_array_disp = BOM_quant_left(names_quant, BOM_array_disp)
+
+
         if PAC_unit not in check_PAC_ID:
             sg.popup_error("You have to check the PAC ID before going to the next PAC Unit")
             continue
@@ -1813,7 +1979,7 @@ while True:
 
     update_parent_DF()
     update_action_DF()
-
+    window["-CHILD_NAME-"].update(values=get_BOM_names())
 window.close()
 
 
