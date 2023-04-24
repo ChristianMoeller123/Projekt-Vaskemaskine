@@ -9,6 +9,9 @@ import math
 import pickle  # Read/write objects
 import PySimpleGUI as sg
 import re  # Library for handling strings
+import os
+
+os.system('python m-MOST.py')
 
 with open('objects.pickle', 'rb') as f:
     x = pickle.load(f)
@@ -266,6 +269,10 @@ if CIMCI:
 elif not CIMCI:
     CIMCI = 'N/A'
 
+# DEI Table data retrieval
+DEIs = []
+for i in range(len(AllActions)):
+    DEIs.append([AllActions[i].ID, AllActions[i].ActionDEI, AllActions[i].DFDEI])
 
 # # --- Define the graph layout ---
 
@@ -345,7 +352,14 @@ def make_win1():
                    justification='center',
                    num_rows=row_number,
                    expand_x=False,
-                   expand_y=True,)]]
+                   expand_y=True,),
+        sg.Table(values=DEIs, headings=['Action ID', 'DEI benchmark', 'DEI for DF'],
+                 auto_size_columns=True,
+                 display_row_numbers=True,
+                 justification='center',
+                 num_rows=row_number,
+                 expand_x=False,
+                 expand_y=True, )]],
     ]
     return sg.Window("Graph Window", layout, finalize=True, resizable=True, use_custom_titlebar=True)
 def make_winP(obj):

@@ -3,6 +3,7 @@ import pickle  # Read/write objects
 import re  # Library for handling strings
 import os
 import openpyxl
+import sys
 
 with open('objects.pickle', 'rb') as f:
     x = pickle.load(f)
@@ -11,7 +12,37 @@ with open('objects.pickle', 'rb') as f:
     AllActions = x['Actions']
     AllDisassemblies = x['Disassemblies']
     AllPACUnits = x['PACUnits']
-# From .... import Aa
+
+#  Distances
+try:
+    Atemp = int(os.environ['A'])
+    if Atemp in [1,2]:
+        A = 30
+    elif Atemp in [3,4]:
+        A = 60
+    elif Atemp in [5,6,7]:
+        A = 100
+    elif Atemp in [8,9,10]:
+        A = 160
+    else:
+        print("Consider putting you tables closer to the setup!")
+except:
+    A = 30
+Ab = A  # Distance from disassembly to desk 2. INDEX!
+Aa = Ab
+Ac = Ab
+Ad = Ab
+Ai = math.sqrt(Ab^2 + Ad^2)
+Ae = 2*Ai
+Ah = Ai
+Af =  100  #  GET INFORMATION FROM USER!!! From desk1 to storage
+Ag =  100  #  GET INFORMATION FROM USER!!! from strage to cross
+#  Idea: Regression from table --> function between meters and index --> input meters get index
+Wa = 5000 #  Rough asumption about the time it takes to input in excel/input gui
+
+
+
+
 #  Function to return star.
 def GaFun(ToolInput):
     # Takes care if there are more tools represented
@@ -82,18 +113,6 @@ def indexSeqToS(Sequence):
 
 
 
-#  Distances. Import from elsewhere in the future!
-Ab = 30  # Distance from disassembly to desk 2. INDEX!
-Aa = Ab
-Ac = Ab
-Ad = Ab
-Ai = math.sqrt(Ab^2 + Ad^2)
-Ae = 2*Ai
-Ah = Ai
-Af =  100  #  GET INFORMATION FROM USER!!! From desk1 to storage
-Ag =  100  #  GET INFORMATION FROM USER!!! from strage to cross
-#  Idea: Regression from table --> function between meters and index --> input meters get index
-Wa = 5000 #  Rough asumption about the time it takes to input in excel/input gui
 
 # Base MOST for Action tools (and times)
 def DEIAction(action, AllPACUnits):
@@ -212,6 +231,7 @@ for diss in AllDisassemblies:
 
 
 #  Print MOST calculations to an excel sheet
+'''
 workbook = openpyxl.Workbook()
 worksheet = workbook.active
 
@@ -225,13 +245,10 @@ for i in range(len(AllActions)):
         if AllActions[i].DFDEI:
             worksheet.cell(row=i + 2, column=12, value=AllActions[i].DFDEI)
 workbook.save("MOST-data.xlsx")
-
+'''
 
 
 objects = {"Parents": AllParents, "Actions": AllActions, "Children": AllChildren, "Disassemblies": AllDisassemblies, "PACUnits": AllPACUnits}
 # Deserializes the objects (find et link?)
 with open('objects.pickle', 'wb') as f:
     pickle.dump(objects, f)
-
-#Run GUI Final
-os.system('python GUI_Final.py')

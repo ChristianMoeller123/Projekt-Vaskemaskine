@@ -66,7 +66,11 @@ class Action:
         self.DEISteps = []
         self.DFDEI = 0
         self.ActionDEI = 0
-        self.DEI = self.DFDEI + self.ActionDEI
+        self.DEI = self.calculateDEI()
+
+    def calculateDEI(self):
+        DEI = self.DFDEI + self.ActionDEI
+        return DEI
 
 
     def extract_PACID(self):
