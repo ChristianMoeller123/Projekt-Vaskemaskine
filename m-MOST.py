@@ -55,22 +55,23 @@ def GaFun(ToolInput):
 
     Ga = 0
     for Tool in Tools:
+        Tool = Tool.lower()
         # Small tools
-        if Tool in ['Screwdriver', 'Hand', 'Hands', 'Plectrum', 'Wrench', 'wrench', 'Hammer', 'Cross-Head Screwdriver', 'Cross-head screwdriver', 'Socket Wrench', 'Plectrum', 'Tri-Wing Screwdriver', 'Flat head screwdriver', 'Flathead screwdriver']:
+        if Tool in ['screwdriver', 'hand', 'hands', 'plectrum', 'wrench', 'hammer', 'cross-head screwdriver', 'socket wrench', 'tri-wing screwdriver', 'flat head screwdriver', 'flathead screwdriver', 'wirecutter']:
             Ga += 10
 
         # Big tools
-        elif Tool in ['Electric Screwdriver', 'Drill', 'Electric screwdriver', 'electric screwdriver']:
+        elif Tool in ['electric screwdriver', 'drill', 'electric screwdriver']:
             Ga += 30
         else:
-            print('Given tool: '+Tool+' is not in our definitions')
+            print('Given tool: '+Tool+' is not in our definitions (GA)')
             return
     return Ga
 
 def StarFun(ToolInput, ActionNameInput):
     # Takes care if there are more tools represented
     #  Split each tool in the string
-    Tools = re.split(r'&', ToolInput)
+    Tools = re.split(r'&'r','r'.', ToolInput)
     #  Strip for white spaces
     Tools = [Tool.strip() for Tool in Tools]
     #  Remove empty strings from the list
@@ -83,23 +84,25 @@ def StarFun(ToolInput, ActionNameInput):
 
     Star = 0
     for Tool in Tools:
-        if Tool in ['Screwdriver', 'Tri-Wing Screwdriver', 'Flat head screwdriver', 'Flathead screwdriver', 'Cross-Head Screwdriver', 'Cross-head screwdriver']:  # Assume 9 turns with screwdriver
+        Tool = Tool.lower()
+        if Tool in ['screwdriver', 'tri-wing screwdriver', 'flat head screwdriver', 'cross-head screwdriver', 'wirecutter', 'flathead screwdriver']:  # Assume 9 turns with screwdriver
             Star += 160
-        elif Tool in ['Hand', 'hand', 'Hands', 'Plectrum']:  #  Hand depends on action name
+        elif Tool in ['hand', 'hands', 'plectrum']:  #  Hand depends on action name
             #  Loop over all action names. This could definetly be improved regarding assumptions!
             for ActionName in ActionNames:
-                if ActionName in ['Remove', 'Disconnect']:
+                ActionName = ActionName.lower()
+                if ActionName in ['remove', 'disconnect']:
                     Star += 60  # two hands one turn
-                elif ActionName == 'Separate':
+                elif ActionName == 'separate':
                     Star += 160  #  2-hands 3 turns
-        elif Tool in ['Electric Screwdriver', 'Angle Grinder', 'Electric screwdriver', 'electric screwdriver']:  #  Power tools
+        elif Tool in ['electric screwdriver', 'angle grinder', 'electric screwdriver']:  #  Power tools
             Star += 30  #  Assume screw diam. of 6mm
-        elif Tool in ['Socket Wrench', 'Wrench', 'wrench']: # Assume 5 turns with wrench
+        elif Tool in ['socket wrench', 'wrench']: # Assume 5 turns with wrench
             Star += 100
-        elif Tool == 'Hammer':
+        elif Tool == 'hammer':
             Star += 60  #  Assume 3 strikes or 6 taps with hammer
         else:
-            print('Given tool: ' + Tool + ' is not in our definitions')
+            print('Given tool: ' + Tool + ' is not in our definitions (Star)')
             return
     return Star
 
@@ -121,32 +124,50 @@ def DEIAction(action, AllPACUnits):
     ActionName = action.Desc
     #  Variables for MOST
 
-    #  In future, add a function that calculates this.
-    Ga = GaFun(tool)
-    Star = StarFun(tool, ActionName)
-
     action.DEISteps = []
     #  Steps 1-2
-    Sequence = [Aa, 50, 10, 30, 10, 10]
+    Sequence = [Aa, 50, 10, 30, 50, 10]
     action.DEISteps.append(indexSeqToS(Sequence))
 
     #  Steps 3-5
-    #  Once:
-    Sequence = [Ab, Ga, Ab, 10, 30, Star, Ab, 10, 10]
+    try:
+        times = int(times)
+        Ga = GaFun(tool)
+        Star = StarFun(tool, ActionName)
+        # Repeat the sequence the specified number of times
+        Sequence = [Ab, Ga, Ab, 10, 30, Star, Ab, 10, 10]
+        if times > 1:
+            for i in range(1, times):
+                Sequence.extend([10, 30, Star, 10, 10])
+    except:
+        # Parse the string and generate the corresponding sequence for each action
+        steps = times.split('.')
+        for i in range(0, len(steps)):
+            split_steps = steps[i].split()
+            tool_times = int(split_steps[0])
+            tool_desc = split_steps[1].lower()
+            if tool_desc == "remove":
+                actionname = "hands"
+            elif tool_desc == "cut":
+                actionname = "wirecutter"
+            elif tool_desc == "unscrew":
+                actionname = "electric screwdriver"
+            Star = StarFun(actionname, tool_desc) # i switched actioname and tool_desc here,  so actionname is actually the tool
+            Ga = GaFun(actionname)
+            times = int(tool_times)
+            Sequence = [Ab, Ga, Ab, 10, 30, Star, Ab, 10, 10]
+            if times > 1:
+                for i in range(1, times):
+                    Sequence.extend([10, 30, Star, 10, 10])
 
-    #  Repeated for action times:
-    if int(times) > 1:
-        for i in range(1, int(times)):
-            Sequence.extend([10, 30, Star, 10, 10])
     action.DEISteps.append(indexSeqToS(Sequence))
-
     #  Step 6 More than 1 non-leaf, add somthing
     # Find children, and determine amount of non-leaf children:
     nLeafNodes = 0
     children = AllPACUnits[action.PACID-1].Children if isinstance(AllPACUnits[action.PACID-1].Children, list) else [AllPACUnits[action.PACID-1].Children]
     for j in range(len(children)):
         if children[j].isLeaf:
-            nLeafNodes =+ 1
+            nLeafNodes += 1
     Sequence = [Ab, 10, 10, Ac, 10, 10]
     if nLeafNodes > 1:
         Sequence.extend([Ac, 10, 30, Ad, 10, 10, Ae])
@@ -160,14 +181,16 @@ def DEIAction(action, AllPACUnits):
     #  Step 8
     Sequence = [0]
     for i in range(0, nLeafNodes):
-        Sequence.extend([10, 10, 10, 30, 10, 10, 10])
+        Sequence.extend([10, 30, 10, 30, 160, 10, 30, 10, 10, 10, 30, 30, 10, 10])
+        #Sequence.extend([10, 10, 10, 30, 10, 10, 10]) old sequence
     action.DEISteps.append(indexSeqToS(Sequence))
 
     #  Steps 9-10
     Sequence = [10, 10, Af, 10, 10, Ag]
     action.DEISteps.append(indexSeqToS(Sequence))
 
-
+    '''
+    If conditionen på steps 11-19  giver ikke mening
     #  Step 11-19 if there were more than 1 non leaf....
     #  continue this until only leaf children, but only do this for subassemblies --> WE NEED INPUT
     if nLeafNodes > 1:
@@ -190,7 +213,7 @@ def DEIAction(action, AllPACUnits):
 
     #  Start assumption: If DF then it's a big tool and only once
     #  From DF input, call steps 16-19
-
+    '''
 
     DEItotal = sum(action.DEISteps)
     return round(DEItotal, 2)
@@ -231,11 +254,12 @@ for diss in AllDisassemblies:
 
 
 #  Print MOST calculations to an excel sheet
-'''
+
 workbook = openpyxl.Workbook()
 worksheet = workbook.active
 
 worksheet.append(["Action ID", "Steps 1-2", "Steps 3-5", "Step 6", "Step 7", "Step 8", "Steps 9-10", "Step 11", "Steps 12-14", "Step 15", "Steps 16-19", "DF"])
+
 
 
 for i in range(len(AllActions)):
@@ -244,8 +268,8 @@ for i in range(len(AllActions)):
         worksheet.cell(row=i+2, column=j+2, value=AllActions[i].DEISteps[j])
         if AllActions[i].DFDEI:
             worksheet.cell(row=i + 2, column=12, value=AllActions[i].DFDEI)
-workbook.save("MOST-data.xlsx")
-'''
+workbook.save("GORENJE3_MOST_DATA.xlsx")
+
 
 
 objects = {"Parents": AllParents, "Actions": AllActions, "Children": AllChildren, "Disassemblies": AllDisassemblies, "PACUnits": AllPACUnits}

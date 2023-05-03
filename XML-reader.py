@@ -40,7 +40,9 @@ def ObjFromAttrib(attribute, value, obj_list):  #  finds all objects with a mact
 # XML data handling
 # Load the XML file
 #tree = ET.parse('Disassembly-PAC-sheet-bosch.xml')
-tree = ET.parse('Disassembly-PAC-sheet-gorenje-1.xml')
+#tree = ET.parse('Disassembly-PAC-sheet-gorenje-1.xml')
+#tree = ET.parse('Disassembly PAC sheet gorenje 2 model W47443.xml')
+tree = ET.parse('Disassembly PAC sheet gorenje 3 model W48543.xml')
 #tree = ET.parse('Disassembly-PAC-sheet.xml')
 #tree = ET.parse('Disassembly-PAC-sheet-kettle.xml')
 # Get the root element
