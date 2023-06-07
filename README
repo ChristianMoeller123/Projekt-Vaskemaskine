@@ -1,0 +1,10 @@
+To run a .XML file with the code do the following:
+
+1. Download all files in the repository to the same location.
+2. Make sure to download all relevant libraries.
+3. Download the .XML file you want to run.
+4. In the XML-reader.py change the following:
+In lines 42-47 theres some tree definitions. Uncomment one, and add the directory for your .XML file.
+If this doesn't run, you might have to change lines 67-68 to be from 0:5 or maybe 0:6.
+This is because the program should not read the first descriptive lines in the spreadsheet.
+Voila, you should have a PAC model!
