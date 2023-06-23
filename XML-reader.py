@@ -112,6 +112,7 @@ for row in range(len(cells)):
             DisInstance.DATool = cells[row][5]
             DisInstance.DType = cells[row][6]
             DisInstance.DFID = cells[row][0]
+            DisInstance.LongDFID = False
             AllDisassemblies.append(DisInstance)
 
     elif IDAsLetters[0] == 'A': # An action
@@ -130,6 +131,7 @@ for row in range(len(cells)):
             DisInstance.DATool = cells[row][9]
             DisInstance.DType = cells[row][10]
             DisInstance.DFID = cells[row][0]
+            DisInstance.LongDFID = False
 
             AllDisassemblies.append(DisInstance)
     elif IDAsLetters[0] == 'C' or IDAsLetters[0] == 'c': # A child
@@ -145,6 +147,7 @@ for row in range(len(cells)):
             DisInstance.DATool = cells[row][7]
             DisInstance.DType = cells[row][8]
             DisInstance.DFID = cells[row][0]
+            DisInstance.LongDFID = False
             AllDisassemblies.append(DisInstance)
 
 

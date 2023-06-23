@@ -701,11 +701,18 @@ def parent_DF_class(ID_Input,row_counter):
                 continue
 
     if ID != ID_Input:
-        instance = Disassembly(ID_Input)
-        if window[f"-PARENT_FAILURE_DESCRIPTION_{row_counter}-"] != "": instance.DFEffect = window[f"-PARENT_FAILURE_DESCRIPTION_{row_counter}-"].get()
-        if window[f"-PARENT_DISASSEMBLY_TYPE_{row_counter}-"] != "": instance.DAType = window[
-            f"-PARENT_DISASSEMBLY_TYPE_{row_counter}-"].get()
-        if window[f"-PARENT_TOOL_TYPE_{row_counter}-"] != "": instance.DATool = window[f"-PARENT_TOOL_TYPE_{row_counter}-"].get()
+        #  ID_input = DType
+        #  DFID (which is what we create the instance with, is:
+        values = re.split(r'-', ID_Input)
+        DFID = f"{values[0]}-{values[1]}"
+        instance = Disassembly(DFID)
+        instance.DType = ID_Input
+        if window[f"-PARENT_FAILURE_DESCRIPTION_{row_counter}-"] != "":
+            instance.DFEffect = window[f"-PARENT_FAILURE_DESCRIPTION_{row_counter}-"].get()
+        if window[f"-PARENT_DISASSEMBLY_TYPE_{row_counter}-"] != "":
+            instance.DAType = window[f"-PARENT_DISASSEMBLY_TYPE_{row_counter}-"].get()
+        if window[f"-PARENT_TOOL_TYPE_{row_counter}-"] != "":
+            instance.DATool = window[f"-PARENT_TOOL_TYPE_{row_counter}-"].get()
 
         AllDisassemblies.append(instance)
         #print("Object not found")
@@ -728,7 +735,12 @@ def action_DF_class(ID_Input,row_counter):
                 continue
 
     if ID != ID_Input:
-        instance = Disassembly(ID_Input)
+        #  ID_input = DType
+        #  DFID (which is what we create the instance with, is:
+        values = re.split(r'-', ID_Input)
+        DFID = f"{values[0]}-{values[1]}"
+        instance = Disassembly(DFID)
+        instance.DType = ID_Input
         if window[f"-ACTION_FAILURE_DESCRIPTION_{row_counter}-"] != "": instance.DFEffect = window[f"-ACTION_FAILURE_DESCRIPTION_{row_counter}-"].get()
         if window[f"-ACTION_DISASSEMBLY_TYPE_{row_counter}-"] != "": instance.DAType = window[
             f"-ACTION_DISASSEMBLY_TYPE_{row_counter}-"].get()
@@ -755,7 +767,12 @@ def child_DF_class(ID_Input, row_counter):
                 continue
 
     if ID != ID_Input:
-        instance = Disassembly(ID_Input)
+        #  ID_input = DType
+        #  DFID (which is what we create the instance with, is:
+        values = re.split(r'-', ID_Input)
+        DFID = f"{values[0]}-{values[1]}"
+        instance = Disassembly(DFID)
+        instance.DType = ID_Input
         if window[f"-CHILD_FAILURE_DESCRIPTION_{row_counter}-"] != "": instance.DFEffect = window[f"-CHILD_FAILURE_DESCRIPTION_{row_counter}-"].get()
         if window[f"-CHILD_DISASSEMBLY_TYPE_{row_counter}-"] != "": instance.DAType = window[f"-CHILD_DISASSEMBLY_TYPE_{row_counter}-"].get()
         if window[f"-CHILD_TOOL_TYPE_{row_counter}-"] != "": instance.DATool = window[f"-CHILD_TOOL_TYPE_{row_counter}-"].get()
@@ -974,7 +991,7 @@ while True:
 
 
         #  Run final GUI
-        os.system('GUI_Final.py')
+        os.system('python GUI_Final.py')
 
 
         #sg.popup_error("Not yet implemented")
@@ -1489,11 +1506,13 @@ while True:
         row_child[1].append(row_child[1][-1] + 1)
         row_child[2].append(1)
         row_child[3].append(PAC_unit)
+        prevname = window["-CHILD_NAME_0-"].get() #  Christians forsøg på at bevare child navn
         window.extend_layout(window['-CHILD_PANEL-'], [create_child(row_child[0][-1], row_child[1][-1])])
         window.refresh()
         window["-CHILD_SCROLL-"].contents_changed()
         # Same as for the action DF
         child_DF_affected_ID()
+        window["-CHILD_NAME_0-"].update("abc") #  Samme forsøg. Gør ingenting????
 
     if event[0] == '-DEL_CHILD-':
         order_test = []
@@ -1668,10 +1687,12 @@ while True:
                 if row_parent_DF[2][rows] == 1 and row_parent_DF[3][rows] == PAC_unit:
                     relation = window[f"-PARENT_ORIGIN_{rows}-"].get().split("-")[0]
                     if relation == "Origin here":
-                        window[f"-PARENT_DF_ID_{rows}-"].update(f"Parent DF ID: {PAC_unit}P1-{relation}-{000}-{PAC_unit}D{row_parent_DF[1][rows]}")
+                        relation_parent = window["-PARENT_PAC_ID-"].get().split("-")[1]
+                        window[f"-PARENT_DF_ID_{rows}-"].update(f"Parent DF ID: {PAC_unit}P1-{relation_parent}-{000}-{PAC_unit}D{row_parent_DF[1][rows]}")
                     else:
+                        relation_parent = window["-PARENT_PAC_ID-"].get().split("-")[1]
                         window[f"-PARENT_DF_ID_{rows}-"].update(f"Parent DF ID: {PAC_unit}P1-{relation}-{relation}-{PAC_unit}D{row_parent_DF[1][rows]}")
-                    parent_DF_class(f"{PAC_unit}P1-{relation}-{relation}-{PAC_unit}D{row_parent_DF[1][rows]}", rows)
+                        parent_DF_class(f"{PAC_unit}P1-{relation_parent}-{relation}-{PAC_unit}D{row_parent_DF[1][rows]}", rows)
             for rows in row_action_DF[0]:
                 if row_action_DF[2][rows] == 1 and row_action_DF[3][rows] == PAC_unit:
                     action_ID_for_DF = values[f"-ACTION_ID_FOR_DF_{row_action_DF[0][rows]}-"]
@@ -1722,7 +1743,7 @@ while True:
                             if row_child[1][rows] == related_child and row_child[2][rows] == 1 and row_child[3][rows] == PAC_unit:
                                 row_value = row_child[0][rows]
                         if window[f"-FASTENER_{row_value}-"].get() == "No":
-                            if window[f"-CHILD_ORIGIN_{rows}-"].get() == "Origin here":
+                            if window[f"-CHILD_ORIGIN_1-"].get() == "Origin here": #changed {rows} to 1
                                 relation_parent = window["-PARENT_PAC_ID-"].get().split("-")[1]
                                 origin_global.append(f"{PAC_unit}C{related_child}-{relation_parent}-000-{PAC_unit}D{row_child_DF[1][rows]}")
                             else:

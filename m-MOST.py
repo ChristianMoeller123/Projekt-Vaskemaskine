@@ -95,7 +95,7 @@ def StarFun(ToolInput, ActionNameInput):
                     Star += 60  # two hands one turn
                 elif ActionName == 'separate':
                     Star += 160  #  2-hands 3 turns
-        elif Tool in ['electric screwdriver', 'angle grinder', 'electric screwdriver']:  #  Power tools
+        elif Tool in ['electric screwdriver', 'angle grinder', 'electric screwdriver', 'drill']:  #  Power tools
             Star += 30  #  Assume screw diam. of 6mm
         elif Tool in ['socket wrench', 'wrench']: # Assume 5 turns with wrench
             Star += 100
@@ -254,7 +254,7 @@ for diss in AllDisassemblies:
 
 
 #  Print MOST calculations to an excel sheet
-
+'''
 workbook = openpyxl.Workbook()
 worksheet = workbook.active
 
@@ -270,7 +270,7 @@ for i in range(len(AllActions)):
             worksheet.cell(row=i + 2, column=12, value=AllActions[i].DFDEI)
 workbook.save("GORENJE3_MOST_DATA.xlsx")
 
-
+'''
 
 objects = {"Parents": AllParents, "Actions": AllActions, "Children": AllChildren, "Disassemblies": AllDisassemblies, "PACUnits": AllPACUnits}
 # Deserializes the objects (find et link?)

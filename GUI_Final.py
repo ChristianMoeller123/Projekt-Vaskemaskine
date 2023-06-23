@@ -10,6 +10,8 @@ import pickle  # Read/write objects
 import PySimpleGUI as sg
 import re  # Library for handling strings
 import os
+import openpyxl
+
 
 os.system('python m-MOST.py')
 
@@ -20,12 +22,20 @@ with open('objects.pickle', 'rb') as f:
     AllActions = x['Actions']
     AllDisassemblies = x['Disassemblies']
     AllPACUnits = x['PACUnits']
+'''
+with open('testdf2.pickle', 'rb') as f:
+    x = pickle.load(f)
+    AllParents = x['Parents']
+    AllChildren = x['Children']
+    AllActions = x['Actions']
+    AllDisassemblies = x['Disassemblies']
+    AllPACUnits = x['PACUnits']
+'''
+# --- Define functions ---
 
-    # --- Define functions ---
-
-    # Element size of the squares in PAC model
-    sizeX = 150
-    sizeY = 60
+# Element size of the squares in PAC model
+sizeX = 150
+sizeY = 60
 # RUN MOST
 
 colors = ['green', 'teal', 'sky blue', 'lime']
@@ -182,6 +192,7 @@ def CI(**kwargs):
     return #  ???
 
 #  --- Find information about components and fasteners ---
+
 totalComponents = 0  #  Total components without fasteners
 Fasteners = [[0], [0]] # list of fasteners. Fasteners[0] = names, Fasteners[1] = amount
 
@@ -225,11 +236,15 @@ for unit in AllPACUnits:
                     Fasteners[0].append(int(unit.Children.Number))
 #  Make fasteners array compatible with the table element
 FastenersNew = []
-if Fasteners[0][1]:
-    for i in range(len(Fasteners[1])):
-        FastenersNew.append([Fasteners[1][i], Fasteners[0][i]])
-    Fasteners = FastenersNew
 
+#  Sorting fasteners, and working around the case where no fasteners are defined.
+try:
+    if Fasteners[0][1]:
+        for i in range(len(Fasteners[1])):
+            FastenersNew.append([Fasteners[1][i], Fasteners[0][i]])
+        Fasteners = FastenersNew
+except:
+    Fasteners = FastenersNew
 #   --- Add CI for all leaf children ---
 CIRR = []
 CIRE = []
@@ -339,13 +354,17 @@ def make_win1():
         )]
     ]
     row_number = 1
-    if Fasteners[1][0]:
-        row_number = len(Fasteners[1])
+    #  Again working around no fasteners being present
+    try:
+        if Fasteners[1][0]:
+            row_number = len(Fasteners[1])
+    except:
+        row_number = 1
     # Define the PySimpleGUI layout
     layout = [
         [sg.Button('Options'), sg.Button('Exit')],
         [sg.T('Total amount of components without fasteners: '+str(totalComponents)), sg.T('RR: '+CIRR+' RE: '+CIRE+' MCI: '+CIMCI)],
-        [sg.Column(graph_layout, scrollable=True, size=(1800, 600)), [sg.Column(graph_tree_layout, scrollable=True, size=(400,200)),
+        [sg.Column(graph_layout, scrollable=True, size=(1890, 720)), [sg.Column(graph_tree_layout, scrollable=True, size=(400,200)),
          sg.Table(values=Fasteners, headings=['Fastener', 'Amount'],
                    auto_size_columns=True,
                    display_row_numbers=True,
@@ -560,6 +579,17 @@ ID: number after D should be the number of DFs on current element, not type. Typ
 #print('pathDEI to 2A1-1C1 is supposed to be 2, and is: '+str(pathDEI('2A1-1C1')))
 #print('pathDEI to 10A1-9C4 is supposed to be 9, and is: '+str(pathDEI('10A1-9C4')))
 
+'''
+#  Print table to excel
+workbook = openpyxl.Workbook()
+worksheet = workbook.active
+
+worksheet.append(["Action ID", "Action DEI", "DF DEI"])
+for i in range(len(AllActions)):
+    worksheet.append([AllActions[i].ID, AllActions[i].ActionDEI, AllActions[i].DFDEI])
+workbook.save("DEI_TABLE_Gorenje3.xlsx")
+
+'''
 # --- Run the event loop ---
 while True:
     window, event, values = sg.read_all_windows()
@@ -591,20 +621,18 @@ while True:
                     for dis in matching_list:
                         window.extend_layout(windowP['-FRAME-'], [
                             [sg.HSeparator()],
-                            [sg.T("DF ID: " + dis.ID)],
+                            [sg.T("DF ID: " + dis.DType)],
                             [sg.T("DF effect: " + dis.DFEffect)],
                             [sg.T("Disassembly Type: " + dis.DAType)],
                             [sg.T("Disassembly Tool: " + dis.DATool)],
-                            [sg.T("DF Type: " + dis.DType)],
                             [sg.T("Affected element: " + dis.DFID)]])
                 else:
                     window.extend_layout(windowP['-FRAME-'], [
                         [sg.HSeparator()],
-                        [sg.T("DF ID: " + matching_list.ID)],
+                        [sg.T("DF ID: " + matching_list.DType)],
                         [sg.T("DF effect: " + matching_list.DFEffect)],
                         [sg.T("Disassembly Type: " + matching_list.DAType)],
                         [sg.T("Disassembly Tool: " + matching_list.DATool)],
-                        [sg.T("DF Type: " + matching_list.DType)],
                         [sg.T("Affected element: " + matching_list.DFID)]])
             elif unit.Action.pos[0] - sizeX / 2 <= x <= unit.Action.pos[0] + sizeX / 2 and\
                         unit.Action.pos[1] - sizeY / 2 <= y <= unit.Action.pos[1] + sizeY / 2:
@@ -615,20 +643,18 @@ while True:
                     for dis in matching_list:
                         window.extend_layout(windowA['-FRAME-'],[
                         [sg.HSeparator()],
-                        [sg.T("DF ID: "+dis.ID)],
+                        [sg.T("DF ID: "+dis.DType)],
                         [sg.T("DF effect: "+dis.DFEffect)],
                         [sg.T("Disassembly Type: "+dis.DAType)],
                         [sg.T("Disassembly Tool: "+dis.DATool)],
-                        [sg.T("DF Type: "+dis.DType)],
                         [sg.T("Affected element: "+dis.DFID)]])
                 else:
                     window.extend_layout(windowA['-FRAME-'], [
                         [sg.HSeparator()],
-                        [sg.T("DF ID: " + matching_list.ID)],
+                        [sg.T("DF ID: " + matching_list.DType)],
                         [sg.T("DF effect: " + matching_list.DFEffect)],
                         [sg.T("Disassembly Type: " + matching_list.DAType)],
                         [sg.T("Disassembly Tool: " + matching_list.DATool)],
-                        [sg.T("DF Type: " + matching_list.DType)],
                         [sg.T("Affected element: " + matching_list.DFID)]])
             elif isinstance(unit.Children, list):  # If there are more than 1 child in the PAC unit
                 for child in unit.Children:
@@ -643,20 +669,18 @@ while True:
                             for dis in matching_list:
                                 window.extend_layout(windowC['-FRAME-'], [
                                     [sg.HSeparator()],
-                                    [sg.T("DF ID: " + dis.ID)],
+                                    [sg.T("DF ID: " + dis.DType)],
                                     [sg.T("DF effect: " + dis.DFEffect)],
                                     [sg.T("Disassembly Type: " + dis.DAType)],
                                     [sg.T("Disassembly Tool: " + dis.DATool)],
-                                    [sg.T("DF Type: " + dis.DType)],
                                     [sg.T("Affected element: " + dis.DFID)]])
                         else:
                             window.extend_layout(windowC['-FRAME-'], [
                                 [sg.HSeparator()],
-                                [sg.T("DF ID: " + matching_list.ID)],
+                                [sg.T("DF ID: " + matching_list.DType)],
                                 [sg.T("DF effect: " + matching_list.DFEffect)],
                                 [sg.T("Disassembly Type: " + matching_list.DAType)],
                                 [sg.T("Disassembly Tool: " + matching_list.DATool)],
-                                [sg.T("DF Type: " + matching_list.DType)],
                                 [sg.T("Affected element: " + matching_list.DFID)]])
             elif unit.Children.pos[0] - sizeX / 2 <= x <= unit.Children.pos[0] + sizeX / 2 and\
                         unit.Children.pos[1] - sizeY / 2 <= y <= unit.Children.pos[1] + sizeY / 2:  # If there is only 1 child in the PAC unit
@@ -668,20 +692,18 @@ while True:
                     for dis in matching_list:
                         window.extend_layout(windowC['-FRAME-'], [
                             [sg.HSeparator()],
-                            [sg.T("DF ID: " + dis.ID)],
+                            [sg.T("DF ID: " + dis.DType)],
                             [sg.T("DF effect: " + dis.DFEffect)],
                             [sg.T("Disassembly Type: " + dis.DAType)],
                             [sg.T("Disassembly Tool: " + dis.DATool)],
-                            [sg.T("DF Type: " + dis.DType)],
                             [sg.T("Affected element: " + dis.DFID)]])
                 else:
                     window.extend_layout(windowC['-FRAME-'], [
                         [sg.HSeparator()],
-                        [sg.T("DF ID: " + matching_list.ID)],
+                        [sg.T("DF ID: " + matching_list.DType)],
                         [sg.T("DF effect: " + matching_list.DFEffect)],
                         [sg.T("Disassembly Type: " + matching_list.DAType)],
                         [sg.T("Disassembly Tool: " + matching_list.DATool)],
-                        [sg.T("DF Type: " + matching_list.DType)],
                         [sg.T("Affected element: " + matching_list.DFID)]])
 
 '''

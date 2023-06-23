@@ -126,6 +126,7 @@ class Disassembly:
         self.DATool = 'N/A' #Extra tool needed
         self.DType = 'N/A' #DF1, DF2 or DF3 with relation!
         self.DFID = DFID #Which Parent/Action/Child ID is connected to the DF
+        self.LongDFID = True
 class PACUnit:
     def __init__(self, PACID):
         self.PACID = PACID
