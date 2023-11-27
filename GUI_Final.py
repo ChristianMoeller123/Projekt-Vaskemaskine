@@ -10,7 +10,7 @@ import pickle  # Read/write objects
 import PySimpleGUI as sg
 import re  # Library for handling strings
 import os
-import openpyxl
+#import openpyxl
 
 
 os.system('python m-MOST.py')
@@ -23,7 +23,7 @@ with open('objects.pickle', 'rb') as f:
     AllDisassemblies = x['Disassemblies']
     AllPACUnits = x['PACUnits']
 '''
-with open('testdf2.pickle', 'rb') as f:
+with open('testdf3.pickle', 'rb') as f:
     x = pickle.load(f)
     AllParents = x['Parents']
     AllChildren = x['Children']
@@ -401,10 +401,14 @@ def make_winA(obj):
               [sg.Button('Add DF'), sg.Button('Exit')]]
     return sg.Window('Action '+obj.ID, layout, finalize=True, resizable=True)
 def make_winC(obj):
+    if obj.DFCI != '':
+        EOLtxt = 'End of Life: ' + str(obj.DFCI) # FORKERT, DET SKAL IKKE VISE 0 eller 0.5*EoLval
+    else:
+        EOLtxt = 'End of Life: ' + obj.EoL
     layout = [[sg.Text('Child element with ID: '+obj.ID)],
               [sg.Text('Description: ' + obj.Desc)],
               [sg.Text('Amount: ' + str(obj.Number))],
-              [sg.Text('End of Life: ' + obj.EoL)],
+              [sg.Text(EOLtxt)],
               [sg.Button('Add DF'), sg.Button('Exit'), sg.Button('Add image')],
               [sg.Frame('DFs', [[sg.T('Information about DFs')]], key='-FRAME-')],
               [sg.Text('Graphical display of Child')],

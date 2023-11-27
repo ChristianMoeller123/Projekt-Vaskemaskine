@@ -2,8 +2,9 @@ import math
 import pickle  # Read/write objects
 import re  # Library for handling strings
 import os
-import openpyxl
-import sys
+#import openpyxl
+#import sys
+
 
 with open('objects.pickle', 'rb') as f:
     x = pickle.load(f)
@@ -12,7 +13,15 @@ with open('objects.pickle', 'rb') as f:
     AllActions = x['Actions']
     AllDisassemblies = x['Disassemblies']
     AllPACUnits = x['PACUnits']
-
+    '''
+with open('testdf3.pickle', 'rb') as f:
+    x = pickle.load(f)
+    AllParents = x['Parents']
+    AllChildren = x['Children']
+    AllActions = x['Actions']
+    AllDisassemblies = x['Disassemblies']
+    AllPACUnits = x['PACUnits']
+'''
 #  Distances
 try:
     Atemp = int(os.environ['A'])
@@ -123,12 +132,15 @@ def DEIAction(action, AllPACUnits):
     times = action.Times
     ActionName = action.Desc
     #  Variables for MOST
-
+    ActionTime = []
+    InformationInput = []
     action.DEISteps = []
+
+
     #  Steps 1-2
     Sequence = [Aa, 50, 10, 30, 50, 10]
     action.DEISteps.append(indexSeqToS(Sequence))
-
+    action.ThinkingTime = indexSeqToS(Sequence)
     #  Steps 3-5
     try:
         times = int(times)
@@ -159,7 +171,7 @@ def DEIAction(action, AllPACUnits):
             if times > 1:
                 for i in range(1, times):
                     Sequence.extend([10, 30, Star, 10, 10])
-
+    ActionTime.append(indexSeqToS(Sequence))
     action.DEISteps.append(indexSeqToS(Sequence))
     #  Step 6 More than 1 non-leaf, add somthing
     # Find children, and determine amount of non-leaf children:
@@ -172,23 +184,27 @@ def DEIAction(action, AllPACUnits):
     if nLeafNodes > 1:
         Sequence.extend([Ac, 10, 30, Ad, 10, 10, Ae])
     action.DEISteps.append(indexSeqToS(Sequence))
-
+    ActionTime.append(indexSeqToS(Sequence))
+    action.ActionTime = round(sum(ActionTime), 2)
     #  Step 7
     #  Remember very rough asumption here about input time!!!
     Sequence = [10, 10, Wa]
     action.DEISteps.append(indexSeqToS(Sequence))
-
+    InformationInput.append(indexSeqToS(Sequence))
     #  Step 8
     Sequence = [0]
     for i in range(0, nLeafNodes):
         Sequence.extend([10, 30, 10, 30, 160, 10, 30, 10, 10, 10, 30, 30, 10, 10])
         #Sequence.extend([10, 10, 10, 30, 10, 10, 10]) old sequence
     action.DEISteps.append(indexSeqToS(Sequence))
+    InformationInput.append(indexSeqToS(Sequence))
 
     #  Steps 9-10
     Sequence = [10, 10, Af, 10, 10, Ag]
     action.DEISteps.append(indexSeqToS(Sequence))
+    InformationInput.append(indexSeqToS(Sequence))
 
+    action.InformationInput = round(sum(InformationInput), 2)
     '''
     If conditionen på steps 11-19  giver ikke mening
     #  Step 11-19 if there were more than 1 non leaf....
@@ -232,7 +248,7 @@ for action in AllActions:
 for diss in AllDisassemblies:
     #  DFID definitions are different from XML and initial GUI!
     #  Initial GUI:
-    origin = diss.DType.split("-")[2]
+    origin = diss.DType.split("-")[0]
 
     #  XML:
     #origin = diss.DFID

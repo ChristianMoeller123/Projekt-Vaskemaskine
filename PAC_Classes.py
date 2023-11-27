@@ -67,7 +67,9 @@ class Action:
         self.DFDEI = 0
         self.ActionDEI = 0
         self.DEI = self.calculateDEI()
-
+        self.ThinkingTime = 0
+        self.ActionTime = 0
+        self.InformationInput = 0
     def calculateDEI(self):
         DEI = self.DFDEI + self.ActionDEI
         return DEI
@@ -86,6 +88,8 @@ class Child:
         self.Desc = 'N/A' #  part names from BOM
         self.Number = 0 #Number of children
         self.EoL = 'N/A' #End of Life for child
+        self.EoLval = self.calculate_EoLval()
+        self.DFCI = ''
         self.PACID = self.extract_PACID()
         self.pos = ()
         self.imgFile = ''  #  PNG
@@ -110,6 +114,19 @@ class Child:
         self.Lav = False
         if self.V:
             self.MCI = CI(V = self.V, W = self.W, M_c = self.M_c, Wf = self.Wf, Wc = self.Wc, L = self.L, Lav = self.Lav)
+    def calculate_EoLval(self):
+        eol_mapping = {
+            'N/A': 'N/A',
+            'Reuse': 1,
+            'Remanufacturing': 0.4,
+            'Refurbished': 0.8,
+            'Recycled': 0.2,
+            'Landfill': 0,
+            'Disposed': 0
+        }
+        return eol_mapping.get(self.EoL, 'N/A')
+    def update_EoLval(self):
+        self.EoLval = self.calculate_EoLval()
     def extract_PACID(self):
         PACindex = len(self.ID)
         for char in "PACc":
