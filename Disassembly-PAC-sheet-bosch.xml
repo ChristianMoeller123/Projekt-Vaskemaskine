@@ -1,0 +1,988 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>Thorvald Alrø Martiny</Author>
+  <LastAuthor>Christian Møller</LastAuthor>
+  <LastPrinted>2023-03-23T08:24:00Z</LastPrinted>
+  <Created>2015-06-05T18:19:34Z</Created>
+  <LastSaved>2023-03-29T09:55:18Z</LastSaved>
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12165</WindowHeight>
+  <WindowWidth>28800</WindowWidth>
+  <WindowTopX>32767</WindowTopX>
+  <WindowTopY>32767</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s62">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+  </Style>
+  <Style ss:ID="s63">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#8EA9DB" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s64">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#8EA9DB" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s65">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s66">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s67">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s68">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s69">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s70">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s71">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s72">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s73">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"
+     ss:Color="#5B9BD5"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#EDEDED" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s74">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#D9E1F2" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s75">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#D9E1F2" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s76">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s77">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s78">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s79">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s80">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#FFF2CC" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s81">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#FFF2CC" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s82">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#FFF2CC" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s83">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#FFF2CC" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s84">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
+    ss:Italic="1"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s85">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#5B9BD5" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s86">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#A5A5A5" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s87">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#FFC000" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s88">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11"/>
+   <Interior ss:Color="#FFC000" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s89">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11"/>
+   <Interior ss:Color="#5B9BD5" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Ark1">
+  <Table ss:ExpandedColumnCount="17" ss:ExpandedRowCount="88" x:FullColumns="1"
+   x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="48.75"
+   ss:DefaultRowHeight="14.4375">
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="82.5"/>
+   <Column ss:StyleID="s62" ss:Width="102"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="86.25" ss:Span="1"/>
+   <Column ss:Index="5" ss:StyleID="s62" ss:Width="78"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="117.75"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="129"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="108.75"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="87"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="84.75"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="95.25"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="61.5"/>
+   <Column ss:StyleID="s62" ss:Width="126"/>
+   <Column ss:StyleID="s62" ss:Width="127.5"/>
+   <Column ss:StyleID="s62" ss:Width="146.25"/>
+   <Column ss:StyleID="s62" ss:Width="117.75" ss:Span="1"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s63"><Data ss:Type="String">Parent PAC ID</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Parent</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">Action PAC ID</Data></Cell>
+    <Cell ss:StyleID="s66"><Data ss:Type="String">Action ID</Data></Cell>
+    <Cell ss:StyleID="s67"><Data ss:Type="String">Action</Data></Cell>
+    <Cell ss:StyleID="s67"><Data ss:Type="String">Action Description</Data></Cell>
+    <Cell ss:StyleID="s67"><Data ss:Type="String">Action times</Data></Cell>
+    <Cell ss:StyleID="s68"><Data ss:Type="String">Tool</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Child PAC ID</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Child</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Children number</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Child EoL</Data></Cell>
+    <Cell ss:StyleID="s66"><Data ss:Type="String">Disassembly Action ID</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">Disassembly Action Failure</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">Disassembly Action Type</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">Disassembly Action Tool</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">Disassembly Type</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="81.5625">
+    <Cell ss:StyleID="s74"><Data ss:Type="String">PAC identifier for the parent of the PAC unit</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="String">It describes the assembly from which the element is obtained.</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">PAC identifier for the action of the PAC unit</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">It provides a unique identifier for each action.</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">It describes the action that need to be performed.</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">It provides a detailed explanation of the disassembly action that needs to be performed.</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">It provides the number of times the action must be performed. It is applicable only for screws and/or repeated processes.</Data></Cell>
+    <Cell ss:StyleID="s79"><Data ss:Type="String">It describes the tool required to perform the action.</Data></Cell>
+    <Cell ss:StyleID="s80"><Data ss:Type="String">PAC identifier for the child of the PAC unit</Data></Cell>
+    <Cell ss:StyleID="s81"><Data ss:Type="String">It describes the element that are obtained as output of the action.</Data></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">It describes the number of the same child obtained from the disassembly action.</Data></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">It describes the child EoL</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">It provides a unique identifier for each disassembly action.</Data></Cell>
+    <Cell ss:StyleID="s84"><Data ss:Type="String">It explained the effect of the DF on the action (i.e., the disassembly process).</Data></Cell>
+    <Cell ss:StyleID="s84"><Data ss:Type="String">It describes the disassembly type that must be performed due to the DF.&#10;It can be: i) destructive, ii) semi-destructive, iii) no destructive</Data></Cell>
+    <Cell ss:StyleID="s84"><Data ss:Type="String">It describes the tool that needs to be used in order to perform the disassembly action</Data></Cell>
+    <Cell ss:StyleID="s84"><Data ss:Type="String">It provides what type of disassembly error has happened either DF1, DF2 or DF3. </Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">#A#-#A#</Data></Cell>
+    <Cell><Data ss:Type="String">BOM Database</Data></Cell>
+    <Cell><Data ss:Type="String">#A#-#A#</Data></Cell>
+    <Cell><Data ss:Type="String">Action ID type</Data></Cell>
+    <Cell><Data ss:Type="String">Action type</Data></Cell>
+    <Cell><Data ss:Type="String">Tool usage </Data></Cell>
+    <Cell><Data ss:Type="String">Number</Data></Cell>
+    <Cell><Data ss:Type="String">Tool type</Data></Cell>
+    <Cell><Data ss:Type="String">#A#-#A#</Data></Cell>
+    <Cell><Data ss:Type="String">BOM Database</Data></Cell>
+    <Cell><Data ss:Type="String">Number</Data></Cell>
+    <Cell><Data ss:Type="String">EoL type</Data></Cell>
+    <Cell><Data ss:Type="String">Disassembly Action ID type</Data></Cell>
+    <Cell><Data ss:Type="String">Failure description</Data></Cell>
+    <Cell><Data ss:Type="String">Destruction type</Data></Cell>
+    <Cell><Data ss:Type="String">Tool Type</Data></Cell>
+    <Cell><Data ss:Type="String">#A#-#A#-#A#</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">Int </Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">Int</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+    <Cell><Data ss:Type="String">String</Data></Cell>
+   </Row>
+   <Row ss:Index="6" ss:AutoFitHeight="0" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">1P1-000</Data></Cell>
+    <Cell><Data ss:Type="String">Washing machine</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">1A1-000</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">Electric screwdriver used to screw out all screws on the back</Data></Cell>
+    <Cell><Data ss:Type="Number">14</Data></Cell>
+    <Cell><Data ss:Type="String">Electric screwdriver</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">1C1-000</Data></Cell>
+    <Cell><Data ss:Type="String">WM back plate</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Remanufacturing</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">1c2-000</Data></Cell>
+    <Cell><Data ss:Type="String">Screws</Data></Cell>
+    <Cell><Data ss:Type="Number">20</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">1C3-000</Data></Cell>
+    <Cell><Data ss:Type="String">WM top plate</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Landfill</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">1C4-000</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o top and back</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">2P1-1C4</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o top and back</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="57.9375" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">2A1-1C4</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew and separate</Data></Cell>
+    <Cell><Data ss:Type="String">Used electric screwdriver for four top screws and hand for legs of the WM</Data></Cell>
+    <Cell><Data ss:Type="String">8 unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">Electric screwdriver &amp;  Hand</Data></Cell>
+    <Cell ss:Index="13" ss:StyleID="s87"><Data ss:Type="String">N/A</Data></Cell>
+    <Cell><Data ss:Type="String">One leg is missing </Data></Cell>
+    <Cell><Data ss:Type="String">No destructive</Data></Cell>
+    <Cell><Data ss:Type="String">Electric screwdriver/hand</Data></Cell>
+    <Cell><Data ss:Type="String">2D1-2A1-000-000&#10;2D2-2A1-000-000</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">2c1-1C4</Data></Cell>
+    <Cell><Data ss:Type="String">Screws</Data></Cell>
+    <Cell><Data ss:Type="Number">5</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">2C2-1C4</Data></Cell>
+    <Cell><Data ss:Type="String">Legs of WM</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Landfill</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+    <Cell><Data ss:Type="String">One leg is missing</Data></Cell>
+    <Cell><Data ss:Type="String">Generated from action</Data></Cell>
+    <Cell><Data ss:Type="String">Hand</Data></Cell>
+    <Cell><Data ss:Type="String">2D1-2C2-2A1-2D2</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">2C3-1C4</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o legs and top screws</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">3P1-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o legs and top screws</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="57.9375" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">3A1-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Separate</Data></Cell>
+    <Cell><Data ss:Type="String">Use wrench to take loosen the nuts and bolts in the concrete block</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Wrench</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">3c1-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">Bolts</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">3c2-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">Nuts</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">3c3-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">Spændeskive</Data></Cell>
+    <Cell><Data ss:Type="Number">4</Data></Cell>
+    <Cell><Data ss:Type="String">Refurbished</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">3c4-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">Sliders</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">3C5-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">Cement block</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Remanufacturing</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">3C6-2C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o cement block</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">4P1-3C6</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o cement block</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">4A1-3C6</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Separate</Data></Cell>
+    <Cell><Data ss:Type="String">Use hands to pull out soap holder and bottom front plate</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Hand</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">4C1-3C6</Data></Cell>
+    <Cell><Data ss:Type="String">Soap holder</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">4C2-3C6</Data></Cell>
+    <Cell><Data ss:Type="String">Bottom front plate</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Recycled</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="57.9375" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">4C3-3C6</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o soap holder and bottom front plate</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">4C4-3C6</Data></Cell>
+    <Cell><Data ss:Type="String">Top front plate</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Refurbished</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">5P1-4C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o soap holder</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">5A1-4C3</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew WM &quot;door&quot; hinge</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Electric screwdriver</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s88">
+    <Cell ss:Index="9"><Data ss:Type="String">5c1-4C3</Data></Cell>
+    <Cell><Data ss:Type="String">Screws</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell ss:StyleID="s87"><Data ss:Type="String">Recycled</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s88">
+    <Cell ss:Index="9"><Data ss:Type="String">5C2-4C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM door</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s87"><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s88">
+    <Cell ss:Index="9"><Data ss:Type="String">5C3-4C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o door</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s87"><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">6P1-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">WM door</Data></Cell>
+    <Cell ss:Index="11" ss:StyleID="s89"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">6A1-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew all screws holding the WM door together</Data></Cell>
+    <Cell><Data ss:Type="Number">11</Data></Cell>
+    <Cell><Data ss:Type="String">Electric screwdriver</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">6c1-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Screws</Data></Cell>
+    <Cell><Data ss:Type="Number">11</Data></Cell>
+    <Cell><Data ss:Type="String">Remanufacturing</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+    <Cell><Data ss:Type="String">One screw has a rusted head but is screwed out fine</Data></Cell>
+    <Cell><Data ss:Type="String">Non destructive </Data></Cell>
+    <Cell><Data ss:Type="String">Electric screwdriver</Data></Cell>
+    <Cell><Data ss:Type="String">6D1-6C1-000</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">6C2-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Metal door hinge</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Disposed</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">6C3-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Front grey cover</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Recycled</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">6C4-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Front black cover</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Landfill</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">6C5-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Back black cover</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Refurbished</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">6c6-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Plastic hinge connector </Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Recycled</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">6C7-5C2</Data></Cell>
+    <Cell><Data ss:Type="String">Glass door</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Disposed</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">7P1-5C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o door</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">7A1-5C3</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew screws behind the soap holder spot</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Electric screwdriver</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15.5625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">7c1-5C3</Data></Cell>
+    <Cell><Data ss:Type="String">Screws</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Remanufacturing</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">7C2-5C3</Data></Cell>
+    <Cell><Data ss:Type="String">Plastic holder with mother board</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Refurbished</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">7C3-5C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o without motherboard</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">8P1-7C2</Data></Cell>
+    <Cell><Data ss:Type="String">Plastic holder with motherboard </Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">8A1-7C2</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Separate</Data></Cell>
+    <Cell><Data ss:Type="String">Pres flat head screwdriver into snap fits to release them</Data></Cell>
+    <Cell><Data ss:Type="Number">12</Data></Cell>
+    <Cell><Data ss:Type="String">Flat head screwdriver </Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">8C1-7C2</Data></Cell>
+    <Cell><Data ss:Type="String">WM front plastic holder </Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Remanufacturing</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">8C2-7C2</Data></Cell>
+    <Cell><Data ss:Type="String">Back of motherboard holder</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Remanufacturing</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">8C3-7C2</Data></Cell>
+    <Cell><Data ss:Type="String">Motherboard</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Landfill</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">9P1-7C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o motherboard</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="116.25" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">9A1-7C3</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew and separate</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew all remaining screws in the front of the WM and use force to pull the children from the snap fit. Use a flat head screwdriver to pull the wire from the door area</Data></Cell>
+    <Cell><Data ss:Type="String">6 unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">Electric screwdriver &amp; Hand</Data></Cell>
+    <Cell ss:Index="13" ss:StyleID="s87"><Data ss:Type="String">N/A</Data></Cell>
+    <Cell><Data ss:Type="String">Using excessive force when pulling snapfits apart </Data></Cell>
+    <Cell><Data ss:Type="String">Semi-destructive</Data></Cell>
+    <Cell><Data ss:Type="String">Hand</Data></Cell>
+    <Cell><Data ss:Type="String">9D2-9A1-000</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">9c1-7C3</Data></Cell>
+    <Cell><Data ss:Type="String">Screws</Data></Cell>
+    <Cell><Data ss:Type="Number">6</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">9C2-7C3</Data></Cell>
+    <Cell><Data ss:Type="String">Metal bended sheet</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Disposed</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">9c3-7C3</Data></Cell>
+    <Cell><Data ss:Type="String">Plastic connector rod</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Disposed</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">9C4-7C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM front </Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Remanufacturing</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="57.9375" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">9C5-7C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM front bottom plate</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+    <Cell><Data ss:Type="String">The excessive force broke the snapfit and making them useless, the main part of the part is still okay</Data></Cell>
+    <Cell><Data ss:Type="String">Semi-detructive</Data></Cell>
+    <Cell><Data ss:Type="String">Hand</Data></Cell>
+    <Cell><Data ss:Type="String">9D1-9C5-9A1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">9C6-7C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o front</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">9c7-7C3</Data></Cell>
+    <Cell><Data ss:Type="String">Wire </Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Reuse</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">10P1-9C1</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o front</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="72.5625" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">10A1-9C6</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Wrench and unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">Use the wrench to remove the bolts holding the motor, then unscrew the electrical wire connected to the motor</Data></Cell>
+    <Cell><Data ss:Type="String">3 unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">Wrench &amp; electric screwdriver</Data></Cell>
+    <Cell ss:Index="13" ss:StyleID="s87"><Data ss:Type="String">N/A</Data></Cell>
+    <Cell><Data ss:Type="String">The screw became stripped and then the motor was removed by cutting the wires instead</Data></Cell>
+    <Cell><Data ss:Type="String">Destructive</Data></Cell>
+    <Cell><Data ss:Type="String">Wire cutter</Data></Cell>
+    <Cell><Data ss:Type="String">10D2-10A1-000</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">10c1-9C1</Data></Cell>
+    <Cell><Data ss:Type="String">Bolts</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Refurbished</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">10C2-9C2</Data></Cell>
+    <Cell><Data ss:Type="String">Motor</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Remanufacturing</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+    <Cell><Data ss:Type="String">The motor now still has the screw connected to it with the wire</Data></Cell>
+    <Cell><Data ss:Type="String">Semi-desctrutive </Data></Cell>
+    <Cell><Data ss:Type="String">Wire cutter</Data></Cell>
+    <Cell><Data ss:Type="String">10D1-10C2-10A1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">10C3-9C2</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o motor</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+    <Cell><Data ss:Type="String">The wire is now cut, making the need for a wire replacement necessary </Data></Cell>
+    <Cell><Data ss:Type="String">Destructive </Data></Cell>
+    <Cell><Data ss:Type="String">Wire cutter</Data></Cell>
+    <Cell><Data ss:Type="String">10D1-10C3-10A1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">11P1-10C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o motor</Data></Cell>
+    <Cell ss:Index="13" ss:StyleID="s87"><Data ss:Type="String">N/A</Data></Cell>
+    <Cell><Data ss:Type="String">The WM now has a wire with a cut of end </Data></Cell>
+    <Cell><Data ss:Type="String">Destructive </Data></Cell>
+    <Cell><Data ss:Type="String">Wire cutter </Data></Cell>
+    <Cell><Data ss:Type="String">11D3-11P1-10A1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="57.9375" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">11A1-10C3</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Wrench</Data></Cell>
+    <Cell><Data ss:Type="String">Screw out the bols holding the shock absorbers connected to the tube</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Wrench</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">11c1-10C3</Data></Cell>
+    <Cell><Data ss:Type="String">Bolts</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Remanufacturing</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">11c2-10C3</Data></Cell>
+    <Cell><Data ss:Type="String">Spændeskive</Data></Cell>
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">Refurbished</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">11C3-10C3</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o shock absorbers connected</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">12P1-11C2</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o shock absorber</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="72.5625" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">12A1-11C2</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Flat head screwdriver</Data></Cell>
+    <Cell><Data ss:Type="String">Press the screwdriver into the ring holding the small tubes connected to the main tube and flip them off</Data></Cell>
+    <Cell><Data ss:Type="Number">4</Data></Cell>
+    <Cell><Data ss:Type="String">Flat head screwdriver</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">12c1-11C2</Data></Cell>
+    <Cell><Data ss:Type="String">Rings</Data></Cell>
+    <Cell><Data ss:Type="Number">4</Data></Cell>
+    <Cell><Data ss:Type="String">Landfill</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">12C2-11C2</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o tubes connected to the main tube</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">13P1-12C2</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o tube rings</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">13A1-12C2</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew</Data></Cell>
+    <Cell><Data ss:Type="String">Unscrew screws with eletric screwdriver</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Electric screwdriver</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">13c1-12C2</Data></Cell>
+    <Cell><Data ss:Type="String">Screws</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Recycled</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">13C2-12C2</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o red plastic object connected</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">14P1-13C2</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o red object</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="43.5" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">14A1-12C2</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Separate</Data></Cell>
+    <Cell><Data ss:Type="String">Pull remaining tubes apart from the main tube</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Hand</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">14C1-13C2</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o 2 small tubes connected</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s85">
+    <Cell><Data ss:Type="String">15P1-14C1</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o 2 small tubes</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="29.0625" ss:StyleID="s86">
+    <Cell ss:Index="3"><Data ss:Type="String">15A1-14C1</Data></Cell>
+    <Cell><Data ss:Type="String">temp</Data></Cell>
+    <Cell><Data ss:Type="String">Separate</Data></Cell>
+    <Cell><Data ss:Type="String">Puller springs holding the tube up off</Data></Cell>
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">Hand</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">15C1-14C1</Data></Cell>
+    <Cell><Data ss:Type="String">Main tube</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Recycled</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s87">
+    <Cell ss:Index="9"><Data ss:Type="String">15C2-14C1</Data></Cell>
+    <Cell><Data ss:Type="String">WM w/o tube</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">N/A</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Selected/>
+   <TopRowVisible>70</TopRowVisible>
+   <LeftColumnVisible>2</LeftColumnVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>89</ActiveRow>
+     <ActiveCol>11</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>
